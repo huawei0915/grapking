@@ -1,0 +1,53 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+
+<!-- Navigation -->
+<ng-container *ngIf="isScreenSmall">
+    <fuse-vertical-navigation class="dark bg-gray-900 print:hidden" [mode]="'over'" [name]="'mainNavigation'"
+        [navigation]="navigation.default" [opened]="false">
+        <!-- Navigation header hook -->
+        <ng-container fuseVerticalNavigationContentHeader>
+            <!-- Logo -->
+            <div class="flex items-center h-20 pt-6 px-8">
+                <img class="w-24" src="assets/images/logo/logo-text-on-dark.svg" alt="Logo image">
+            </div>
+        </ng-container>
+    </fuse-vertical-navigation>
+</ng-container>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0">
+
+
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto w-full">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+    <!-- Footer -->
+    <div
+        class="relative flex flex-0 items-center w-full h-14 sm:h-20 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
+        <!-- <span class="font-medium text-secondary">Fuse &copy; {{currentYear}}</span> -->
+        <ul class="flex flex-0 w-full justify-around items-center ">
+            <li class="flex  flex-col justify-center items-center  ">
+                <figure class="w-6"><img src="assets/icons/tab1.svg" alt=""></figure><span>首頁</span>
+            </li>
+            <li class="flex  flex-col justify-center items-center  ">
+                <figure class="w-6"><img src="assets/icons/tab2.svg" alt=""></figure><span>需求草稿夾</span>
+            </li>
+            <li class="flex  flex-col justify-center items-center  ">
+                <figure class="w-6"><img src="assets/icons/tab3.svg" alt=""></figure><span>ODM草稿夾</span>
+            </li>
+            <li class="flex  flex-col justify-center items-center  ">
+                <figure class="w-6"><img src="assets/icons/tab4.svg" alt=""></figure><span>客戶</span>
+            </li>
+            <li class="flex  flex-col justify-center items-center  ">
+                <figure class="w-6"><img src="assets/icons/tab5.svg" alt=""></figure><span>帳號</span>
+            </li>
+        </ul>
+    </div>
+
+</div>
