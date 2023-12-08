@@ -8,6 +8,40 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/example'
+    },{
+        id   : 'home',
+        title: '首頁',
+        type : 'basic',
+        icon : 'assets/icons/tab1.svg',
+        link : '/home'
+    },
+    {
+        id   : 'folder',
+        title: '需求草稿夾',
+        type : 'basic',
+        icon : 'assets/icons/tab2.svg',
+        link : '/folder'
+    },
+    {
+        id   : 'odm',
+        title: 'ODM草稿夾',
+        type : 'basic',
+        icon : 'assets/icons/tab3.svg',
+        link : '/odm'
+    },
+    {
+        id   : 'custom',
+        title: '客戶',
+        type : 'basic',
+        icon : 'assets/icons/tab4.svg',
+        link : '/custom'
+    },
+    {
+        id   : 'account',
+        title: '帳號',
+        type : 'basic',
+        icon : 'assets/icons/tab5.svg',
+        link : '/account'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -17,6 +51,40 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/example'
+    },{
+        id   : 'home',
+        title: '首頁',
+        type : 'basic',
+        icon : 'assets/icons/tab1.svg',
+        link : '/home'
+    },
+    {
+        id   : 'folder',
+        title: '需求草稿夾',
+        type : 'basic',
+        icon : 'assets/icons/tab2.svg',
+        link : '/folder'
+    },
+    {
+        id   : 'odm',
+        title: 'ODM草稿夾',
+        type : 'basic',
+        icon : 'assets/icons/tab3.svg',
+        link : '/odm'
+    },
+    {
+        id   : 'custom',
+        title: '客戶',
+        type : 'basic',
+        icon : 'assets/icons/tab4.svg',
+        link : '/custom'
+    },
+    {
+        id   : 'account',
+        title: '帳號',
+        type : 'basic',
+        icon : 'assets/icons/tab5.svg',
+        link : '/account'
     }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -26,14 +94,84 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/example'
+    },
+    {
+        id   : 'home',
+        title: '首頁',
+        type : 'basic',
+        icon : 'assets/icons/tab1.svg',
+        link : '/home'
+    },
+    {
+        id   : 'folder',
+        title: '需求草稿夾',
+        type : 'basic',
+        icon : 'assets/icons/tab2.svg',
+        link : '/folder'
+    },
+    {
+        id   : 'odm',
+        title: 'ODM草稿夾',
+        type : 'basic',
+        icon : 'assets/icons/tab3.svg',
+        link : '/odm'
+    },
+    {
+        id   : 'custom',
+        title: '客戶',
+        type : 'basic',
+        icon : 'assets/icons/tab4.svg',
+        link : '/custom'
+    },
+    {
+        id   : 'account',
+        title: '帳號',
+        type : 'basic',
+        icon : 'assets/icons/tab5.svg',
+        link : '/account'
     }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
-    {
-        id   : 'example',
-        title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
+    // {
+    //     id   : 'example',
+    //     title: 'Example',
+    //     type : 'basic',
+    //     icon : 'heroicons_outline:chart-pie',
+    //     link : '/example'
+    // },
+{
+    id   : 'home',
+    title: '首頁',
+    type : 'basic',
+    icon : 'assets/icons/tab1.svg',
+    link : '/home'
+},
+{
+    id   : 'folder',
+    title: '需求草稿夾',
+    type : 'basic',
+    icon : 'assets/icons/tab2.svg',
+    link : '/folder'
+},
+{
+    id   : 'odm',
+    title: 'ODM草稿夾',
+    type : 'basic',
+    icon : 'assets/icons/tab3.svg',
+    link : '/odm'
+},
+{
+    id   : 'custom',
+    title: '客戶',
+    type : 'basic',
+    icon : 'assets/icons/tab4.svg',
+    link : '/custom'
+},
+{
+    id   : 'account',
+    title: '帳號',
+    type : 'basic',
+    icon : 'assets/icons/tab5.svg',
+    link : '/account'
+}
 ];

@@ -7,26 +7,8 @@
 
             <!-- Basic -->
             <ng-container *ngIf="item.type === 'basic'">
-                <fuse-horizontal-navigation-basic-item
-                    class="fuse-horizontal-navigation-menu-item"
-                    [item]="item"
+                <fuse-horizontal-navigation-basic-item class="fuse-horizontal-navigation-menu-item" [item]="item"
                     [name]="name"></fuse-horizontal-navigation-basic-item>
-            </ng-container>
-
-            <!-- Branch: aside, collapsable, group -->
-            <ng-container *ngIf="item.type === 'aside' || item.type === 'collapsable' || item.type === 'group'">
-                <fuse-horizontal-navigation-branch-item
-                    class="fuse-horizontal-navigation-menu-item"
-                    [item]="item"
-                    [name]="name"></fuse-horizontal-navigation-branch-item>
-            </ng-container>
-
-            <!-- Spacer -->
-            <ng-container *ngIf="item.type === 'spacer'">
-                <fuse-horizontal-navigation-spacer-item
-                    class="fuse-horizontal-navigation-menu-item"
-                    [item]="item"
-                    [name]="name"></fuse-horizontal-navigation-spacer-item>
             </ng-container>
 
         </ng-container>
