@@ -61,12 +61,13 @@
 
 <!-- Item template -->
 <ng-template #itemTemplate>
-
     <!-- Icon -->
     <ng-container *ngIf="item.icon">
-        <figure class="w-6 h-6 overflow-hidden mr-2">
-            <img class="w-full" [src]="item.icon" [ngClass]="item.classes?.icon" alt="">
-        </figure>
+        <!-- <figure class="w-6 h-6 overflow-hidden mr-2 ">
+            <img class="w-full icon" [src]="item.icon">
+        </figure> -->
+        <mat-icon class="fuse-horizontal-navigation-item-icon" [ngClass]="item.classes?.icon"
+            [svgIcon]="item.icon"></mat-icon>
     </ng-container>
 
     <!-- Title & Subtitle -->
