@@ -1,0 +1,28 @@
+<div class="min-h-max max-h-max">
+    <ngx-hm-carousel [(ngModel)]="index" [autoplay-speed]="speed" [autoplay]="autoplay" [infinite]="infinite"
+        [between-delay]="1000" [data]="activity" [aniTime]="200" class="carousel text-accent">
+        <section ngx-hm-carousel-container class="content">
+            <article class="item cursor-pointer fade_animation" ngx-hm-carousel-item
+                *ngFor="let pic of picArray;let i = index" [ngClass]="{'visible': index===i}">
+                <figure (click)="indexChanged(i)">
+                    <img style="height: calc(100vh - 80px);" [src]="'assets/images/'+pic+'.png'" alt="">
+                </figure>
+            </article>
+        </section>
+        <ng-template #carouselNext>
+            <div class="click-area" (click)="right()">
+                <img src="assets/icons/right.png" alt="">
+            </div>
+        </ng-template>
+        <ng-template #carouselPrev>
+            <div class="click-area" (click)="left()">
+                <img src="assets/icons/left.png" alt="">
+            </div>
+        </ng-template>
+
+    </ngx-hm-carousel>
+
+
+
+
+</div>
