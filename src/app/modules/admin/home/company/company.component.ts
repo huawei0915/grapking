@@ -9,7 +9,7 @@ import 'hammerjs';
 })
 export class CompanyComponent implements OnInit
 {
-    index = 0;
+    currentIndex = 0;
     speed = 2000;
     infinite = true;
     direction = 'right';
@@ -17,7 +17,7 @@ export class CompanyComponent implements OnInit
     autoplay = true;
     activity: any;
 
-
+    closeMenu=true;
 
     picArray: number[] = Array.from({ length: 10 }, (_, index) => index + 1);
     /**
@@ -40,15 +40,15 @@ export class CompanyComponent implements OnInit
 
     left(): void{
         console.log('left');
-        if(this.index>0){
-            this.index--;
+        if(this.currentIndex>0){
+            this.currentIndex--;
         }
     }
 
     right(): void{
         console.log('right');
-        if(this.index<=9){
-            this.index++;
+        if(this.currentIndex<=9){
+            this.currentIndex++;
         }
     }
 }

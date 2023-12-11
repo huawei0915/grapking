@@ -1,11 +1,12 @@
 <div class="min-h-max max-h-max">
-    <ngx-hm-carousel [(ngModel)]="index" [autoplay-speed]="speed" [autoplay]="autoplay" [infinite]="infinite"
+    <ngx-hm-carousel [(ngModel)]="currentIndex" [autoplay-speed]="speed" [autoplay]="autoplay" [infinite]="infinite"
         [between-delay]="1000" [data]="activity" [aniTime]="200" class="carousel text-accent">
         <section ngx-hm-carousel-container class="content">
             <article class="item cursor-pointer fade_animation" ngx-hm-carousel-item
-                *ngFor="let pic of picArray;let i = index" [ngClass]="{'visible': index===i}">
+                *ngFor="let pic of picArray;let i = index" [ngClass]="{'visible': currentIndex===i}">
                 <figure (click)="indexChanged(i)">
-                    <img style="height: calc(100vh - 80px);" [src]="'assets/images/'+pic+'.png'" alt="">
+                    <img style="height: calc(100vh - 80px);" class="object-contain" [src]="'assets/images/'+pic+'.png'"
+                        alt="">
                 </figure>
             </article>
         </section>
@@ -19,10 +20,31 @@
                 <img src="assets/icons/left.png" alt="">
             </div>
         </ng-template>
-
     </ngx-hm-carousel>
 
+    <div class="fixed top-28 right-0 z-10" [ngClass]="{'hidden':!closeMenu}" (click)="closeMenu=false">
+        <figure class="w-12 h-12 ">
+            <img src="assets/icons/menu.png">
+        </figure>
+    </div>
 
-
+    <div class="min-h-max h-full bg-gray-500 z-20" [ngClass]="{'dilute':closeMenu}" style="width: 100vw;">
+        <div [ngClass]="{'noSwipe':closeMenu}">
+            <div class="absolute top-28 right-48" (click)="closeMenu=true">
+                <figure class="w-12 h-12">
+                    <img src="assets/icons/cancel.png">
+                </figure>
+            </div>
+            <div class="w-48 top-0 min-h-max h-full bg-black absolute right-0 overflow-auto pt-5">
+                <div *ngFor="let pic of picArray;let i = index">
+                    <figure class="w-36 h-24 mx-auto" (click)="currentIndex=i">
+                        <img class="object-contain"
+                            [ngClass]="{'border-orange-700':currentIndex===i,' border-4':currentIndex===i}"
+                            [src]="'assets/images/'+pic+'.png'">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
