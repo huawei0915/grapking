@@ -8,7 +8,7 @@ import { RecommendComponent } from './recommend/recommend.component';
 import { CustomizedComponent } from './customized/customized.component';
 import { CommonModule } from '@angular/common';
 import { NgxHmCarouselModule } from 'ngx-hm-carousel';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const homeRoutes: Route[] = [
     {
@@ -50,7 +50,8 @@ const homeRoutes: Route[] = [
         CommonModule,
         RouterModule.forChild(homeRoutes),
         FormsModule,
-        NgxHmCarouselModule
+        NgxHmCarouselModule,
+        ReactiveFormsModule
     ]
 })
 export class HomeModule

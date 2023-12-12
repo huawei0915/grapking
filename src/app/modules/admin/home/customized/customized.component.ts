@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
     selector     : 'customized',
@@ -7,10 +8,14 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 })
 export class CustomizedComponent implements OnInit
 {
+
+    form: FormGroup;
     /**
      * Constructor
      */
-    constructor()
+    constructor(
+        private _formBuilder: FormBuilder,
+    )
     {
     }
 

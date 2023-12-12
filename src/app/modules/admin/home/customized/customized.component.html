@@ -1,0 +1,122 @@
+<div class="flex flex-col w-full ">
+    <div class="w-full p-8">
+        <div class="w-full p-8 bg-white text-xl" [formGroup]="form">
+            <div class="flex w-full border-2">
+                <div class="w-40 bg-slate-300 py-3 pl-3">需求單位/客戶</div>
+                <div style="width: calc(100% - 10rem);">
+                    <input class="w-full h-full pl-4" type="text" formControlName="">
+                </div>
+            </div>
+
+            <div class="flex w-full border-2 mt-3">
+                <div class="w-40 bg-slate-300 py-3 pl-3">產品名稱</div>
+                <div style="width: calc(100% - 10rem);">
+                    <input class="w-full h-full pl-4" type="text" formControlName="">
+                </div>
+            </div>
+
+            <div class="flex flex-col border-2 mt-3">
+                <div class="flex border-b-2">
+                    <div class="flex w-1/2">
+                        <div class="w-40 bg-slate-300 py-3 pl-3">劑型</div>
+                        <div style="width: calc(100% - 10rem);">
+                            <input class="w-full h-full pl-4" type="text" formControlName="">
+                        </div>
+                    </div>
+                    <div class="flex w-1/2">
+                        <div class="w-40 bg-slate-300 py-3 pl-3">每日攝取量</div>
+                        <div style="width: calc(100% - 10rem);">
+                            <input class="w-full h-full pl-4" type="text" formControlName="">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="w-40 bg-slate-300 py-3 pl-3">預設包裝規格</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="w-40 bg-slate-300 py-3 pl-3">效期需求</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="w-40 bg-slate-300 py-3 pl-3">需求價格</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="flex w-1/2">
+                        <div class="w-40 bg-slate-300 py-3 pl-3">銷售國家</div>
+                        <div style="width: calc(100% - 10rem);">
+                            <input class="w-full h-full pl-4" type="text" formControlName="">
+                        </div>
+                    </div>
+                    <div class="flex w-1/2">
+                        <div class="w-40 bg-slate-300 py-3 pl-3">銷售方式</div>
+                        <div style="width: calc(100% - 10rem);">
+                            <input class="w-full h-full pl-4" type="text" formControlName="">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="w-40 bg-slate-300 py-3 pl-3">保健訴求</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="w-40 bg-slate-300 py-3 pl-3">保健族群</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="w-40 bg-slate-300 py-3 pl-3 h-32">指定功效原料&劑量</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="w-40 bg-slate-300 py-3 pl-3">口感/風味</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="w-40 bg-slate-300 py-3 pl-3">參考競品</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="w-40 bg-slate-300 py-3 pl-3">認證需求</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+                <div class="flex border-b-2">
+                    <div class="w-40 bg-slate-300 py-3 pl-3 h-32">需求項目與日期</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="w-40 bg-slate-300 py-3 pl-3 h-32">其他</div>
+                    <div style="width: calc(100% - 10rem);">
+                        <input class="w-full h-full pl-4" type="text" formControlName="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex w-full justify-center mb-10">
+        <button class="border-rose-600 bg-white border-2  text-rose-600 w-36 px-8 py-3">取消</button>
+        <button class="bg-rose-600  text-white w-36 px-8 py-3 ml-4">儲存</button>
+    </div>
+
+</div>
