@@ -1,4 +1,19 @@
 <div class="min-h-max max-h-max">
+    <div class="fixed bg-white w-full h-16 flex justify-end items-center pr-24 z-20">
+        <button class=" rounded-lg text-sm font-semibold py-3 px-4 bg-white text-slate-900 ring-1 ring-slate-900/10"
+            (click)="handleBtn('vr')">
+            <span>VR
+                Tour</span>
+        </button>
+
+        <button
+            class="ml-4 rounded-lg text-sm font-semibold py-3 px-4 bg-white text-slate-900 ring-1 ring-slate-900/10 "
+            (click)="handleBtn('ai')">
+            <span>AI-Stage</span>
+        </button>
+
+    </div>
+
     <ngx-hm-carousel [(ngModel)]="currentIndex" [autoplay-speed]="speed" [autoplay]="autoplay" [infinite]="infinite"
         [between-delay]="1000" [data]="activity" [aniTime]="200" class="carousel text-accent">
         <section ngx-hm-carousel-container class="content">
@@ -48,3 +63,10 @@
     </div>
 
 </div>
+
+<ng-container *ngIf="vr">
+    <iframe class="fixed w-full z-20" style="height: calc(100% - 80px);" [src]="vrUrl" frameborder="0"></iframe>
+</ng-container>
+<ng-container *ngIf="ai">
+    <iframe class="fixed w-full z-20" style="height: calc(100% - 80px);" [src]="aiUrl" frameborder="0"></iframe>
+</ng-container>

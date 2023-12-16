@@ -1,20 +1,22 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
-    selector     : 'inquire',
-    templateUrl  : './inquire.component.html',
+    selector: 'inquire',
+    templateUrl: './inquire.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class InquireComponent implements OnInit
-{
+export class InquireComponent implements OnInit {
+
     /**
      * Constructor
      */
-    constructor()
-    {
+    constructor(
+        public _domSanitizer: DomSanitizer
+    ) {
     }
 
-    ngOnInit(): void{
+    ngOnInit(): void {
 
     }
 }

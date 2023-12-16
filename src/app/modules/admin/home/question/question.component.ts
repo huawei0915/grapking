@@ -1,20 +1,24 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { ApiService } from '../../api.service';
 
 @Component({
-    selector     : 'question',
-    templateUrl  : './question.component.html',
+    selector: 'question',
+    templateUrl: './question.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class QuestionComponent implements OnInit
-{
+export class QuestionComponent implements OnInit {
     /**
      * Constructor
      */
-    constructor()
-    {
+    constructor(
+        private _apiService: ApiService,
+    ) {
     }
 
-    ngOnInit(): void{
-
+    ngOnInit(): void {
+        this._apiService.getCategory().then((result) => {
+            console.log(result);
+        }).catch((err) => {
+        });
     }
 }
