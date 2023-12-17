@@ -15,12 +15,12 @@
     </div>
 
     <ngx-hm-carousel [(ngModel)]="currentIndex" [autoplay-speed]="speed" [autoplay]="autoplay" [infinite]="infinite"
-        [between-delay]="1000" [data]="activity" [aniTime]="200" class="carousel text-accent">
+        [between-delay]="1000" [data]="activity" [aniTime]="200" class="carousel text-accent mt-16">
         <section ngx-hm-carousel-container class="content">
             <article class="item cursor-pointer fade_animation" ngx-hm-carousel-item
                 *ngFor="let pic of picArray;let i = index" [ngClass]="{'visible': currentIndex===i}">
                 <figure (click)="indexChanged(i)">
-                    <img style="height: calc(100vh - 80px);" class="object-contain" [src]="'assets/images/'+pic+'.png'"
+                    <img style="height: calc(100vh - 144px);" class="object-contain" [src]="'assets/images/'+pic+'.png'"
                         alt="">
                 </figure>
             </article>
@@ -50,7 +50,7 @@
                     <img src="assets/icons/cancel.png">
                 </figure>
             </div>
-            <div class="w-48 top-0 min-h-max h-full bg-black absolute right-0 overflow-auto pt-5">
+            <div class="w-48 top-16 min-h-max h-full bg-black absolute right-0 overflow-auto pt-5">
                 <div *ngFor="let pic of picArray;let i = index">
                     <figure class="w-36 h-24 mx-auto" (click)="currentIndex=i">
                         <img class="object-contain"

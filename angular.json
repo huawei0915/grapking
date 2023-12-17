@@ -6,7 +6,7 @@
     },
     "newProjectRoot": "projects",
     "projects": {
-        "fuse": {
+        "grapKing": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -20,7 +20,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/fuse",
+                        "outputPath": "dist/grapKing",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -140,5 +140,5 @@
             }
         }
     },
-    "defaultProject": "fuse"
+    "defaultProject": "grapKing"
 }
