@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+    nginx:
+        container_name: grap-king
+        # image: docker.io/pksos30066/grap-king:least
+        image: grap-king:0.0.0
+        ports:
+            - '443:443'
+            - '80:80'
+            # - '80:8081'
+        volumes:
+            - ./Caddyfile:/etc/caddy/Caddyfile
+            # - ./nginx.conf:/opt/bitnami/nginx/conf/nginx.conf

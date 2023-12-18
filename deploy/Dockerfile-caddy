@@ -1,0 +1,38 @@
+# Stage 1: Compile and Build angular codebase
+
+# Use official node image as the base image
+FROM  node:16.13-bullseye-slim as build
+
+# Set the working directory
+WORKDIR /app
+
+# Add the source code to app
+COPY ./ /app
+
+# Install all the dependencies
+RUN ls -alF /app ; \
+
+    npm config set strict-ssl false ; \
+    npm config set audit false ; \
+
+    npm install --force --verbose ; \
+    npm run sit ; \
+    ls -alF /app
+
+# Stage 2: Serve
+# 使用官方的 Ubuntu 作為基礎映像
+FROM ubuntu:latest
+
+# 下載並解壓預構建的 Caddy v2 二進制文件
+ADD https://github.com/caddyserver/caddy/releases/download/v2.0.0/caddy_2.0.0_linux_amd64.tar.gz /usr/local/
+RUN tar -xzf /usr/local/caddy_2.0.0_linux_amd64.tar.gz -C /usr/local/bin/ caddy
+
+COPY --from=build /app/dist/grapKing  /app
+# 設定 Caddy v2 的工作目錄
+# WORKDIR /srv
+
+# 開放 Caddy v2 使用的端口（根據你的應用程序需求可能需要調整端口）
+EXPOSE 80
+EXPOSE 443
+# 定義 Caddy v2 啟動的默認命令
+CMD ["/usr/local/bin/caddy", "run", "--config", "/etc/caddy/Caddyfile"]

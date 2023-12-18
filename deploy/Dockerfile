@@ -21,7 +21,6 @@ RUN ls -alF /app ; \
 # Stage 2: Serve app with nginx server
 
 FROM --platform=linux/amd64 bitnami/nginx:1.24
-
 USER root
 ENV TZ=Asia/Taipei
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
