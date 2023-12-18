@@ -10,29 +10,30 @@ import { CommonModule } from '@angular/common';
 import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TranslocoModule } from '@ngneat/transloco';
 const homeRoutes: Route[] = [
     {
-        path     : '',
+        path: '',
         component: HomeComponent
     },
     {
-        path     : 'company',
+        path: 'company',
         component: CompanyComponent
     },
     {
-        path     : 'recommend',
+        path: 'recommend',
         component: RecommendComponent
     },
     {
-        path     : 'question',
+        path: 'question',
         component: QuestionComponent
     },
     {
-        path     : 'customized',
+        path: 'customized',
         component: CustomizedComponent
     },
     {
-        path     : 'inquire',
+        path: 'inquire',
         component: InquireComponent
     }
 ];
@@ -46,14 +47,14 @@ const homeRoutes: Route[] = [
         CustomizedComponent,
         InquireComponent
     ],
-    imports     : [
+    imports: [
         CommonModule,
         RouterModule.forChild(homeRoutes),
         FormsModule,
         NgxHmCarouselModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TranslocoModule
     ]
 })
-export class HomeModule
-{
+export class HomeModule {
 }
