@@ -9,7 +9,6 @@ import { CustomizedComponent } from './customized/customized.component';
 import { CommonModule } from '@angular/common';
 import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { TranslocoModule } from '@ngneat/transloco';
 const homeRoutes: Route[] = [
     {
