@@ -1,7 +1,6 @@
-import { activities } from './../../../../mock-api/pages/activities/data';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ApiService } from '../../api.service';
-import { productLevel1, productLevel2, productLevel3, productLevel4, productLevel5, productLevel6, productLevel7, productLevel8, productLevel9 } from './mock';
+
 @Component({
     selector: 'question',
     templateUrl: './question.component.html',
@@ -11,15 +10,15 @@ export class QuestionComponent implements OnInit {
 
     leftList = ['功效', '器官', '年齡', '族群', '國家', '劑型', '包裝', '認證', '葷素'];
 
-    level1 = productLevel1;
-    level2 = productLevel2;
-    level3 = productLevel3;
-    level4 = productLevel4;
-    level5 = productLevel5;
-    level6 = productLevel6;
-    level7 = productLevel7;
-    level8 = productLevel8;
-    level9 = productLevel9;
+    level1 = [];
+    level2 = [];
+    level3 = [];
+    level4 = [];
+    level5 = [];
+    level6 = [];
+    level7 = [];
+    level8 = [];
+    level9 = [];
     currentLevel = 1; // 初始化當前等級為1
 
     puoductArr1 = [];
@@ -44,21 +43,36 @@ export class QuestionComponent implements OnInit {
 
     ngOnInit(): void {
         this._apiService.getCategory().then((result) => {
-            console.log(result);
+            result.filter((item: any) => item.level >= 1 && item.level <= 9 && item.is_visible === 1).forEach((item) => {
+                this['level' + item.level].push(item);
+            });
         }).catch((err) => {
+        }).finally(() => {
         });
     }
 
     selectProduct(item, idx: number): void {
         item.active = !item.active;
+        console.log(item.active, item);
         if (item.active) {
             this['puoductArr' + this.currentLevel].push(item);
+        } else {
+            const slicedString = this['puoductArr' + this.currentLevel].filter(str => str.name_zh.includes(item.name_zh));
+            this['puoductArr' + this.currentLevel] = this['puoductArr' + this.currentLevel].filter((product: any) => product.name_zh !== slicedString[0].name_zh);
         }
+
     }
 
     nextStep(): void {
         if (this.currentLevel < 9) {
             this.currentLevel += 1;
+            this.nowLevel = this['level' + this.currentLevel];
+        }
+    }
+
+    prevStep(): void {
+        if (this.currentLevel > 1) {
+            this.currentLevel -= 1;
             this.nowLevel = this['level' + this.currentLevel];
         }
     }

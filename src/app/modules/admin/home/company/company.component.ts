@@ -1,6 +1,7 @@
 import { items } from './../../../../mock-api/apps/file-manager/data';
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { FuseSplashScreenService } from '@fuse/services/splash-screen';
 import { environment as env } from 'environments/environment';
 import 'hammerjs';
 
@@ -32,7 +33,8 @@ export class CompanyComponent implements OnInit {
      * Constructor
      */
     constructor(
-        public _domSanitizer: DomSanitizer
+        public _domSanitizer: DomSanitizer,
+        private _splashScreenService: FuseSplashScreenService
     ) {
     }
 
@@ -42,14 +44,16 @@ export class CompanyComponent implements OnInit {
     }
 
     handleBtn(selectedItem: any): void {
+        setTimeout(() => {
+            this._splashScreenService.show();
+        }, 100);
+
         switch (selectedItem) {
             case 'vr':
-
                 this.vr = true;
                 this.ai = false;
                 break;
             case 'ai':
-
                 this.vr = false;
                 this.ai = true;
                 break;
@@ -64,6 +68,10 @@ export class CompanyComponent implements OnInit {
 
     toggleDirection($event): void {
         this.direction = this.directionToggle ? 'right' : 'left';
+    }
+
+    hideLoader(): void {
+        this._splashScreenService.hide();
     }
 
     left(): void {

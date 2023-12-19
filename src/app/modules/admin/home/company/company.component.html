@@ -65,8 +65,10 @@
 </div>
 
 <ng-container *ngIf="vr">
-    <iframe class="fixed w-full z-20" style="height: calc(100% - 80px);" [src]="vrUrl" frameborder="0"></iframe>
+    <iframe class="fixed w-full z-20" style="height: calc(100% - 80px);" [src]="vrUrl" frameborder="0"
+        (load)="hideLoader()"></iframe>
 </ng-container>
 <ng-container *ngIf="ai">
-    <iframe class="fixed w-full z-20" style="height: calc(100% - 80px);" [src]="aiUrl" frameborder="0"></iframe>
+    <iframe class="fixed w-full z-20" style="height: calc(100% - 80px);" [src]="aiUrl" frameborder="0"
+        (load)="hideLoader()"></iframe>
 </ng-container>
