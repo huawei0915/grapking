@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from 'environments/environment';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
@@ -9,13 +11,26 @@ export class ApiService {
     /**
      * Constructor
      */
-    constructor(private _httpClient: HttpClient) {
+    constructor(
+        private _httpClient: HttpClient,
+        private _activatedRoute: ActivatedRoute
+    ) {
     }
 
     getCategory(): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.get(`${env.apiServer}/api/v1/category`).subscribe((result: any) => {
                 console.log(result);
+                resolve(result.result.data);
+            }, (err) => {
+                reject(err.error);
+            });
+        });
+    }
+
+    getComponey(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.get(`${env.apiServer}/api/v1/company`).subscribe((result: any) => {
                 resolve(result.result.data);
             }, (err) => {
                 reject(err.error);

@@ -1,9 +1,9 @@
-import { items } from './../../../../mock-api/apps/file-manager/data';
-import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen';
 import { environment as env } from 'environments/environment';
 import 'hammerjs';
+import { ApiService } from '../../api.service';
 
 @Component({
     selector: 'company',
@@ -27,20 +27,28 @@ export class CompanyComponent implements OnInit {
     vrUrl: SafeUrl;
     aiUrl: SafeUrl;
 
-
-    picArray: number[] = Array.from({ length: 10 }, (_, index) => index + 1);
+    picIsLoading = false;
+    picArray = [];
     /**
      * Constructor
      */
     constructor(
         public _domSanitizer: DomSanitizer,
-        private _splashScreenService: FuseSplashScreenService
+        private _splashScreenService: FuseSplashScreenService,
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _apiServer: ApiService,
     ) {
     }
 
     ngOnInit(): void {
         this.vrUrl = this._domSanitizer.bypassSecurityTrustResourceUrl(env.vrUrl);
         this.aiUrl = this._domSanitizer.bypassSecurityTrustResourceUrl(env.aiUrl);
+
+        this._apiServer.getComponey().then((result) => {
+            result.forEach((item) => {
+                this.picArray.push(env.apiServer + '/api/files/' + item.image);
+            });
+        }).finally(() => { setTimeout(() => { this.picIsLoading = true; this._changeDetectorRef.detectChanges(); }, 800); });
     }
 
     handleBtn(selectedItem: any): void {
