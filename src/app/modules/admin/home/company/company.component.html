@@ -14,7 +14,7 @@
 
     </div>
 
-    <ng-container *ngIf="picIsLoading">
+    <!-- <ng-container *ngIf="picIsLoading">
         <ngx-hm-carousel [(ngModel)]="currentIndex" [autoplay-speed]="speed" [autoplay]="autoplay" [infinite]="infinite"
             [between-delay]="1000" [data]="activity" [aniTime]="200" class="carousel text-accent mt-16">
             <section ngx-hm-carousel-container class="content">
@@ -36,7 +36,17 @@
                 </div>
             </ng-template>
         </ngx-hm-carousel>
-    </ng-container>
+    </ng-container> -->
+
+    <div class="image-slider">
+        <div class="slider-container" [style.transform]="'translateX(' + slidePosition + 'px)'">
+            <div *ngFor="let imageUrl of picArray" class="slide">
+                <img [src]="imageUrl" alt="Image">
+            </div>
+        </div>
+        <button (click)="moveLeft()">Previous</button>
+        <button (click)="moveRight()">Next</button>
+    </div>
 
     <div class="fixed top-28 right-0 z-10" [ngClass]="{'hidden':!closeMenu}" (click)="closeMenu=false">
         <figure class="w-12 h-12 ">

@@ -12,13 +12,17 @@ import { ApiService } from '../../api.service';
     encapsulation: ViewEncapsulation.None
 })
 export class CompanyComponent implements OnInit {
-    currentIndex = 0;
-    speed = 2000;
-    infinite = true;
-    direction = 'right';
-    directionToggle = true;
-    autoplay = true;
-    activity: any;
+    // currentIndex = 0;
+    // speed = 2000;
+    // infinite = true;
+    // direction = 'right';
+    // directionToggle = true;
+    // autoplay = true;
+    // activity: any;
+
+    // imageUrls: string[] = []; // 你的图片 URL 数组
+    slidePosition = 0;
+    slideWidth = 300; // 假设每张图片的宽度为 300px
 
     closeMenu = true;
 
@@ -74,25 +78,44 @@ export class CompanyComponent implements OnInit {
         console.log(index);
     }
 
-    toggleDirection($event): void {
-        this.direction = this.directionToggle ? 'right' : 'left';
-    }
+    // toggleDirection($event): void {
+    //     this.direction = this.directionToggle ? 'right' : 'left';
+    // }
 
     hideLoader(): void {
         this._splashScreenService.hide();
     }
 
-    left(): void {
-        console.log('left');
-        if (this.currentIndex > 0) {
-            this.currentIndex--;
+    moveLeft(): void {
+        this.slidePosition += this.slideWidth;
+        this.checkBoundaries();
+    }
+
+    moveRight(): void {
+        this.slidePosition -= this.slideWidth;
+        this.checkBoundaries();
+    }
+
+    checkBoundaries(): void {
+        const totalWidth = this.picArray.length * this.slideWidth;
+        if (this.slidePosition > 0) {
+            this.slidePosition = 0;
+        } else if (Math.abs(this.slidePosition) > totalWidth - this.slideWidth) {
+            this.slidePosition = -(totalWidth - this.slideWidth);
         }
     }
 
-    right(): void {
-        console.log('right');
-        if (this.currentIndex <= 9) {
-            this.currentIndex++;
-        }
-    }
+    // left(): void {
+    //     console.log('left');
+    //     if (this.currentIndex > 0) {
+    //         this.currentIndex--;
+    //     }
+    // }
+
+    // right(): void {
+    //     console.log('right');
+    //     if (this.currentIndex <= 9) {
+    //         this.currentIndex++;
+    //     }
+    // }
 }
