@@ -77,11 +77,13 @@ export class CompanyComponent implements OnInit {
 
     moveLeft(): void {
         this.slidePosition += this.slideWidth;
+        this.currentIndex--;
         this.checkBoundaries();
     }
 
     moveRight(): void {
         this.slidePosition -= this.slideWidth;
+        this.currentIndex++;
         this.checkBoundaries();
     }
 
@@ -89,6 +91,7 @@ export class CompanyComponent implements OnInit {
         const totalWidth = this.picArray.length * this.slideWidth;
         if (this.slidePosition > 0) {
             this.slidePosition = 0;
+
         } else if (Math.abs(this.slidePosition) > totalWidth - this.slideWidth) {
             this.slidePosition = -(totalWidth - this.slideWidth);
         }

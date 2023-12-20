@@ -1,7 +1,7 @@
 # projectName: 專案名稱
 projectName="grap-king"
 # version: 版本
-version="0.0.6"
+version="0.0.7"
 # dockerHub: dockerHub帳號
 dockerHub="pksos30066"
 # user: dockerHub帳號
