@@ -1,17 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { FuseCardModule } from '@fuse/components/card';
+import { Route, RouterModule } from '@angular/router';
 import { FuseAlertModule } from '@fuse/components/alert';
-import { SharedModule } from 'app/shared/shared.module';
-import { AuthSignInComponent } from 'app/modules/auth/sign-in/sign-in.component';
-import { authSignInRoutes } from 'app/modules/auth/sign-in/sign-in.routing';
 import { TranslocoModule } from '@ngneat/transloco';
+import { AuthSignInComponent } from 'app/modules/auth/sign-in/sign-in.component';
+export const authSignInRoutes: Route[] = [
+    {
+        path     : '',
+        component: AuthSignInComponent
+    }
+];
 
 @NgModule({
     declarations: [
@@ -19,16 +22,15 @@ import { TranslocoModule } from '@ngneat/transloco';
     ],
     imports     : [
         RouterModule.forChild(authSignInRoutes),
-        MatButtonModule,
         MatCheckboxModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        MatProgressSpinnerModule,
-        FuseCardModule,
         FuseAlertModule,
-        SharedModule,
-        TranslocoModule
+        TranslocoModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 export class AuthSignInModule

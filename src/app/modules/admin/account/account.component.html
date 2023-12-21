@@ -1,1 +1,14 @@
-<div>account</div>
+<ng-container *transloco="let t">
+    <!-- Customer data -->
+    <div class="text-center w-full">
+        <div class="text-3xl text-center mt-15 mb-5"> {{this.usrData.name}} </div>
+        <div class="text-3xl text-center mb-5"> {{this.usrData.position}} </div>
+
+        <!-- Submit button -->
+        <button class="bg-white w-4/5 max-w-48 mt-6 h-16 bg-red-600" (click)="signOut()">
+            <span class="text-white font-semibold text-lg">
+                {{t('account_logout_button')}}
+            </span>
+        </button>
+    </div>
+</ng-container>
