@@ -1,9 +1,11 @@
+import { filter } from 'rxjs';
 import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen';
 import { environment as env } from 'environments/environment';
 import 'hammerjs';
 import { ApiService } from '../../api.service';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
     selector: 'company',
@@ -12,17 +14,10 @@ import { ApiService } from '../../api.service';
     encapsulation: ViewEncapsulation.None
 })
 export class CompanyComponent implements OnInit {
-    // currentIndex = 0;
-    // speed = 2000;
-    // infinite = true;
-    // direction = 'right';
-    // directionToggle = true;
-    // autoplay = true;
-    // activity: any;
+    currentIndex = 0;
 
-    // imageUrls: string[] = []; // 你的图片 URL 数组
     slidePosition = 0;
-    slideWidth = 300; // 假设每张图片的宽度为 300px
+    slideWidth = 300;
 
     closeMenu = true;
 
@@ -41,15 +36,17 @@ export class CompanyComponent implements OnInit {
         private _splashScreenService: FuseSplashScreenService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _apiServer: ApiService,
+        private _translocoService: TranslocoService,
     ) {
     }
 
     ngOnInit(): void {
         this.vrUrl = this._domSanitizer.bypassSecurityTrustResourceUrl(env.vrUrl);
         this.aiUrl = this._domSanitizer.bypassSecurityTrustResourceUrl(env.aiUrl);
-
+        this.slideWidth = window.innerWidth;
+        const lang = this._translocoService.getActiveLang();
         this._apiServer.getComponey().then((result) => {
-            result.forEach((item) => {
+            result.filter(item => item.language === lang).forEach((item) => {
                 this.picArray.push(env.apiServer + '/api/files/' + item.image);
             });
         }).finally(() => { setTimeout(() => { this.picIsLoading = true; this._changeDetectorRef.detectChanges(); }, 800); });
@@ -74,25 +71,19 @@ export class CompanyComponent implements OnInit {
         }
     }
 
-    indexChanged(index): void {
-        console.log(index);
-    }
-
-    // toggleDirection($event): void {
-    //     this.direction = this.directionToggle ? 'right' : 'left';
-    // }
-
     hideLoader(): void {
         this._splashScreenService.hide();
     }
 
     moveLeft(): void {
         this.slidePosition += this.slideWidth;
+        this.currentIndex--;
         this.checkBoundaries();
     }
 
     moveRight(): void {
         this.slidePosition -= this.slideWidth;
+        this.currentIndex++;
         this.checkBoundaries();
     }
 
@@ -100,22 +91,14 @@ export class CompanyComponent implements OnInit {
         const totalWidth = this.picArray.length * this.slideWidth;
         if (this.slidePosition > 0) {
             this.slidePosition = 0;
+
         } else if (Math.abs(this.slidePosition) > totalWidth - this.slideWidth) {
             this.slidePosition = -(totalWidth - this.slideWidth);
         }
     }
 
-    // left(): void {
-    //     console.log('left');
-    //     if (this.currentIndex > 0) {
-    //         this.currentIndex--;
-    //     }
-    // }
-
-    // right(): void {
-    //     console.log('right');
-    //     if (this.currentIndex <= 9) {
-    //         this.currentIndex++;
-    //     }
-    // }
+    handleRightPanel(idx: number): void {
+        this.currentIndex = idx;
+        this.slidePosition = -(this.slideWidth * idx);
+    }
 }

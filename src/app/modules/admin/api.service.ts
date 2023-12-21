@@ -17,6 +17,7 @@ export class ApiService {
     ) {
     }
 
+    // B1-1 系統參數
     getCategory(): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.get(`${env.apiServer}/api/v1/category`).subscribe((result: any) => {
@@ -28,10 +29,33 @@ export class ApiService {
         });
     }
 
+    // B1-2 公司介紹
     getComponey(): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.get(`${env.apiServer}/api/v1/company`).subscribe((result: any) => {
                 resolve(result.result.data);
+            }, (err) => {
+                reject(err.error);
+            });
+        });
+    }
+
+    // C1-1 查詢配方商品
+    getProduct(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.get(`${env.apiServer}/api/v1/product`).subscribe((result: any) => {
+                resolve(result.result.data);
+            }, (err) => {
+                reject(err.error);
+            });
+        });
+    }
+
+    // C1-2 配方商品詳細
+    getProductDetail(id: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.get(`${env.apiServer}/api/v1/product/${id}`).subscribe((result: any) => {
+                resolve(result.result);
             }, (err) => {
                 reject(err.error);
             });
