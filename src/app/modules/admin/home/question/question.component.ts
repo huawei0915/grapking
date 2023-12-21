@@ -8,7 +8,7 @@ import { ApiService } from '../../api.service';
 })
 export class QuestionComponent implements OnInit {
 
-    leftList = ['功效', '器官', '年齡', '族群', '國家', '劑型', '包裝', '認證', '葷素'];
+    rightList = ['功效', '器官', '年齡', '族群', '國家', '劑型', '包裝', '認證', '葷素'];
 
     level1 = [];
     level2 = [];
@@ -39,12 +39,33 @@ export class QuestionComponent implements OnInit {
     constructor(
         private _apiService: ApiService,
     ) {
+
     }
 
     ngOnInit(): void {
         this._apiService.getCategory().then((result) => {
-            result.filter((item: any) => item.level >= 1 && item.level <= 9 && item.is_visible === 1).forEach((item) => {
-                this['level' + item.level].push(item);
+            result.filter((item: any) => item.level === 2 && item.is_visible === 1).forEach((data) => {
+                if (data.path.includes('function')) {
+                    this.level1.push(data);
+                } else if (data.path.includes('organ')) {
+                    this.level2.push(data);
+                } else if (data.path.includes('age')) {
+                    this.level3.push(data);
+                } else if (data.path.includes('group')) {
+                    this.level4.push(data);
+                } else if (data.path.includes('country')) {
+                    this.level5.push(data);
+                } else if (data.path.includes('form')) {
+                    this.level6.push(data);
+                } else if (data.path.includes('package')) {
+                    this.level7.push(data);
+                } else if (data.path.includes('certification')) {
+                    this.level8.push(data);
+                } else if (data.path.includes('meatvegan')) {
+                    this.level9.push(data);
+                } else {
+                }
+
             });
         }).catch((err) => {
         }).finally(() => {
@@ -53,7 +74,6 @@ export class QuestionComponent implements OnInit {
 
     selectProduct(item, idx: number): void {
         item.active = !item.active;
-        console.log(item.active, item);
         if (item.active) {
             this['puoductArr' + this.currentLevel].push(item);
         } else {

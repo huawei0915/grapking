@@ -6,16 +6,105 @@
     <div class="absolute top-1/2 flex w-8/12 justify-between" style="left: 10%;">
         <div class="w-1/5">
             <figure class="w-60 -mt-40 relative">
-                <img *ngIf="!puoductArr1.length && !puoductArr2.length && !puoductArr3.length && !puoductArr4.length && !puoductArr5.length && !puoductArr6.length && !puoductArr7.length && !puoductArr8.length && !puoductArr9.length"
-                    src="assets/images/question.png" alt="">
-                <img *ngIf="puoductArr1.length || puoductArr2.length || puoductArr3.length || puoductArr4.length || puoductArr5.length || puoductArr6.length || puoductArr7.length || puoductArr8.length || puoductArr9.length"
-                    src="assets/images/empty.png" alt="">
-
-                <div class="absolute bottom-20 left-16 text-2xl font-bold" style="transform: rotate(-90deg);">
-                    <div *ngFor="let item of puoductArr1">
-                        {{item.name_zh}}
+                <ng-container *ngIf="currentLevel===1">
+                    <img *ngIf="!puoductArr1.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="puoductArr1.length" src="assets/images/empty.png" alt="">
+                    <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
+                        style="transform: rotate(-90deg);">
+                        <div *ngFor="let item of puoductArr1; let i=index" class="even:text-orange-500">
+                            <span *ngIf="i!==0&&puoductArr1.length>0">、</span>
+                            <span>{{item.name_zh}}</span>
+                        </div>
                     </div>
-                </div>
+                </ng-container>
+                <ng-container *ngIf="currentLevel===2">
+                    <img *ngIf="!puoductArr2.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="puoductArr2.length" src="assets/images/empty.png" alt="">
+                    <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
+                        style="transform: rotate(-90deg);">
+                        <div *ngFor="let item of puoductArr2;let i=index" class="even:text-orange-500">
+                            <span *ngIf="i!==0&&puoductArr2.length>0">、</span>
+                            <span>{{item.name_zh}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="currentLevel===3">
+                    <img *ngIf="!puoductArr3.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="puoductArr3.length" src="assets/images/empty.png" alt="">
+                    <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
+                        style="transform: rotate(-90deg);">
+                        <div *ngFor="let item of puoductArr3;let i=index" class="even:text-orange-500">
+                            <span *ngIf="i!==0&&puoductArr3.length>0">、</span>
+                            <span>{{item.name_zh}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="currentLevel===4">
+                    <img *ngIf="!puoductArr4.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="puoductArr4.length" src="assets/images/empty.png" alt="">
+                    <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
+                        style="transform: rotate(-90deg);">
+                        <div *ngFor="let item of puoductArr4;let i=index" class="even:text-orange-500">
+                            <span *ngIf="i!==0&&puoductArr4.length>0">、</span>
+                            <span>{{item.name_zh}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="currentLevel===5">
+                    <img *ngIf="!puoductArr5.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="puoductArr5.length" src="assets/images/empty.png" alt="">
+                    <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
+                        style="transform: rotate(-90deg);">
+                        <div *ngFor="let item of puoductArr5;let i=index" class="even:text-orange-500">
+                            <span *ngIf="i!==0&&puoductArr5.length>0">、</span>
+                            <span>{{item.name_zh}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="currentLevel===6">
+                    <img *ngIf="!puoductArr6.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="puoductArr6.length" src="assets/images/empty.png" alt="">
+                    <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
+                        style="transform: rotate(-90deg);">
+                        <div *ngFor="let item of puoductArr6;let i=index" class="even:text-orange-500">
+                            <span *ngIf="i!==0&&puoductArr6.length>0">、</span>
+                            <span>{{item.name_zh}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="currentLevel===7">
+                    <img *ngIf="!puoductArr7.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="puoductArr7.length" src="assets/images/empty.png" alt="">
+                    <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
+                        style="transform: rotate(-90deg);">
+                        <div *ngFor="let item of puoductArr7;let i=index" class="even:text-orange-500">
+                            <span *ngIf="i!==0&&puoductArr7.length>0">、</span>
+                            <span>{{item.name_zh}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="currentLevel===8">
+                    <img *ngIf="!puoductArr8.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="puoductArr8.length" src="assets/images/empty.png" alt="">
+                    <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
+                        style="transform: rotate(-90deg);">
+                        <div *ngFor="let item of puoductArr8;let i=index" class="even:text-orange-500">
+                            <span *ngIf="i!==0&&puoductArr8.length>0">、</span>
+                            <span>{{item.name_zh}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="currentLevel===9">
+                    <img *ngIf="!puoductArr9.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="puoductArr9.length" src="assets/images/empty.png" alt="">
+                    <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
+                        style="transform: rotate(-90deg);">
+                        <div *ngFor="let item of puoductArr9;let i=index" class="even:text-orange-500">
+                            <span *ngIf="i!==0&&puoductArr9.length>0">、</span>
+                            <span>{{item.name_zh}}</span>
+                        </div>
+                    </div>
+                </ng-container>
             </figure>
         </div>
         <div class="w-3/5 -mt-30 text-center">
