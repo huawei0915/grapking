@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -16,7 +17,8 @@ const accountRoutes: Route[] = [
     ],
     imports     : [
         RouterModule.forChild(accountRoutes),
-        TranslocoModule
+        TranslocoModule,
+        CommonModule
     ]
 })
 export class AccountModule
