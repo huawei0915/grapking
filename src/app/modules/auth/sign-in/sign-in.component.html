@@ -39,13 +39,11 @@
                         </mat-form-field>
 
                         <!-- Submit button -->
-                        <button class="bg-white w-full mt-6 h-16 bg-red-600" [color]="'primary'"
+                        <button class="w-full mt-6 h-16 bg-red-600" [color]="'primary'"
                             [disabled]="signInForm.disabled" (click)="signIn()">
                             <span class="text-white font-semibold text-lg" *ngIf="!signInForm.disabled">
                                 {{t('login_button')}}
                             </span>
-                            <mat-progress-spinner *ngIf="signInForm.disabled" [diameter]="24"
-                                [mode]="'indeterminate'"></mat-progress-spinner>
                         </button>
                     </form>
                 </div>

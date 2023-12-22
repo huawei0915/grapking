@@ -92,4 +92,14 @@ export class ApiService {
             //     });
         });
     }
+
+    getUser(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.get(`${env.apiServer}/api/v1/user`).subscribe((result: any) => {
+                resolve(result.result.user);
+            }, (err) => {
+                reject(err.error);
+            });
+        });
+    }
 }
