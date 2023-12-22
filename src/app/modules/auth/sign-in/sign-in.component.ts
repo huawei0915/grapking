@@ -57,9 +57,10 @@ export class AuthSignInComponent implements OnInit {
         }
 
         // Create the form
+        // TODO Default account and password for SIT, remember delete when PRD
         this.signInForm = this._formBuilder.group({
-            account: ['', [Validators.required]],
-            password: ['', Validators.required]
+            account: ['testacct', [Validators.required]],
+            password: ['abcd1234', Validators.required]
         });
     }
 
