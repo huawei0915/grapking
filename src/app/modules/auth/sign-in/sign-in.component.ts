@@ -41,7 +41,7 @@ export class AuthSignInComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
-        if ((this._authService.accessToken ?? "").trim() == "") {
+        if ((this._authService.accessToken ?? '').trim() === '') {
             this._authService.signOut();
             this.isSigned = false;
         } else {
