@@ -25,13 +25,15 @@ export class AuthService {
     /**
      * Setter & getter for access token
      */
+    get accessToken(): string {
+        return localStorage.getItem('accessToken') ?? '';
+    }
+
     set accessToken(token: string) {
         localStorage.setItem('accessToken', token);
     }
 
-    get accessToken(): string {
-        return localStorage.getItem('accessToken') ?? '';
-    }
+
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
@@ -67,8 +69,8 @@ export class AuthService {
         // }
 
         return new Promise((resolve, reject) => {
-            if (!((this.accessToken ?? "").trim() == "")) {
-                console.log("already::::")
+            if (!((this.accessToken ?? '').trim() === '')) {
+                console.log('already::::');
                 return resolve('User is already logged in.');
             }
 
