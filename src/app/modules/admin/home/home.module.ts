@@ -52,7 +52,7 @@ const homeRoutes: Route[] = [
         FormsModule,
         NgxHmCarouselModule,
         ReactiveFormsModule,
-        TranslocoModule
+        TranslocoModule,
     ]
 })
 export class HomeModule {
