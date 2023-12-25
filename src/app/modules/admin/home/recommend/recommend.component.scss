@@ -11,3 +11,17 @@
     left: 0;
     top: 0;
 }
+
+.basic_information {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: '';
+        left: -10px;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background-color: black;
+    }
+}
