@@ -38,8 +38,8 @@
             </h5>
             <div>
                 <!-- 儲存商品 -->
-                <button
-                    class="absolute bottom-10 left-20 w-40 h-10 rounded-md text-white bg-stone-900">{{t('product_save')}}</button>
+                <button class="absolute bottom-10 left-20 w-40 h-10 rounded-md text-white bg-stone-900"
+                    (click)="saveProduct()">{{t('product_save')}}</button>
             </div>
         </div>
         <div class="w-2/5 h-full bg-zinc-300 py-10 px-20 overflow-auto" style="max-height: calc(100vh - 80px);">
@@ -131,9 +131,80 @@
         </div>
 
         <div class="absolute top-1/3 left-[38%]">
-            <figure class="w-1/2 bg-white rounded-3xl p-4">
+            <figure class="w-64 bg-white rounded-3xl p-4">
                 <img [src]="getImage(productDetail.files[0])" alt="">
             </figure>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="showDetailTable">
+    <div class="absolute z-30 w-full h-full bg-zinc-900/70 flex justify-center items-center" *transloco="let t"
+        (click)="showDetailTable=false">
+        <div class="w-10/12 h-2/3 bg-white relative overflow-auto rounded-md">
+            <div class="absolute top-5 right-7 cursor-pointer" (click)="showDetailTable=false">
+                X
+            </div>
+            <ng-container *ngIf="formArr.length>0">
+                <div class="flex justify-center p-6 flex-col ">
+                    <!-- 劑型 -->
+                    <p class="text-center text-2xl">{{t('product_info_form')}}</p>
+                    <table class="w-full mt-2">
+                        <thead>
+                            <tr class="bg-neutral-100 text-center">
+                                <!-- 名稱 -->
+                                <th class="py-3">{{t('product_form_name')}}</th>
+                                <!-- 最小單位 -->
+                                <th class="py-3">{{t('product_form_unit_min')}}</th>
+                                <!-- 最大單位 -->
+                                <th class="py-3">{{t('product_form_unit_max')}}</th>
+                                <!-- 單位 -->
+                                <th class="py-3">{{t('product_form_unit')}}</th>
+                                <!-- 圖片 -->
+                                <th class="py-3">{{t('product_form_image')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center  border-b border-zinc-200/70" *ngFor="let form of formArr;">
+                                <td class="py-3">{{lang==='zh'?form.name_zh:form.name_en}}</td>
+                                <td class="py-3">{{form.unit_min}}</td>
+                                <td class="py-3">{{form.unit_max}}</td>
+                                <td class="py-3">{{lang==='zh'?form.unit_zh:form.unit_en}}</td>
+                                <td class="py-3 flex justify-center items-center">
+                                    <figure class="w-16">
+                                        <img [src]="getImage(form.image)" alt="">
+                                    </figure>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="packageArr.length>0">
+                <div class="flex justify-center p-6 flex-col ">
+                    <!-- 包裝 -->
+                    <p class="text-center text-2xl">{{t('product_info_package')}}</p>
+                    <table class="w-full mt-2">
+                        <thead>
+                            <tr class="bg-neutral-100 text-left">
+                                <!-- 盒內容 -->
+                                <th class="pl-4 py-3">{{t('product_package_box')}}</th>
+                                <!-- 箱內容 -->
+                                <th class="py-3">{{t('product_package_carton')}}</th>
+                                <!-- 包裝說明 -->
+                                <th class="py-3">{{t('product_package_param')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-left  border-b  border-zinc-200/70" *ngFor="let package of packageArr;">
+                                <td class="pl-4 py-4 w-1/4">{{lang==='zh'?package.box_zh:package.box_en}}</td>
+                                <td class="py-4 w-1/4">{{lang==='zh'?package.carton_zh:package.carton_en}}</td>
+                                <td class="py-4 w-2/4">{{lang==='zh'?package.name_zh:package.name_en}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-container>
         </div>
     </div>
 </ng-container>
