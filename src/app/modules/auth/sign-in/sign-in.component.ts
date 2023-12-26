@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { environment as env } from 'environments/environment';
 
 @Component({
     selector: 'auth-sign-in',
@@ -59,8 +60,8 @@ export class AuthSignInComponent implements OnInit {
         // Create the form
         // TODO Default account and password for SIT, remember delete when PRD
         this.signInForm = this._formBuilder.group({
-            account: ['testacct', [Validators.required]],
-            password: ['abcd1234', Validators.required]
+            account: [env.devAcnt, [Validators.required]],
+            password: [env.devPwn, Validators.required]
         });
     }
 
