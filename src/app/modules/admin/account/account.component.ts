@@ -30,7 +30,7 @@ export class AccountComponent implements OnInit {
     async ngOnInit(): Promise<void> {
         await this._apiServer.getUser().then((result) => {
             this.usrData = result;
-            console.log("UserTest::", this.usrData);
+            console.log('UserTest::', this.usrData);
         }).catch(() => {
 
             //!!!Not effect
@@ -55,7 +55,7 @@ export class AccountComponent implements OnInit {
         }).finally(() => { });
     }
 
-    signOut() {
+    signOut(): void {
         this._authService.signOut();
         //Bad Method
         window.location.href = '/signed-in';

@@ -25,13 +25,15 @@ export class AuthService {
     /**
      * Setter & getter for access token
      */
+    get accessToken(): string {
+        return localStorage.getItem('accessToken') ?? '';
+    }
+
     set accessToken(token: string) {
         localStorage.setItem('accessToken', token);
     }
 
-    get accessToken(): string {
-        return localStorage.getItem('accessToken') ?? '';
-    }
+
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
@@ -55,10 +57,11 @@ export class AuthService {
         return this._httpClient.post('api/auth/reset-password', password);
     }
 
+    // A1-1 登入
     /**
-     * Sign in
-     *
      * @param credentials
+     * @returns 登入資料
+     * @description 登入
      */
     signIn(credentials: { account: string; password: string }): Promise<any> {
         // Throw error, if the user is already logged in
@@ -67,26 +70,28 @@ export class AuthService {
         // }
 
         return new Promise((resolve, reject) => {
-            if (!((this.accessToken ?? "").trim() == "")) {
-                console.log("already::::")
+            if (!((this.accessToken ?? '').trim() === '')) {
+                console.log('already::::');
                 return resolve('User is already logged in.');
             }
 
-            this._httpClient.post(`${env.apiServer}/api/v1/auth/login`, credentials).subscribe((result: any) => {
+            this._httpClient.post(`${env.apiServer}/api/v1/auth/login`, credentials).subscribe({
+                next: (result: any) => {
+                    // Store the access token in the local storage
+                    this.accessToken = result.result.accessToken;
 
-                // Store the access token in the local storage
-                this.accessToken = result.result.accessToken;
+                    // Set the authenticated flag to true
+                    this._authenticated = true;
 
-                // Set the authenticated flag to true
-                this._authenticated = true;
+                    // Store the user on the user service
+                    this._userService.user = result.result.user;
 
-                // Store the user on the user service
-                this._userService.user = result.result.user;
-
-                // Return a new observable with the result
-                resolve(result.result.data);
-            }, (err) => {
-                reject(err.error);
+                    // Return a new observable with the result
+                    resolve(result.result.data);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
             });
         });
     }
