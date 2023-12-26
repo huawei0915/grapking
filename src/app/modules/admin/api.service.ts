@@ -124,44 +124,67 @@ export class ApiService {
         });
     }
 
-    add(rawValue): Promise<any> {
+    // E1-2 新增客戶配方
+    /**
+     * @param rawValue 客戶配方資料
+     * @returns 新增客戶配方
+     * @description 新增客戶配方
+     */
+    addClientProduct(rawValue: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            // this._httpClient.post(`${env.apiServer.portal}/accessControl/header`, rawValue).subscribe((result: any) => {
-            //     resolve(true);
-            // }, (err) => {
-            //     reject(err.error);
-            // });
+            this._httpClient.post(`${env.apiServer}/api/v1/client_product`, rawValue).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
         });
     }
 
-    update(): Promise<any> {
+    //E1-3 修改客戶配方
+    /**
+     * @param rawValue 客戶配方資料
+     * @returns 修改客戶配方
+     * @description 修改客戶配方
+     */
+    updateClientProduct(rawValue: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            // rawValue.ID = rulerID;
-            // this._httpClient.put(`${env.apiServer.portal}/accessControl/header`, rawValue).subscribe((result) => {
-            //     resolve(true);
-            // }, (err) => {
-            //     reject(err.error);
-            // });
+            this._httpClient.put(`${env.apiServer}/api/v1/client_product/${rawValue.id}`, rawValue).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
         });
     }
 
     del(id): Promise<any> {
         return new Promise((resolve, reject) => {
-            //     this._httpClient.delete(`${env.apiServer.portal}/dispatch/${id}`).subscribe((result: any) => {
+            // this._httpClient.delete(`${env.apiServer}/dispatch/${id}`).subscribe({
+            //     next: (result: any) => {
             //         resolve(true);
-            //     }, (err) => {
+            //     },
+            //     error: (err: any) => {
             //         reject(err.error);
-            //     });
+            //     }
+            // });
         });
     }
 
     getUser(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(`${env.apiServer}/api/v1/user`).subscribe((result: any) => {
-                resolve(result.result.user);
-            }, (err) => {
-                reject(err.error);
-            });
+            // this._httpClient.get(`${env.apiServer}/api/v1/user`).subscribe({
+            //     next: (result: any) => {
+            //         resolve(result.result.user);
+            //     },
+            //     error: (err: any) => {
+            //         reject(err.error);
+            //     }
+            // });
         });
     }
 }

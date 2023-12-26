@@ -38,12 +38,14 @@ export class RecommendComponent implements OnInit {
         });
     }
 
+    // 取得產品
     getProduct(): void {
         this._apiService.getProduct().then((result) => {
             this.productArr = [...result];
         });
     }
 
+    // 取得圖片
     getImage(img: string): string {
         return `${env.apiServer}/api/files/${img}`;
     }
@@ -53,6 +55,7 @@ export class RecommendComponent implements OnInit {
         return this.productDetail.categories.filter(category => category.parent === cateString && category.level === 2).map(category => this.lang === 'zh' ? category.name_zh : category.name_en);
     }
 
+    // 顯示包裝/劑量詳細
     showDetail(type: string): void {
         this.showDetailTable = true;
         if (type === 'form') {
@@ -76,7 +79,6 @@ export class RecommendComponent implements OnInit {
     // 取得商品詳細
     getProductDetail(id: string): void {
         this._apiService.getProductDetail(id).then((result) => {
-            console.log(result);
             this.productDetail = result;
             this.showDetailPage = true;
         });
