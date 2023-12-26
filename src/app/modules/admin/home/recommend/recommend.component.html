@@ -1,104 +1,210 @@
 <ng-container *ngIf="!showDetailPage">
-    <div class="p-8">
-        <ng-container *ngFor="let product of productArr;let i=index">
-            <div class="relative m-2" (click)="getProductDetail(product.id)">
-                <div class="bag">
-                    <div>{{i+1}}</div>
-                </div>
-                <div class="flex">
-                    <figure class="w-36 h-36">
-                        <img [src]="getImage(product.files[0])" alt="">
-                    </figure>
-                    <div class="flex flex-col justify-center ml-4">
-                        <div class="font-bold text-2xl">
-                            {{product.name_zh}}
-                        </div>
-                        <div class="text-slate-400">
-                            {{product.spec_zh}}
+    <div class="m-8 bg-white w-full">
+        <div class="p-8">
+            <ng-container *ngFor="let product of productArr;let i=index">
+                <div class="relative m-2" (click)="getProductDetail(product.id)">
+                    <div class="bag">
+                        <div>{{i+1}}</div>
+                    </div>
+                    <div class="flex">
+                        <figure class="w-36 h-36">
+                            <img [src]="getImage(product.files[0])" alt="">
+                        </figure>
+                        <div class="flex flex-col justify-center ml-4">
+                            <div class="font-bold text-2xl">
+                                {{product.name_zh}}
+                            </div>
+                            <div class="text-slate-400">
+                                {{product.spec_zh}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </ng-container>
+            </ng-container>
+        </div>
     </div>
 </ng-container>
 <ng-container *ngIf="showDetailPage">
     <div class="w-full h-full flex relative" *transloco="let t">
         <div class="w-3/5 h-full bg-pink-700 p-10">
             <h2 class="font-bold text-5xl text-white">
-                {{productDetail.name_zh}}
+                {{lang==='zh'?productDetail.name_zh:productDetail.name_en}}
             </h2>
             <br>
             <br>
+            <!-- 主原料 -->
             <h5 class="font-bold text-3xl text-white">
                 {{t('product_main_raw_material')}}
             </h5>
+            <div>
+                <!-- 儲存商品 -->
+                <button class="absolute bottom-10 left-20 w-40 h-10 rounded-md text-white bg-stone-900"
+                    (click)="saveProduct()">{{t('product_save')}}</button>
+            </div>
         </div>
         <div class="w-2/5 h-full bg-zinc-300 py-10 px-20 overflow-auto" style="max-height: calc(100vh - 80px);">
             <p class="basic_information">{{t('product_basic_information')}}</p>
             <br>
             <div class="flex pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_basic_information_bom_id')}}</p>
-                <p class="w-3/5"></p>
+                <p class="w-3/5">{{productDetail.bom_no}}</p>
             </div>
+            <!-- 功能訴求 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_benefit')}}</p>
-                <p class="w-3/5"></p>
+                <p class="w-3/5">{{getFilteredCategories('F000')}}</p>
             </div>
-            <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
-                <p class="w-2/5">{{t('product_info_benefit')}}</p>
-                <p class="w-3/5"></p>
-            </div>
+            <!-- 適用器官 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_organ')}}</p>
-                <p class="w-3/5"></p>
+                <p class="w-3/5">{{getFilteredCategories('O000')}}</p>
             </div>
+            <!-- 適用年齡 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_age')}}</p>
-                <p class="w-3/5"></p>
+                <p class="w-3/5">{{getFilteredCategories('AG000')}}</p>
             </div>
+            <!-- 適用族群 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_group')}}</p>
-                <p class="w-3/5"></p>
+                <p class="w-3/5">{{getFilteredCategories('GR000')}}</p>
             </div>
+            <!-- 劑型 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
-                <p class="w-2/5">{{t('product_info_form')}}</p>
-                <p class="w-3/5"></p>
+                <p class="w-2/5 flex items-center">
+                    <span>{{t('product_info_form')}}</span>
+                <figure class="w-4 h-4 ml-2" (click)="showDetail('form')">
+                    <img src="assets/icons/export.png" alt="">
+                </figure>
+                </p>
+                <p class="w-3/5">
+                    {{getFilteredCategories('FM000')}}
+                </p>
             </div>
+            <!-- 重量 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_spec')}}</p>
-                <p class="w-3/5"></p>
+                <p class="w-3/5"> {{lang==='zh'?productDetail.spec_zh:productDetail.spec_en}}</p>
             </div>
+            <!-- 建議用量 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_recommended_dose')}}</p>
-                <p class="w-3/5"></p>
+                <p class="w-3/5"> {{lang==='zh'?productDetail.recommended_dose_zh:productDetail.recommended_dose_en}}
+                </p>
             </div>
+            <!-- 包裝 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
-                <p class="w-2/5">{{t('product_info_package')}}</p>
-                <p class="w-3/5"></p>
+                <p class="w-2/5 flex items-center">
+                    <span>{{t('product_info_package')}}</span>
+                <figure class="w-4 h-4 ml-2" (click)="showDetail('package')">
+                    <img src="assets/icons/export.png" alt="">
+                </figure>
+                </p>
+                <p class="w-3/5"> {{getFilteredCategories('PK000')}}</p>
             </div>
 
             <!-- 注意事項 -->
             <div class="mt-10">
                 <p class="basic_information">{{t('product_notice')}}</p>
                 <br>
+                <!-- 過敏原 -->
                 <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                     <p class="w-2/5">{{t('product_info_allergens')}}</p>
-                    <p class="w-3/5"></p>
+                    <p class="w-3/5">{{getFilteredCategories('A000')}}</p>
                 </div>
+                <!-- 認證 -->
                 <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                     <p class="w-2/5">{{t('product_info_certification')}}</p>
-                    <p class="w-3/5"></p>
+                    <p class="w-3/5">{{getFilteredCategories('CE000')}}</p>
+                </div>
+                <!-- 國家 -->
+                <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
+                    <p class="w-2/5">{{t('product_info_country')}}</p>
+                    <p class="w-3/5">{{getFilteredCategories('CY000')}}</p>
+                </div>
+                <!-- 葷素 -->
+                <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
+                    <p class="w-2/5">{{t('product_info_meatvegan')}}</p>
+                    <p class="w-3/5">{{getFilteredCategories('MV000')}}</p>
                 </div>
             </div>
         </div>
 
-
-
-        <div class="absolute top-1/3 left-[40%]">
-            <figure class="w-1/2 bg-white rounded-3xl p-4">
+        <div class="absolute top-1/3 left-[38%]">
+            <figure class="w-64 bg-white rounded-3xl p-4">
                 <img [src]="getImage(productDetail.files[0])" alt="">
             </figure>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="showDetailTable">
+    <div class="absolute z-30 w-full h-full bg-zinc-900/70 flex justify-center items-center" *transloco="let t"
+        (click)="showDetailTable=false">
+        <div class="w-10/12 h-2/3 bg-white relative overflow-auto rounded-md">
+            <div class="absolute top-5 right-7 cursor-pointer" (click)="showDetailTable=false">
+                X
+            </div>
+            <ng-container *ngIf="formArr.length>0">
+                <div class="flex justify-center p-6 flex-col ">
+                    <!-- 劑型 -->
+                    <p class="text-center text-2xl">{{t('product_info_form')}}</p>
+                    <table class="w-full mt-2">
+                        <thead>
+                            <tr class="bg-neutral-100 text-center">
+                                <!-- 名稱 -->
+                                <th class="py-3">{{t('product_form_name')}}</th>
+                                <!-- 最小單位 -->
+                                <th class="py-3">{{t('product_form_unit_min')}}</th>
+                                <!-- 最大單位 -->
+                                <th class="py-3">{{t('product_form_unit_max')}}</th>
+                                <!-- 單位 -->
+                                <th class="py-3">{{t('product_form_unit')}}</th>
+                                <!-- 圖片 -->
+                                <th class="py-3">{{t('product_form_image')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center  border-b border-zinc-200/70" *ngFor="let form of formArr;">
+                                <td class="py-3">{{lang==='zh'?form.name_zh:form.name_en}}</td>
+                                <td class="py-3">{{form.unit_min}}</td>
+                                <td class="py-3">{{form.unit_max}}</td>
+                                <td class="py-3">{{lang==='zh'?form.unit_zh:form.unit_en}}</td>
+                                <td class="py-3 flex justify-center items-center">
+                                    <figure class="w-16">
+                                        <img [src]="getImage(form.image)" alt="">
+                                    </figure>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="packageArr.length>0">
+                <div class="flex justify-center p-6 flex-col ">
+                    <!-- 包裝 -->
+                    <p class="text-center text-2xl">{{t('product_info_package')}}</p>
+                    <table class="w-full mt-2">
+                        <thead>
+                            <tr class="bg-neutral-100 text-left">
+                                <!-- 盒內容 -->
+                                <th class="pl-4 py-3">{{t('product_package_box')}}</th>
+                                <!-- 箱內容 -->
+                                <th class="py-3">{{t('product_package_carton')}}</th>
+                                <!-- 包裝說明 -->
+                                <th class="py-3">{{t('product_package_param')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-left  border-b  border-zinc-200/70" *ngFor="let package of packageArr;">
+                                <td class="pl-4 py-4 w-1/4">{{lang==='zh'?package.box_zh:package.box_en}}</td>
+                                <td class="py-4 w-1/4">{{lang==='zh'?package.carton_zh:package.carton_en}}</td>
+                                <td class="py-4 w-2/4">{{lang==='zh'?package.name_zh:package.name_en}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-container>
         </div>
     </div>
 </ng-container>
