@@ -33,12 +33,20 @@
             <br>
             <br>
             <!-- 主原料 -->
-            <h5 class="font-bold text-3xl text-white">
+            <h5 class="font-bold text-3xl text-white main_information ml-4">
                 {{t('product_main_raw_material')}}
             </h5>
+            <div class="flex flex-wrap pt-4">
+                <ng-container *ngFor="let ingred of productDetail.ingredients">
+                    <div class="px-4 py-2 rounded-3xl bg-white ml-2 mt-2">
+                        {{lang==='zh'?ingred.name_zh:ingred.name_en}}
+                    </div>
+                </ng-container>
+            </div>
+
             <div>
                 <!-- 儲存商品 -->
-                <button class="absolute bottom-10 left-20 w-40 h-10 rounded-md text-white bg-stone-900"
+                <button class="absolute bottom-10 left-12 w-40 h-10 rounded-md text-white bg-stone-900"
                     (click)="saveProduct()">{{t('product_save')}}</button>
             </div>
         </div>
