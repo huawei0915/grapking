@@ -289,7 +289,14 @@ const config = {
         // Other third party and/or custom plugins
         require('@tailwindcss/typography')({modifiers: ['sm', 'lg']}),
         require('@tailwindcss/aspect-ratio'),
-        require('@tailwindcss/line-clamp')
+        require('@tailwindcss/line-clamp'),
+        require('tailwindcss/plugin')(({ addUtilities }) => {
+            addUtilities({
+              '.break-word-legacy': {
+                wordBreak: 'break-word',
+              },
+            });
+        })
     ]
 };
 
