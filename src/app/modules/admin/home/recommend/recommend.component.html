@@ -2,7 +2,7 @@
     <div class="m-8 bg-white w-full">
         <div class="p-8">
             <ng-container *ngFor="let product of productArr;let i=index">
-                <div class="relative m-2" (click)="getProductDetail(product.id,i)">
+                <div class="relative m-2  cursor-pointer" (click)="getProductDetail(product.id,i)">
                     <div class="bag">
                         <div>{{i+1}}</div>
                     </div>
@@ -46,69 +46,72 @@
 
             <div>
                 <!-- 儲存商品 -->
-                <button class="absolute bottom-10 left-12 w-40 h-10 rounded-md text-white bg-stone-900"
+                <button
+                    class="absolute bottom-10 left-12 w-40 h-10 rounded-md text-white bg-stone-900  cursor-pointer z-20"
                     (click)="saveProduct()">{{t('product_save')}}</button>
             </div>
         </div>
-        <div class="w-2/5 h-full bg-zinc-300 py-10 px-20 overflow-auto" style="max-height: calc(100vh - 80px);">
+        <div class="w-2/5 h-full bg-zinc-100/30 py-10 px-20 overflow-auto text-zinc-700"
+            style="max-height: calc(100vh - 80px);">
             <p class="basic_information">{{t('product_basic_information')}}</p>
             <br>
             <div class="flex pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_basic_information_bom_id')}}</p>
-                <p class="w-3/5">{{productDetail.bom_no}}</p>
+                <p class="w-3/5 text-zinc-500">{{productDetail.bom_no}}</p>
             </div>
             <!-- 功能訴求 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_benefit')}}</p>
-                <p class="w-3/5">{{getFilteredCategories('F000')}}</p>
+                <p class="w-3/5 text-zinc-500">{{getFilteredCategories('F000')}}</p>
             </div>
             <!-- 適用器官 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_organ')}}</p>
-                <p class="w-3/5">{{getFilteredCategories('O000')}}</p>
+                <p class="w-3/5 text-zinc-500">{{getFilteredCategories('O000')}}</p>
             </div>
             <!-- 適用年齡 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_age')}}</p>
-                <p class="w-3/5">{{getFilteredCategories('AG000')}}</p>
+                <p class="w-3/5 text-zinc-500">{{getFilteredCategories('AG000')}}</p>
             </div>
             <!-- 適用族群 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_group')}}</p>
-                <p class="w-3/5">{{getFilteredCategories('GR000')}}</p>
+                <p class="w-3/5 text-zinc-500">{{getFilteredCategories('GR000')}}</p>
             </div>
             <!-- 劑型 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5 flex items-center">
                     <span>{{t('product_info_form')}}</span>
-                <figure class="w-4 h-4 ml-2" (click)="showDetail('form')">
+                <figure class="w-4 h-4 ml-2 cursor-pointer z-20" (click)="showDetail('form')">
                     <img src="assets/icons/export.png" alt="">
                 </figure>
                 </p>
-                <p class="w-3/5">
+                <p class="w-3/5 text-zinc-500">
                     {{getFilteredCategories('FM000')}}
                 </p>
             </div>
             <!-- 重量 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_spec')}}</p>
-                <p class="w-3/5"> {{lang==='zh'?productDetail.spec_zh:productDetail.spec_en}}</p>
+                <p class="w-3/5 text-zinc-500"> {{lang==='zh'?productDetail.spec_zh:productDetail.spec_en}}</p>
             </div>
             <!-- 建議用量 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5">{{t('product_info_recommended_dose')}}</p>
-                <p class="w-3/5"> {{lang==='zh'?productDetail.recommended_dose_zh:productDetail.recommended_dose_en}}
+                <p class="w-3/5 text-zinc-500">
+                    {{lang==='zh'?productDetail.recommended_dose_zh:productDetail.recommended_dose_en}}
                 </p>
             </div>
             <!-- 包裝 -->
             <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                 <p class="w-2/5 flex items-center">
                     <span>{{t('product_info_package')}}</span>
-                <figure class="w-4 h-4 ml-2" (click)="showDetail('package')">
+                <figure class="w-4 h-4 ml-2 cursor-pointer z-20" (click)="showDetail('package')">
                     <img src="assets/icons/export.png" alt="">
                 </figure>
                 </p>
-                <p class="w-3/5"> {{getFilteredCategories('PK000')}}</p>
+                <p class="w-3/5 text-zinc-500"> {{getFilteredCategories('PK000')}}</p>
             </div>
 
             <!-- 注意事項 -->
@@ -118,22 +121,22 @@
                 <!-- 過敏原 -->
                 <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                     <p class="w-2/5">{{t('product_info_allergens')}}</p>
-                    <p class="w-3/5">{{getFilteredCategories('A000')}}</p>
+                    <p class="w-3/5 text-zinc-500">{{getFilteredCategories('A000')}}</p>
                 </div>
                 <!-- 認證 -->
                 <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                     <p class="w-2/5">{{t('product_info_certification')}}</p>
-                    <p class="w-3/5">{{getFilteredCategories('CE000')}}</p>
+                    <p class="w-3/5 text-zinc-500">{{getFilteredCategories('CE000')}}</p>
                 </div>
                 <!-- 國家 -->
                 <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                     <p class="w-2/5">{{t('product_info_country')}}</p>
-                    <p class="w-3/5">{{getFilteredCategories('CY000')}}</p>
+                    <p class="w-3/5 text-zinc-500">{{getFilteredCategories('CY000')}}</p>
                 </div>
                 <!-- 葷素 -->
                 <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
                     <p class="w-2/5">{{t('product_info_meatvegan')}}</p>
-                    <p class="w-3/5">{{getFilteredCategories('MV000')}}</p>
+                    <p class="w-3/5 text-zinc-500">{{getFilteredCategories('MV000')}}</p>
                 </div>
             </div>
         </div>
@@ -145,15 +148,15 @@
         </div>
     </div>
 
-    <div class="fixed top-60 right-0 z-40" [ngClass]="{'hidden':!closeTag}" (click)="closeTag=false">
+    <div class="fixed top-60 right-0 z-40 cursor-pointer" [ngClass]="{'hidden':!closeTag}" (click)="closeTag=false">
         <figure class="w-12 h-12 ">
             <img src="assets/icons/tag.png">
         </figure>
     </div>
 
-    <div class="absolute min-h-max h-full bg-black/50 z-20" [ngClass]="{'dilute':closeTag}" style="width: 100vw;">
+    <div class="absolute min-h-max h-full bg-black/50 z-10" [ngClass]="{'dilute':closeTag}" style="width: 100vw;">
         <div [ngClass]="{'noSwipe':closeTag}">
-            <div class="absolute top-60 right-60" (click)="closeTag=true">
+            <div class="absolute top-60 right-60  cursor-pointer" (click)="closeTag=true">
                 <figure class="w-12 h-12">
                     <img src="assets/icons/cancel.png">
                 </figure>
@@ -161,7 +164,7 @@
             <div class="absolute w-60 top-0 bottom-0 right-0 bg-white overflow-auto pt-5 z-30">
                 <ng-container *ngFor="let product of productArr;let i=index">
                     <div class="relative mx-6 border-b border-dashed p-2" (click)="getProductDetail(product.id , i)">
-                        <div class="flex items-center">
+                        <div class="flex items-center  cursor-pointer">
                             <div class="w-12 ">
                                 <figure class="w-12">
                                     <img class="w-full" [src]="getImage(product.files[0])" alt="">

@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { NavigationService } from 'app/core/navigation/navigation.service';
-import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
     selector: 'modern-layout',
@@ -22,10 +20,7 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
      * Constructor
      */
     constructor(
-        private _activatedRoute: ActivatedRoute,
-        private _router: Router,
         private _navigationService: NavigationService,
-        private _translocoService: TranslocoService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fuseNavigationService: FuseNavigationService
     ) {
@@ -95,13 +90,5 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
         }
     }
 
-    changeLang(): void {
-        const lang = this._translocoService.getActiveLang();
-        if (lang === 'zh') {
-            this._translocoService.setActiveLang('en');
-        } else {
-            this._translocoService.setActiveLang('zh');
-        }
 
-    }
 }
