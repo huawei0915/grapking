@@ -6,5 +6,6 @@ export const environment = {
     devAcnt: '',
     devPwn: '',
     defImg: '',
-    defProcName: ''
+    defProcName: '',
+    ver:'v1.0.0'
 };

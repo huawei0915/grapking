@@ -10,7 +10,8 @@ export const environment = {
     devAcnt: 'testacct',
     devPwn: 'abcd1234',
     defImg: 'products/0960d5c3-9e90-474e-841d-b381c87b08db.jpeg',
-    defProcName: '免疫-益生菌'
+    defProcName: '免疫-益生菌',
+    ver:'v0.1.4'
 };
 
 /*
