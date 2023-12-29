@@ -1,9 +1,12 @@
 <!-- ////Default example for other component.html to embed:
 <app-shared-common-confirm-modal *ngIf="whetherOccasionIsNeeded" #viewShareConfirmModal 
-    [title]="'title'" 
+    [title]="'changeTitleIfNeeded'" 
     [productImage]="'apiRes[\'files\']'" 
     [productName]="'productName'" 
     [memo]="'memo'" 
+    [submitText]="'changeTextIfNeeded'"
+    [cancelText]="'cancelTextIfNeeded'"
+    [confirmButtonOnly]="whetherOnlyNeedConfirmButton"
     (submitEvent)="confrimMethod(viewShareConfirmModal)" 
     (cancelEvent)="cancelMethod()">
 </app-shared-common-confirm-modal>    
@@ -31,7 +34,7 @@
                 <!-- Default title -->
                 <ng-container *ngIf="!fullCustomTitle">
                     <div class="text-black font-bold text-lg justify-center">
-                        {{title}}
+                        {{(title === '')?t('product_dialog_title'):title}}
                     </div>
                 </ng-container>
                 <!-- Custom title -->
