@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AccountComponent implements OnInit {
 
     usrData: any;
+    ver = env.ver;
 
 
     /**
@@ -21,14 +22,14 @@ export class AccountComponent implements OnInit {
     constructor(
         private _authService: AuthService,
         private _userService: UserService,
-        private _apiServer: ApiService,
+        private _apiService: ApiService,
         private _router: Router,
         private _activatedRoute: ActivatedRoute,
     ) {
     }
 
     async ngOnInit(): Promise<void> {
-        await this._apiServer.getUser().then((result) => {
+        await this._apiService.getUser().then((result) => {
             this.usrData = result;
             console.log('UserTest::', this.usrData);
         }).catch(() => {
