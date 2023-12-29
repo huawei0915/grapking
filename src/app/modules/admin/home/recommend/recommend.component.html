@@ -2,7 +2,7 @@
     <div class="m-8 bg-white w-full">
         <div class="p-8">
             <ng-container *ngFor="let product of productArr;let i=index">
-                <div class="relative m-2" (click)="getProductDetail(product.id)">
+                <div class="relative m-2" (click)="getProductDetail(product.id,i)">
                     <div class="bag">
                         <div>{{i+1}}</div>
                     </div>
@@ -26,7 +26,7 @@
 </ng-container>
 <ng-container *ngIf="showDetailPage">
     <div class="w-full h-full flex relative" *transloco="let t">
-        <div class="w-3/5 h-full bg-pink-700 p-10">
+        <div class="w-3/5 h-full bg-red-700 p-10">
             <h2 class="font-bold text-5xl text-white">
                 {{lang==='zh'?productDetail.name_zh:productDetail.name_en}}
             </h2>
@@ -142,6 +142,44 @@
             <figure class="w-64 bg-white rounded-3xl p-4">
                 <img [src]="getImage(productDetail.files[0])" alt="">
             </figure>
+        </div>
+    </div>
+
+    <div class="fixed top-60 right-0 z-40" [ngClass]="{'hidden':!closeTag}" (click)="closeTag=false">
+        <figure class="w-12 h-12 ">
+            <img src="assets/icons/tag.png">
+        </figure>
+    </div>
+
+    <div class="absolute min-h-max h-full bg-black/50 z-20" [ngClass]="{'dilute':closeTag}" style="width: 100vw;">
+        <div [ngClass]="{'noSwipe':closeTag}">
+            <div class="absolute top-60 right-60" (click)="closeTag=true">
+                <figure class="w-12 h-12">
+                    <img src="assets/icons/cancel.png">
+                </figure>
+            </div>
+            <div class="absolute w-60 top-0 bottom-0 right-0 bg-white overflow-auto pt-5 z-30">
+                <ng-container *ngFor="let product of productArr;let i=index">
+                    <div class="relative mx-6 border-b border-dashed p-2" (click)="getProductDetail(product.id , i)">
+                        <div class="flex items-center">
+                            <div class="w-12 ">
+                                <figure class="w-12">
+                                    <img class="w-full" [src]="getImage(product.files[0])" alt="">
+                                </figure>
+                            </div>
+                            <div class="flex flex-col justify-center ml-4 w-full h-full p-3"
+                                [ngClass]="{'bg-pink-500/30':selectIdx===i}">
+                                <div class="text-lg">
+                                    {{product.name_zh}}
+                                </div>
+                                <div class="text-slate-400">
+                                    {{product.spec_zh}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
         </div>
     </div>
 </ng-container>

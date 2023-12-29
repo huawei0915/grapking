@@ -21,6 +21,9 @@ export class RecommendComponent implements OnInit {
     packageArr = [];
 
     lang = 'zh';
+
+    closeTag = true;
+    selectIdx = 0;
     /**
      * Constructor
      */
@@ -77,7 +80,8 @@ export class RecommendComponent implements OnInit {
     }
 
     // 取得商品詳細
-    getProductDetail(id: string): void {
+    getProductDetail(id: string, idx: number): void {
+        this.selectIdx = idx;
         this._apiService.getProductDetail(id).then((result) => {
             this.productDetail = result;
             this.showDetailPage = true;

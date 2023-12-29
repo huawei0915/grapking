@@ -27,13 +27,14 @@
             <img src="assets/icons/right.png" alt="">
         </div>
     </div>
+
     <div class="fixed top-28 right-0 z-10" [ngClass]="{'hidden':!closeMenu}" (click)="closeMenu=false">
         <figure class="w-12 h-12 ">
             <img src="assets/icons/menu.png">
         </figure>
     </div>
 
-    <div class="min-h-max h-full bg-gray-500 z-20" [ngClass]="{'dilute':closeMenu}" style="width: 100vw;">
+    <div class="min-h-max h-full bg-black/50 z-20" [ngClass]="{'dilute':closeMenu}" style="width: 100vw;">
         <div [ngClass]="{'noSwipe':closeMenu}">
             <div class="absolute top-28 right-48" (click)="closeMenu=true">
                 <figure class="w-12 h-12">
