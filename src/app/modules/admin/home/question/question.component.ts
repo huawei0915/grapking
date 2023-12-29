@@ -19,6 +19,7 @@ export class QuestionComponent implements OnInit {
     level7 = [];
     level8 = [];
     level9 = [];
+
     currentLevel = 1; // 初始化當前等級為1
 
     puoductArr1 = [];
@@ -95,5 +96,9 @@ export class QuestionComponent implements OnInit {
             this.currentLevel -= 1;
             this.nowLevel = this['level' + this.currentLevel];
         }
+    }
+
+    getQuestionText(): string {
+        return 'questionnaire_question_' + this.currentLevel;
     }
 }

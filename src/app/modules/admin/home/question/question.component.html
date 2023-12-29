@@ -108,7 +108,7 @@
             </figure>
         </div>
         <div class="w-3/5 -mt-30 text-center">
-            <h2 class=" text-3xl font-bold mb-3">{{t('questionnaire_title')}}</h2>
+            <h2 class="text-3xl font-bold mb-3">{{ t(getQuestionText()) }}</h2>
             <div class="h-80 overflow-auto ">
                 <div class="flex flex-wrap justify-center">
                     <div *ngFor="let item of nowLevel; let i=index;" class="h-11">
@@ -126,10 +126,13 @@
 
             <div class="flex justify-center mt-4">
                 <div *ngIf="currentLevel>1"
-                    class="text-xl border-pink-700 border-2 ml-4 flex-none rounded-md px-4 py-[0.3125rem] text-pink-700 shadow-sm"
+                    class="text-xl text-white bg-stone-900 ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm"
                     (click)="prevStep()">上一步</div>
-                <div class="text-xl bg-pink-700 ml-4 flex-none rounded-md px-4 py-[0.3125rem] text-white shadow-sm "
+                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm "
                     *ngIf="currentLevel<9" (click)="nextStep()">下一步</div>
+
+                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm "
+                    *ngIf="currentLevel===9" (click)="handleFinish()">{{t('questionnaire_question_finish')}}</div>
             </div>
 
         </div>
