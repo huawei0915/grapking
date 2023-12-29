@@ -77,15 +77,15 @@
                 <!-- Default end -->
                 <ng-container *ngIf="!fullCustomEnd">
                     <!-- Cancel button -->
-                    <button class="w-[44%] min-w-28 m-[2%] min-h-16 bg-white border-solid border-2 border-red-600" (click)="cancelEvent.emit()">
+                    <button *ngIf="!confirmButtonOnly" class="w-[44%] min-w-28 m-[2%] min-h-16 bg-white border-solid border-2 border-red-600" (click)="cancelEvent.emit()">
                         <span class="text-red-600 font-semibold text-lg break-word-legacy">
-                            {{t('button_cancel')}}
+                            {{(cancelText === '')?t('button_cancel'):cancelText}}
                         </span>
                     </button>
                     <!-- Submit button -->
-                    <button class="w-[44%] min-w-28 m-[2%] min-h-16 bg-red-600" (click)="submitEvent.emit()">
+                    <button class="min-w-28 m-[2%] min-h-16 bg-red-600" [ngClass]="{'w-[44%]':!confirmButtonOnly, 'w-[calc(96%-16px)]':confirmButtonOnly}" (click)="submitEvent.emit()">
                         <span class="text-white font-semibold text-lg break-word-legacy">
-                            {{t('button_add_to_draft')}}
+                            {{(submitText === '')?t('button_add_to_draft'):submitText}}
                         </span>
                     </button>
                 </ng-container>
