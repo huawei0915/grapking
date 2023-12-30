@@ -112,7 +112,7 @@
             <div class="h-80 overflow-auto ">
                 <div class="flex flex-wrap justify-center">
                     <div *ngFor="let item of nowLevel; let i=index;" class="h-11">
-                        <button class="flex items-center  font-bold py-2 px-4 rounded-full border-2 shadow-md mx-1"
+                        <button class="flex items-center  font-bold py-2 px-4 rounded-full border-2 shadow-md mx-1 z-20"
                             [ngClass]="{'bg-slate-700': item.active,'text-white': item.active, 'bg-white':!item.active}"
                             (click)="selectProduct(item,i)">
                             <img class="w-4 h-4" [src]="item.active?'assets/icons/tick.png':'assets/icons/add.png'"
@@ -126,15 +126,46 @@
 
             <div class="flex justify-center mt-4">
                 <div *ngIf="currentLevel>1"
-                    class="text-xl text-white bg-stone-900 ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm cursor-pointer"
+                    class="text-xl text-white bg-stone-900 ml-4 flex-none rounded-md px-4 py-[0.3125rem] z-20 shadow-sm cursor-pointer"
                     (click)="prevStep()">{{t('button_prev_step')}}</div>
-                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm cursor-pointer"
+                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] z-20 shadow-sm cursor-pointer"
                     *ngIf="currentLevel<9" (click)="nextStep()">{{t('button_next_step')}}</div>
 
-                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm cursor-pointer"
+                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] z-20 shadow-sm cursor-pointer"
                     *ngIf="currentLevel===9" (click)="handleFinish()">{{t('questionnaire_question_finish')}}</div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="fixed top-60 right-0 z-40 cursor-pointer" [ngClass]="{'hidden':!closeTag}" (click)="closeTag=false">
+        <figure class="w-12 h-12 ">
+            <img src="assets/icons/hourglass.png">
+        </figure>
+    </div>
+
+    <div class="absolute min-h-max top-0 h-full bg-black/50"
+        [ngClass]="{'dilute':closeTag,'z-30':!closeTag,'w-full':!closeTag}">
+        <div [ngClass]="{'noSwipe':closeTag}">
+            <div class="absolute  top-60 right-60  cursor-pointer" (click)="closeTag=true">
+                <figure class="w-12 h-12">
+                    <img src="assets/icons/cancel.png">
+                </figure>
+            </div>
+            <div class="absolute w-60 top-0 bottom-0 right-0 bg-white overflow-auto pt-5 z-30">
+                <ng-container *ngFor="let list of rightList;let i=index">
+                    <div class="relative mx-6 text-center border-b border-dashed p-2" (click)="currentLevel=i+1">
+                        <div class="flex items-center  cursor-pointer">
+                            <div class="flex flex-col justify-center ml-4 w-full h-full p-3"
+                                [ngClass]="{'text-orange-500':i===currentLevel-1}">
+                                <div class="text-lg">
+                                    {{t(list)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
         </div>
     </div>
 </div>

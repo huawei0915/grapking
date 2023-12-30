@@ -4,11 +4,12 @@ import { ApiService } from '../../api.service';
 @Component({
     selector: 'question',
     templateUrl: './question.component.html',
+    styleUrls: ['./question.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class QuestionComponent implements OnInit {
 
-    rightList = ['功效', '器官', '年齡', '族群', '國家', '劑型', '包裝', '認證', '葷素'];
+    rightList = Array.from({ length: 9 }, (_, i) => `questionnaire_question_${i + 1}_keyword`);
 
     level1 = [];
     level2 = [];
