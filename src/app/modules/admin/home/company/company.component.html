@@ -20,23 +20,24 @@
                 <img [src]="imageUrl" alt="Image">
             </figure>
         </div>
-        <div *ngIf="slidePosition!==0" class="left" (click)="moveLeft()">
+        <div *ngIf="slidePosition!==0" class="left  cursor-pointer" (click)="moveLeft()">
             <img src="assets/icons/left.png" alt="">
         </div>
-        <div [hidden]="slidePosition===-((picArray.length-1)*slideWidth)" class="right" (click)="moveRight()">
+        <div [hidden]="slidePosition===-((picArray.length-1)*slideWidth)" class="right  cursor-pointer"
+            (click)="moveRight()">
             <img src="assets/icons/right.png" alt="">
         </div>
     </div>
 
-    <div class="fixed top-28 right-0 z-10" [ngClass]="{'hidden':!closeMenu}" (click)="closeMenu=false">
+    <div class="fixed top-28 right-0 z-10  cursor-pointer" [ngClass]="{'hidden':!closeMenu}" (click)="closeMenu=false">
         <figure class="w-12 h-12 ">
             <img src="assets/icons/menu.png">
         </figure>
     </div>
 
-    <div class="min-h-max h-full bg-black/50 z-20" [ngClass]="{'dilute':closeMenu}" style="width: 100vw;">
+    <div class="min-h-max h-full bg-black/50 z-20 " [ngClass]="{'dilute':closeMenu}" style="width: 100vw;">
         <div [ngClass]="{'noSwipe':closeMenu}">
-            <div class="absolute top-28 right-48" (click)="closeMenu=true">
+            <div class="absolute top-28 right-48  cursor-pointer" (click)="closeMenu=true">
                 <figure class="w-12 h-12">
                     <img src="assets/icons/cancel.png">
                 </figure>

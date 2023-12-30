@@ -126,12 +126,12 @@
 
             <div class="flex justify-center mt-4">
                 <div *ngIf="currentLevel>1"
-                    class="text-xl text-white bg-stone-900 ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm"
-                    (click)="prevStep()">上一步</div>
-                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm "
-                    *ngIf="currentLevel<9" (click)="nextStep()">下一步</div>
+                    class="text-xl text-white bg-stone-900 ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm cursor-pointer"
+                    (click)="prevStep()">{{t('button_prev_step')}}</div>
+                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm cursor-pointer"
+                    *ngIf="currentLevel<9" (click)="nextStep()">{{t('button_next_step')}}</div>
 
-                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm "
+                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] shadow-sm cursor-pointer"
                     *ngIf="currentLevel===9" (click)="handleFinish()">{{t('questionnaire_question_finish')}}</div>
             </div>
 
