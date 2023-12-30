@@ -33,6 +33,7 @@ export class QuestionComponent implements OnInit {
     puoductArr8 = [];
     puoductArr9 = [];
 
+    closeTag = true;
     nowLevel = this.level1;
 
     /**
