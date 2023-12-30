@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { environment as env } from 'environments/environment';
@@ -24,6 +26,8 @@ export class RecommendComponent implements OnInit {
 
     closeTag = true;
     selectIdx = 0;
+
+    popView = false;
     /**
      * Constructor
      */
@@ -77,6 +81,31 @@ export class RecommendComponent implements OnInit {
 
     // 儲存產品
     saveProduct(): void {
+        this.popView = true;
+    }
+
+    getNoteText(event: string): void {
+        this.productDetail.note = event;
+    }
+
+    handleOK(event: string): void {
+        this.popView = false;
+
+        const data = {
+            // eslint-disable-next-line quotes
+            "product_id": this.productDetail.id,
+            // eslint-disable-next-line quotes
+            "note": this.productDetail.note
+        };
+        this._apiService.addClientProduct(data).then((result) => {
+            console.log(result);
+            console.log('success');
+        }).catch((err) => {
+            console.log(err);
+            console.log('fail');
+        }).finally(() => {
+
+        });
     }
 
     // 取得商品詳細

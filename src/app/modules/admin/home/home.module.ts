@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
+import { CommonConfirmModalComponent } from 'app/shared/common-confirm-modal/common-confirm-modal.component';
+import { SharedModule } from 'app/shared/shared.module';
 const homeRoutes: Route[] = [
     {
         path: '',
@@ -53,6 +55,7 @@ const homeRoutes: Route[] = [
         NgxHmCarouselModule,
         ReactiveFormsModule,
         TranslocoModule,
+        SharedModule
     ]
 })
 export class HomeModule {

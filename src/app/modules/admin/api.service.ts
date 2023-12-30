@@ -161,7 +161,7 @@ export class ApiService {
         });
     }
 
-    //E1-3 修改客戶配方
+    // E1-3 修改客戶配方
     /**
      * @param rawValue 客戶配方資料
      * @returns 修改客戶配方
@@ -170,6 +170,24 @@ export class ApiService {
     updateClientProduct(rawValue: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.put(`${env.apiServer}/api/v1/client_product/${rawValue.id}`, rawValue).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
+    // F1-3 新增需求單
+    /**
+     * @param rawValue 需求單資料
+     * @returns 新增需求單
+     */
+    addDemand(rawValue: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.post(`${env.apiServer}/api/v1/demand`, rawValue).subscribe({
                 next: (result: any) => {
                     resolve(result.result);
                 },

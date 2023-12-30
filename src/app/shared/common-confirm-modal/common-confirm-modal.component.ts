@@ -22,6 +22,7 @@ export class CommonConfirmModalComponent implements OnInit {
     @Input() productImage = env.defImg;          //產品圖片
     @Input() productName = env.defProcName;      //產品名稱
     @Input() memo = '';                          //備註
+    @Output() memoText = new EventEmitter<string>(); //回傳備註文字
 
     // Button event
     @Output() cancelEvent = new EventEmitter();  //取消事件
@@ -40,19 +41,19 @@ export class CommonConfirmModalComponent implements OnInit {
     ngOnInit(): void {
         this._translocoService.load(this._translocoService.getActiveLang()).pipe(take(1)).subscribe((translation: any) => {
             this.i18nText = translation;
-            if (this.title === '') { this.title = this.i18nText['product_dialog_title'] }
+            if (this.title === '') { this.title = this.i18nText['product_dialog_title']; }
             setTimeout(() => { this.viewMemo.nativeElement.innerText = this.memo; });
         });
 
     }
-
     // 取得圖片
     getImage(img: string): string {
         return `${env.apiServer}/api/files/${img}`;
     }
 
-    //寫入備忘錄
-    setMemo(input: string) {
+    // 寫入備忘錄
+    setMemo(input: string): void {
         this.memo = input;
+        this.memoText.emit(this.memo);
     }
 }

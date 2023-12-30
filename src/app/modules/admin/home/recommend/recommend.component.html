@@ -26,31 +26,40 @@
 </ng-container>
 <ng-container *ngIf="showDetailPage">
     <div class="w-full h-full flex relative" *transloco="let t">
-        <div class="w-3/5 h-full bg-red-700 p-10">
-            <h2 class="font-bold text-5xl text-white">
-                {{lang==='zh'?productDetail.name_zh:productDetail.name_en}}
-            </h2>
-            <br>
-            <br>
-            <!-- 主原料 -->
-            <h5 class="font-bold text-3xl text-white main_information ml-4">
-                {{t('product_main_raw_material')}}
-            </h5>
-            <div class="flex flex-wrap pt-4">
-                <ng-container *ngFor="let ingred of productDetail.ingredients">
-                    <div class="px-4 py-2 rounded-3xl bg-white ml-2 mt-2">
-                        {{lang==='zh'?ingred.name_zh:ingred.name_en}}
-                    </div>
-                </ng-container>
-            </div>
+        <div class="flex justify-between w-3/5 h-full bg-red-700 p-10 ">
+            <div class=" ">
+                <h2 class="font-bold text-5xl text-white">
+                    {{lang==='zh'?productDetail.name_zh:productDetail.name_en}}
+                </h2>
+                <br>
+                <br>
+                <!-- 主原料 -->
+                <h5 class="font-bold text-3xl text-white main_information ml-4">
+                    {{t('product_main_raw_material')}}
+                </h5>
+                <div class="absolute w-1/3 flex flex-wrap pt-4 max-h-72 overflow-auto z-20">
+                    <ng-container *ngFor="let ingred of productDetail.ingredients">
+                        <div class="px-4 py-2 rounded-3xl bg-white ml-2 mt-2">
+                            {{lang==='zh'?ingred.name_zh:ingred.name_en}}
+                        </div>
+                    </ng-container>
+                </div>
 
-            <div>
-                <!-- 儲存商品 -->
-                <button
-                    class="absolute bottom-10 left-12 w-40 h-10 rounded-md text-white bg-stone-900  cursor-pointer z-20"
-                    (click)="saveProduct()">{{t('product_save')}}</button>
+                <div>
+                    <!-- 儲存商品 -->
+                    <button
+                        class="absolute bottom-10 left-12 w-40 h-10 rounded-md text-white bg-stone-900  cursor-pointer z-20"
+                        (click)="saveProduct()">{{t('product_save')}}</button>
+                </div>
+            </div>
+            <!-- 產品圖 -->
+            <div class="flex items-center -mr-24 z-20">
+                <figure class="w-72 bg-white rounded-3xl p-4">
+                    <img [src]="getImage(productDetail.files[0])" alt="">
+                </figure>
             </div>
         </div>
+
         <div class="w-2/5 h-full bg-zinc-100/30 py-10 px-20 overflow-auto text-zinc-700"
             style="max-height: calc(100vh - 80px);">
             <p class="basic_information">{{t('product_basic_information')}}</p>
@@ -139,12 +148,6 @@
                     <p class="w-3/5 text-zinc-500">{{getFilteredCategories('MV000')}}</p>
                 </div>
             </div>
-        </div>
-
-        <div class="absolute top-1/3 left-[38%]">
-            <figure class="w-64 bg-white rounded-3xl p-4">
-                <img [src]="getImage(productDetail.files[0])" alt="">
-            </figure>
         </div>
     </div>
 
@@ -257,3 +260,7 @@
         </div>
     </div>
 </ng-container>
+
+<app-shared-common-confirm-modal *ngIf="popView" [productImage]="productDetail.files[0]"
+    [productName]="lang==='zh'?productDetail.name_zh:productDetail.name_en" [title]="'備註'" (cancelEvent)="popView=false"
+    (submitEvent)="handleOK($event)"></app-shared-common-confirm-modal>

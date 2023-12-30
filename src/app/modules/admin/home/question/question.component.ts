@@ -98,7 +98,12 @@ export class QuestionComponent implements OnInit {
         }
     }
 
+    // 取得問題文字
     getQuestionText(): string {
         return 'questionnaire_question_' + this.currentLevel;
+    }
+
+    // 尋找產品
+    handleFinish(): void {
     }
 }
