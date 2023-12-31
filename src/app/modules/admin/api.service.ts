@@ -74,9 +74,13 @@ export class ApiService {
      * @returns 配方商品
      * @description 取得配方商品
      */
-    getProduct(): Promise<any> {
+    getProduct(category): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(`${env.apiServer}/api/v1/product`).subscribe({
+            let prams = '';
+            if (category) {
+                prams = `?category=${category}`;
+            }
+            this._httpClient.get(`${env.apiServer}/api/v1/product${prams}`).subscribe({
                 next: (result: any) => {
                     resolve(result.result.data);
                 },

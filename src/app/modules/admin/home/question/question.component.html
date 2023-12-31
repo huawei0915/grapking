@@ -154,7 +154,7 @@
             </div>
             <div class="absolute w-60 top-0 bottom-0 right-0 bg-white overflow-auto pt-5 z-30">
                 <ng-container *ngFor="let list of rightList;let i=index">
-                    <div class="relative mx-6 text-center border-b border-dashed p-2" (click)="currentLevel=i+1">
+                    <div class="relative mx-6 text-center border-b border-dashed p-2" (click)="handleRightPanel(i)">
                         <div class="flex items-center  cursor-pointer">
                             <div class="flex flex-col justify-center ml-4 w-full h-full p-3"
                                 [ngClass]="{'text-orange-500':i===currentLevel-1}">

@@ -157,7 +157,8 @@
         </figure>
     </div>
 
-    <div class="absolute min-h-max h-full bg-black/50 z-10" [ngClass]="{'dilute':closeTag}" style="width: 100vw;">
+    <div class="absolute min-h-max h-full bg-black/50 z-10"
+        [ngClass]="{'dilute':closeTag,'w-full':!closeTag,'z-30':!closeTag}">
         <div [ngClass]="{'noSwipe':closeTag}">
             <div class="absolute top-60 right-60  cursor-pointer" (click)="closeTag=true">
                 <figure class="w-12 h-12">
@@ -191,8 +192,7 @@
 </ng-container>
 
 <ng-container *ngIf="showDetailTable">
-    <div class="absolute z-30 w-full h-full bg-zinc-900/70 flex justify-center items-center" *transloco="let t"
-        (click)="showDetailTable=false">
+    <div class="absolute z-30 w-full h-full bg-zinc-900/70 flex justify-center items-center" *transloco="let t">
         <div class="w-10/12 h-2/3 bg-white relative overflow-auto rounded-md">
             <div class="absolute top-5 right-7 cursor-pointer" (click)="showDetailTable=false">
                 X
@@ -217,7 +217,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="text-center  border-b border-zinc-200/70" *ngFor="let form of formArr;">
+                            <tr class="text-center  border-b border-zinc-200/70" *ngFor="let form of formArr;"
+                                [ngClass]="{'bg-pink-500/30':(lang==='zh'?form.name_zh:form.name_en)===getFilteredCategories('FM000')[0]}">
                                 <td class="py-3">{{lang==='zh'?form.name_zh:form.name_en}}</td>
                                 <td class="py-3">{{form.unit_min}}</td>
                                 <td class="py-3">{{form.unit_max}}</td>
@@ -248,7 +249,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="text-left  border-b  border-zinc-200/70" *ngFor="let package of packageArr;">
+                            <tr class="text-left  border-b  border-zinc-200/70" *ngFor="let package of packageArr;"
+                                [ngClass]="{'bg-pink-500/30':(lang==='zh'?package.name_zh:package.name_en)===getFilteredCategories('PK000')[0]}">
+
                                 <td class="pl-4 py-4 w-1/4">{{lang==='zh'?package.box_zh:package.box_en}}</td>
                                 <td class="py-4 w-1/4">{{lang==='zh'?package.carton_zh:package.carton_en}}</td>
                                 <td class="py-4 w-2/4">{{lang==='zh'?package.name_zh:package.name_en}}</td>

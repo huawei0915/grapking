@@ -4,6 +4,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { environment as env } from 'environments/environment';
 import { TranslocoService } from '@ngneat/transloco';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'recommend',
@@ -18,6 +19,7 @@ export class RecommendComponent implements OnInit {
     showDetailTable = false;
 
     productDetail: any;
+    category = '';
 
     formArr = [];
     packageArr = [];
@@ -33,12 +35,14 @@ export class RecommendComponent implements OnInit {
      */
     constructor(
         private _apiService: ApiService,
+        private _route: ActivatedRoute,
         private _translocoService: TranslocoService,
     ) {
     }
 
     ngOnInit(): void {
-        this.getProduct();
+        const category = this._route.snapshot.queryParams['category'];
+        this.getProduct(category);
         this._translocoService.langChanges$.subscribe((activeLang) => {
             // Get the active lang
             this.lang = activeLang;
@@ -46,9 +50,13 @@ export class RecommendComponent implements OnInit {
     }
 
     // 取得產品
-    getProduct(): void {
-        this._apiService.getProduct().then((result) => {
+    getProduct(category: string): void {
+        this._apiService.getProduct(category).then((result) => {
             this.productArr = [...result];
+            if (category && this.productArr.length > 0) {
+                this.showDetailPage = true;
+                this.getProductDetail(this.productArr[0].id, 0);
+            }
         });
     }
 
@@ -69,11 +77,29 @@ export class RecommendComponent implements OnInit {
             this.packageArr = [];
             this._apiService.getForm().then((result) => {
                 this.formArr = [...result];
+                this.formArr.sort((a, b) => {
+                    if ((this.lang === 'zh' ? a.name_zh : a.name_en) === this.getFilteredCategories('FM000')[0]) {
+                        return -1; // 将满足条件的元素排在前面
+                    } else if ((this.lang === 'zh' ? b.name_zh : b.name_en) === this.getFilteredCategories('FM000')[0]) {
+                        return 1; // 将满足条件的元素排在后面
+                    } else {
+                        return 0; // 保持原有顺序
+                    }
+                });
             });
         } else if (type === 'package') {
             this.formArr = [];
             this._apiService.getPackage().then((result) => {
                 this.packageArr = [...result];
+                this.packageArr.sort((a, b) => {
+                    if ((this.lang === 'zh' ? a.name_zh : a.name_en) === this.getFilteredCategories('PK000')[0]) {
+                        return -1; // 将满足条件的元素排在前面
+                    } else if ((this.lang === 'zh' ? b.name_zh : b.name_en) === this.getFilteredCategories('PK000')[0]) {
+                        return 1; // 将满足条件的元素排在后面
+                    } else {
+                        return 0; // 保持原有顺序
+                    }
+                });
             });
         } else {
         }
