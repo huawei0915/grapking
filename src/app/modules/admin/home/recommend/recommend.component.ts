@@ -51,11 +51,19 @@ export class RecommendComponent implements OnInit {
 
     // 取得產品
     getProduct(category: string): void {
-        this._apiService.getProduct(category).then((result) => {
+        let isRecommand = '';
+        if (!category) {
+            isRecommand = '1';
+            category = '';
+        }
+        this._apiService.getProduct('', isRecommand, '', category).then((result) => {
             this.productArr = [...result];
             if (category && this.productArr.length > 0) {
                 this.showDetailPage = true;
                 this.getProductDetail(this.productArr[0].id, 0);
+            } else {
+                // TODO: 顯示無產品alert
+                this.showDetailPage = false;
             }
         });
     }
