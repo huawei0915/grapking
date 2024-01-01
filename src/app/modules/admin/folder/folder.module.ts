@@ -13,6 +13,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { FolderComponent } from 'app/modules/admin/folder/folder.component';
 import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { SharedModule } from 'app/shared/shared.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const folderRoutes: Route[] = [
     {
@@ -39,6 +40,7 @@ const folderRoutes: Route[] = [
         MatSlideToggleModule,
         MatTooltipModule,
         MatSelectModule,
+        MatCheckboxModule,
         SharedModule
     ]
 })

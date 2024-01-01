@@ -144,10 +144,28 @@ export class ApiService {
         });
     }
 
+    // D1-1 客戶清單
+    /**
+     * @returns 客戶清單
+     * @description 取得客戶清單
+     */
+    getClient(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.get(`${env.apiServer}/api/v1/client`).subscribe({
+                next: (result: any) => {
+                    resolve(result.result.data);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
     // E1-1 客戶配方清單
     /**
      * @returns 客戶配方清單
-     * @description 取得E1-1 客戶配方清單
+     * @description 取得客戶配方清單
      */
     getClientProduct(): Promise<any> {
         return new Promise((resolve, reject) => {

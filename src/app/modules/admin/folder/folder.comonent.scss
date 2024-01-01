@@ -15,3 +15,8 @@
 body.light .mat-form-field.mat-focused.mat-primary .mat-select-arrow, body .light .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
     color: #64748b;
 }
+
+/* styles.css 或者组件的样式文件 */
+.mat-checkbox-frame {
+    border-color: #f43f5e!important; /* 设置框框为红色 */
+  }

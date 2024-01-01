@@ -6,6 +6,7 @@ import { environment as env } from 'environments/environment';
 import 'hammerjs';
 import { TranslocoService } from '@ngneat/transloco';
 import { ApiService } from '../api.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'folder',
@@ -14,120 +15,60 @@ import { ApiService } from '../api.service';
     encapsulation: ViewEncapsulation.None
 })
 export class FolderComponent implements OnInit {
-    currentIndex = 0;
-
-    slidePosition = 0;
-    slideWidth = 300;
-
-    closeMenu = true;
-
-    vr = false;
-    ai = false;
-    vrUrl: SafeUrl;
-    aiUrl: SafeUrl;
-
-    picIsLoading = false;
-    picArray = [];
+    folderForm: FormGroup;
 
     productArr = [];
-    showDetailPage = false;
-    showDetailTable = false;
+    filterData = [];
 
-    productDetail: any;
-
-    formArr = [];
-    packageArr = [];
-
-    //!!my own param
+    clientData = [];
+    clientMultiSelectData = [];
+    clientMultiSelectCheck = false;
 
     deleteCheck = false;
     deleteData: any;
 
+    clientBindingCheck = false;
+
     editCheck = false;
     editData: any;
+    searchText = '';
 
     lang = 'zh';
+
     /**
      * Constructor
      */
     constructor(
         public _domSanitizer: DomSanitizer,
-        private _splashScreenService: FuseSplashScreenService,
-        private _changeDetectorRef: ChangeDetectorRef,
         private _apiService: ApiService,
         private _translocoService: TranslocoService,
+        private _formBuilder: FormBuilder
     ) {
     }
 
     ngOnInit(): void {
-        // this.vrUrl = this._domSanitizer.bypassSecurityTrustResourceUrl(env.vrUrl);
-        // this.aiUrl = this._domSanitizer.bypassSecurityTrustResourceUrl(env.aiUrl);
-        this.slideWidth = window.innerWidth;
-        const lang = this._translocoService.getActiveLang();
-        this._apiService.getComponey().then((result) => {
-            result.filter(item => item.language === lang).forEach((item) => {
-                this.picArray.push(env.apiServer + '/api/files/' + item.image);
-            });
-        }).finally(() => { setTimeout(() => { this.picIsLoading = true; this._changeDetectorRef.detectChanges(); }, 800); });
-
-
-
         //!!my own workflow
         this.getClientProduct();
+        this.getClient();
         this._translocoService.langChanges$.subscribe((activeLang) => {
             // Get the active lang
             this.lang = activeLang;
         });
-    }
 
-    handleBtn(selectedItem: any): void {
-        setTimeout(() => {
-            this._splashScreenService.show();
-        }, 100);
+        this.folderForm = this._formBuilder.group({
+            filterCheckBox: ['all']
+        });
 
-        switch (selectedItem) {
-            case 'vr':
-                this.vr = true;
-                this.ai = false;
-                break;
-            case 'ai':
-                this.vr = false;
-                this.ai = true;
-                break;
-            default:
-                break;
-        }
-    }
-
-    // hideLoader(): void {
-    //     this._splashScreenService.hide();
-    // }
-
-    // moveLeft(): void {
-    //     this.slidePosition += this.slideWidth;
-    //     this.currentIndex--;
-    //     this.checkBoundaries();
-    // }
-
-    // moveRight(): void {
-    //     this.slidePosition -= this.slideWidth;
-    //     this.currentIndex++;
-    //     this.checkBoundaries();
-    // }
-
-    checkBoundaries(): void {
-        const totalWidth = this.picArray.length * this.slideWidth;
-        if (this.slidePosition > 0) {
-            this.slidePosition = 0;
-
-        } else if (Math.abs(this.slidePosition) > totalWidth - this.slideWidth) {
-            this.slidePosition = -(totalWidth - this.slideWidth);
-        }
-    }
-
-    handleRightPanel(idx: number): void {
-        this.currentIndex = idx;
-        this.slidePosition = -(this.slideWidth * idx);
+        this.folderForm.get('filterCheckBox')?.valueChanges.subscribe(
+            (value) => {
+                if (value === 'hasClient') {
+                    this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] !== null));
+                } else if (value === 'noClient') {
+                    this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] === null));
+                } else {
+                    this.filterData = this.productArr;
+                }
+            });
     }
 
     // 取得圖片
@@ -135,47 +76,14 @@ export class FolderComponent implements OnInit {
         return `${env.apiServer}/api/files/${img}`;
     }
 
-    getFilteredCategories(cateString: string): void {
-        // eslint-disable-next-line max-len
-        return this.productDetail.categories.filter(category => category.parent === cateString && category.level === 2).map(category => this.lang === 'zh' ? category.name_zh : category.name_en);
-    }
-
-    // 顯示包裝/劑量詳細
-    showDetail(type: string): void {
-        this.showDetailTable = true;
-        if (type === 'form') {
-            this.packageArr = [];
-            this._apiService.getForm().then((result) => {
-                this.formArr = [...result];
-            });
-        } else if (type === 'package') {
-            this.formArr = [];
-            this._apiService.getPackage().then((result) => {
-                this.packageArr = [...result];
-            });
-        } else {
-        }
-    }
-
-    // 儲存產品
-    saveProduct(): void {
-    }
-
-    // 取得商品詳細
-    getProductDetail(id: string): void {
-        // this._apiService.getProductDetail(id).then((result) => {
-        //     this.productDetail = result;
-        //     this.showDetailPage = true;
-        // });
-    }
-
-    // ==========!!my own function
-
 
     // 取得客戶配方清單
     async getClientProduct(): Promise<void> {
         await this._apiService.getClientProduct().then((result) => {
             this.productArr = [...result];
+            this.filterData = this.productArr;
+            this.clientMultiSelectCheck = false;
+            this.clientMultiSelectData = [];
         });
     }
 
@@ -189,6 +97,14 @@ export class FolderComponent implements OnInit {
         await this._apiService.updateClientProduct(product);
     }
 
+    // 取得客戶清單
+    async getClient(): Promise<void> {
+        await this._apiService.getClient().then((result) => {
+            console.log('result:::', [...result]);
+            this.clientData = [...result];
+        });
+    }
+
     // 觸發刪除視窗
     openDeleteModal(product: any): void {
         this.deleteData = product;
@@ -197,9 +113,16 @@ export class FolderComponent implements OnInit {
 
     // 確認刪除
     async confrimDelete(): Promise<void> {
-        await this.delClientProduct(this.deleteData);
+        if (this.deleteData.length) {
+            await this.deleteData.forEach(async (dataRaw) => {
+                await this.delClientProduct(dataRaw);
+            });
+        } else {
+            await this.delClientProduct(this.deleteData);
+        }
         await this.getClientProduct();
         this.closeDeleteModal();
+
     }
 
     // 關閉刪除視窗
@@ -207,6 +130,21 @@ export class FolderComponent implements OnInit {
         this.deleteCheck = false;
     }
 
+    // 觸發綁定帳戶視窗
+    openClientModal(): void {
+        this.searchText = '';
+        this.clientBindingCheck = true;
+    }
+
+    // 確認綁定帳戶
+    confrimClientModal(): void {
+        // TODO:  綁定客戶API
+    }
+
+    // 關閉綁定帳戶視窗
+    closeClientModal(): void {
+        this.clientBindingCheck = false;
+    }
 
     // 觸發編輯視窗
     openEditModal(product: any): void {
@@ -226,4 +164,44 @@ export class FolderComponent implements OnInit {
     closeEditModal(): void {
         this.editCheck = false;
     }
+
+    // 過濾客戶清單
+    getFilteredClient(cateString: string): any[] {
+        if (cateString !== '') {
+            cateString = cateString.toLowerCase();
+            return this.clientData.filter(
+                client => (
+                    client.id?.toLowerCase().includes(cateString) ||
+                    client.company_name_zh?.toLowerCase().includes(cateString) ||
+                    client.company_name_en?.toLowerCase().includes(cateString) ||
+                    client.name?.toLowerCase().includes(cateString)));
+        } else {
+            return this.clientData;
+        }
+    }
+
+    // 寫入搜尋欄位
+    setSearchText(event: any): void {
+        this.searchText = event.target.value;
+    }
+
+    // 多選擇checkbox
+    mutliSelect(event: any, selectData: any[]): void {
+        if (event.checked) {
+            this.clientMultiSelectData.push(selectData);
+        } else if (!event.checked) {
+            this.clientMultiSelectData = this.clientMultiSelectData.filter(item => item.id !== ((selectData as any).id));
+        }
+    }
+
+    // 觸發多選按鈕
+    clickMultiSelect(): void {
+        if (this.clientMultiSelectCheck) {
+            this.clientMultiSelectCheck = false;
+            this.clientMultiSelectData = [];
+        } else {
+            this.clientMultiSelectCheck = true;
+        }
+    }
+
 }

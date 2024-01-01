@@ -1,103 +1,84 @@
-<ng-container *transloco="let t">
+<ng-container *transloco="let t" [formGroup]="folderForm">
+    <!-- Main Content -->
     <div class="min-h-max max-h-max w-full">
         <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20">
-            <!-- <button class=" rounded-lg text-sm font-semibold py-3 px-4 bg-white text-slate-900 ring-1 ring-slate-900/10"
-                (click)="handleBtn('vr')">
-                <span>VR
-                    Tour</span>
-            </button>
-    
-            <button
-                class="ml-4 rounded-lg text-sm font-semibold py-3 px-4 bg-white text-slate-900 ring-1 ring-slate-900/10 "
-                (click)="handleBtn('ai')">
-                <span>AI-Stage</span>
-            </button> -->
-
             <span class="text-lg sm:text-2xl font-semibold bg-white text-slate-900">{{t('tabbar_product')}}</span>
-
-
         </div>
 
-
-
-        <ng-container *ngIf="!showDetailPage">
+        <ng-container>
             <div class="mt-16 fixed w-full overflow-auto h-[calc(100%-120px)] sm:h-[calc(100%-128px)]">
-                <div class="w-full h-16 flex justify-start items-center z-20 text-2xl">
+                <div class="w-full h-16 flex justify-between items-center z-20 text-2xl">
                     <mat-form-field>
-                        <mat-select class="text-base font-semibold bg-white text-slate-900" [value]="'A'">
-                            <mat-option [value]="'A'">{{t('filter_client_all')}}</mat-option>
-                            <mat-option [value]="'B'">{{t('filter_client_has_clientId')}}</mat-option>
-                            <mat-option [value]="'C'">{{t('filter_client_no_clientId')}}</mat-option>
-                            <!-- <mat-option *ngFor="let item of interestList; let index = index" [value]="item.id"
-                                [disabled]="index === 1">{{ item.name }}</mat-option> -->
+                        <mat-select class="text-base font-semibold bg-white text-slate-900"
+                            formControlName="filterCheckBox">
+                            <mat-option [value]="'all'">{{t('filter_client_all')}}</mat-option>
+                            <mat-option [value]="'hasClient'">{{t('filter_client_has_clientId')}}</mat-option>
+                            <mat-option [value]="'noClient'">{{t('filter_client_no_clientId')}}</mat-option>
                         </mat-select>
                     </mat-form-field>
+
+                    <div class="mr-8 text-red-600 text-base font-bold cursor-pointer select-none" (click)="clickMultiSelect()">{{clientMultiSelectCheck?t('button_cancel'):t('button_select')}}</div>
                 </div>
 
-                <div class="m-8 mt-0 bg-white w-[calc(100%-64px)]">
+                <div class="m-8 mt-0 mb-12 bg-white w-[calc(100%-64px)]">
                     <div class="p-8">
-                        <ng-container *ngFor="let product of productArr;let i=index">
-                            <!-- ====test -->
+                        <ng-container *ngFor="let product of filterData;let i=index">
                             <div class="relative m-2 mb-7">
-                                <!-- <div class="bag">
-                                    <div>{{i+1}}</div>
-                                </div> -->
                                 <div class="flex flex-wrap justify-center sm:justify-between">
                                     <div class="flex flex-row flex-wrap justify-center sm:justify-start 
                                     items-start w-full sm:w-[calc(100%-176px)]">
-                                        <figure class="flex items-center min-w-36 w-36 h-36 mr-0 sm:mr-4 bg-slate-50">
+                                        <figure class="flex items-center min-w-36 w-36 h-36 mr-0 sm:mr-4 bg-slate-100">
                                             <img [src]="getImage(product.files[0])" alt="">
                                         </figure>
                                         <div class="flex flex-col justify-center w-full sm:w-[calc(100%-160px)]">
                                             <div class="font-bold text-2xl text-center sm:text-left">
                                                 {{(lang==='en')?product.name_en:product.name_zh}}
                                             </div>
-                                            <!-- <div class="text-slate-400">
-                                                {{product.spec_zh}}
-                                            </div> -->
                                         </div>
                                     </div>
-                                    <div
+                                    <div *ngIf="clientMultiSelectCheck">
+                                        <mat-checkbox color="primary" (change)="mutliSelect($event,product)"></mat-checkbox>
+                                    </div>
+                                    <div *ngIf="!clientMultiSelectCheck"
                                         class="min-w-44 flex flex-col justify-between content-center sm:content-end flex-wrap">
-                                        <!-- <div>2023-09-25 19:22:33</div> -->
                                         <div>{{product.updatedAt | date:'yyyy-MM-dd HH:mm:ss':'GMT+08:00'}}</div>
                                         <div class="flex flex-row justify-between">
                                             <mat-icon class="text-slate-400" svgIcon="feather:trash-2"
                                                 (click)="openDeleteModal(product)"></mat-icon>
-                                            <mat-icon class="text-slate-400"
-                                                svgIcon="heroicons_outline:user"></mat-icon>
+                                            <mat-icon class="text-slate-400" svgIcon="heroicons_outline:user"
+                                                (click)="openClientModal(product)"></mat-icon>
                                             <mat-icon class="text-slate-400" svgIcon="feather:edit"
                                                 (click)="openEditModal(product)"></mat-icon>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- ====test^ -->
                         </ng-container>
 
                     </div>
                 </div>
             </div>
         </ng-container>
-        <ng-container *ngIf="showDetailPage">
-            XXXXXXX
-
+        <ng-container *ngIf="clientMultiSelectCheck">
+            <div class="fixed top-[calc(100%-112px)] sm:top-[calc(100%-160px)] border-solid border-t-2 border-gray-200 bg-white w-full h-14 sm:h-20 flex justify-center items-center z-20">
+                <!-- Delete button -->
+                <button class="w-[44%] min-w-28 m-[2%] min-h-12 sm:min-h-14 bg-white border-solid border-2 border-red-600" (click)="openDeleteModal(clientMultiSelectData)">
+                    <span class="text-red-600 font-semibold text-lg break-word-legacy">
+                        {{t('button_delete')}}({{clientMultiSelectData.length}})
+                    </span>
+                </button>
+                <!-- Submit button -->
+                <button class="min-w-28 m-[2%] min-h-12 sm:min-h-14 bg-red-600" [ngClass]="{'w-[44%]':!confirmButtonOnly, 'w-[calc(96%-16px)]':confirmButtonOnly}" (click)="openClientModal(clientMultiSelectData)">
+                    <span class="text-white font-semibold text-lg break-word-legacy">
+                        {{t('demand_form_bind_customer')}}({{clientMultiSelectData.length}})
+                    </span>
+                </button>
+            </div>
         </ng-container>
-
-
     </div>
 
-    <!-- <ng-container *ngIf="vr">
-        <iframe class="fixed w-full z-20" style="height: calc(100% - 80px);" [src]="vrUrl" frameborder="0"
-            (load)="hideLoader()"></iframe>
-    </ng-container>
-    <ng-container *ngIf="ai">
-        <iframe class="fixed w-full z-20" style="height: calc(100% - 80px);" [src]="aiUrl" frameborder="0"
-            (load)="hideLoader()"></iframe>
-    </ng-container> -->
-
-
-    <app-shared-common-confirm-modal *ngIf="deleteCheck" [title]="'提醒'" [fullCustomContent]="true"
+    <!-- Delete Modal -->
+    <app-shared-common-confirm-modal *ngIf="deleteCheck" [title]="t('button_delete')" [fullCustomContent]="true"
         [submitText]="t('button_delete')" (cancelEvent)="closeDeleteModal()" (submitEvent)="confrimDelete()">
         <div customContent class="text-center h-full ">
             <span class="relative top-[40%] text-xl font-bold">
@@ -106,17 +87,85 @@
         </div>
     </app-shared-common-confirm-modal>
 
-
-    <app-shared-common-confirm-modal *ngIf="editCheck" #viewEditModal
-        [productImage]="editData.files[0]" [productName]="((lang==='en')?editData.name_en:editData.name_zh)"
-        [memo]="editData.note" (submitEvent)="confrimEdit(viewEditModal)"
-        (cancelEvent)="closeEditModal()">
+    <!-- Edit modal -->
+    <app-shared-common-confirm-modal *ngIf="editCheck" #viewEditModal [productImage]="editData.files[0]"
+        [productName]="((lang==='en')?editData.name_en:editData.name_zh)" [memo]="editData.note"
+        (submitEvent)="confrimEdit(viewEditModal)" (cancelEvent)="closeEditModal()">
     </app-shared-common-confirm-modal>
 
+    <!-- CLient modal -->
+    <div *ngIf="clientBindingCheck"
+        class="fixed inset-0 z-50 bg-black/40 flex flex-col items-center visible opacity-100">
+        <div class="relative top-[18%] z-50 bg-white h-1/2 w-[90%] max-w-3xl">
+            <!-- Title -->
+            <div #viewTitle
+                class="flex flex-row flex-nowrap justify-between items-end w-full h-[60px]">
+                <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer" (click)="closeClientModal()"></mat-icon>
+                <div class="w-full text-center text-black font-bold text-2xl mr-6">
+                    {{t('demand_form_bind_customer')}}
+                </div>
+                <!-- <mat-icon class="text-white" svgIcon="feather:chevron-left"></mat-icon> -->
+            </div>
 
+            <!-- Content -->
+            <div #viewContent class="w-full overflow-auto h-[calc(100%-65px)]">
+                <div class="m-4">
+                    <!-- Search filter -->
+                    <div class="bg-slate-100 w-full h-12 flex flex-row flex-nowrap items-center justify-start">
+                        <mat-icon class="mx-2 text-slate-300" svgIcon="mat_solid:search"></mat-icon>
+                        <input placeholder="{{t('search_hint')}}"
+                            class="w-full placeholder:text-slate-300 font-mono text-lg font-semibold"
+                            (input)="setSearchText($event)">
+                    </div>
 
-    <!-- <app-shared-common-confirm-modal [confirmButtonOnly]="true"></app-shared-common-confirm-modal> -->
+                    <mat-chip-list>
+                        <ng-container *ngFor="let product of getFilteredClient(searchText);let i=index">
+                            <div class="relative m-2">
+                                <mat-chip>
+                                    <!-- TODO: 再找找看有沒有適合的套件做點擊改背景 -->
+                                    <div class="flex flex-wrap justify-between leading-[50px] cursor-pointer">
+                                        <div class="flex flex-row flex-wrap justify-start 
+                                            items-center w-[calc(100%-176px)]">
+                                            <figure
+                                                class="flex items-center min-w-14 w-14 h-14 mx-4 bg-slate-100 rounded-[50%]">
+                                                <!-- TODO: 有效的照片網址 -->
+                                                <img class="rounded-[50%]" [src]="product.avatar" alt="">
+                                            </figure>
+                                            <div class="flex flex-col justify-center w-[calc(100%-160px)]">
+                                                <div class="font-semibold text-xl text-left h-7">
+                                                    {{product.name??''}}
+                                                </div>
+                                                <div class="text-slate-400">
+                                                    {{(lang==='en')?(product.company_name_en??''):(product.company_name_zh??'')}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-chip>
+                            </div>
+                        </ng-container>
+                    </mat-chip-list>
+                </div>
+            </div>
 
+            <!-- End -->
+            <div #viewButton class="w-full bg-white flex flex-row flex-wrap justify-center py-2">
+                <!-- Cancel button -->
+                <button class="w-48 min-w-48 m-[2%] min-h-16 bg-white border-solid border-2 border-red-600"
+                    (click)="closeClientModal()">
+                    <span class="text-red-600 font-semibold text-lg break-word-legacy">
+                        {{t('button_cancel')}}
+                    </span>
+                </button>
+                <!-- Submit button -->
+                <button class="w-48 min-w-48 m-[2%] min-h-16 bg-red-600" (click)="confrimClientModal()">
+                    <span class="text-white font-semibold text-lg break-word-legacy">
+                        {{t('demand_form_bind_customer')}}
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
 
 
 </ng-container>
