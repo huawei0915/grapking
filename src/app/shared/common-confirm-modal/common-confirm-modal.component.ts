@@ -27,7 +27,7 @@ export class CommonConfirmModalComponent implements OnInit {
 
     // Confirm button only or two button instead?
     @Input() confirmButtonOnly = false;     //true:只有確認按鈕  false:保留取消跟確認按鈕
-    
+
     // Button event
     @Output() cancelEvent = new EventEmitter();  //取消事件
     @Output() submitEvent = new EventEmitter();  //加入草稿事件

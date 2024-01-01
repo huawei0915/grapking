@@ -180,42 +180,42 @@ export class FolderComponent implements OnInit {
     }
 
     // 刪除客戶配方
-    async delClientProduct(product: any) {
+    async delClientProduct(product: any): Promise<void> {
         await this._apiService.delClientProduct(product);
     }
 
     // 編輯客戶配方
-    async editClientProduct(product: any) {
+    async editClientProduct(product: any): Promise<void> {
         await this._apiService.updateClientProduct(product);
     }
 
     // 觸發刪除視窗
-    openDeleteModal(product: any) {
+    openDeleteModal(product: any): void {
         this.deleteData = product;
         this.deleteCheck = true;
     }
 
     // 確認刪除
-    async confrimDelete() {
+    async confrimDelete(): Promise<void> {
         await this.delClientProduct(this.deleteData);
         await this.getClientProduct();
         this.closeDeleteModal();
     }
 
     // 關閉刪除視窗
-    closeDeleteModal() {
+    closeDeleteModal(): void {
         this.deleteCheck = false;
     }
 
 
     // 觸發編輯視窗
-    openEditModal(product: any) {
+    openEditModal(product: any): void {
         this.editData = product;
         this.editCheck = true;
     }
 
     // 確認編輯
-    async confrimEdit(viewEditData: any) {
+    async confrimEdit(viewEditData: any): Promise<void> {
         this.editData.note = viewEditData.memo;
         await this.editClientProduct(this.editData);
         await this.getClientProduct();
@@ -223,7 +223,7 @@ export class FolderComponent implements OnInit {
     }
 
     // 關閉編輯視窗
-    closeEditModal() {
+    closeEditModal(): void {
         this.editCheck = false;
     }
 }
