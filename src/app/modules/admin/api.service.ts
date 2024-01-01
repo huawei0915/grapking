@@ -74,9 +74,11 @@ export class ApiService {
      * @returns 配方商品
      * @description 取得配方商品
      */
-    getProduct(): Promise<any> {
+    getProduct(keyword?: string, isRecommand?: any, func?: string, category?: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(`${env.apiServer}/api/v1/product`).subscribe({
+            const prams = `?keyword=${keyword}&category=${category}&is_recommand=${isRecommand}&function=${func}`;
+
+            this._httpClient.get(`${env.apiServer}/api/v1/product${prams}`).subscribe({
                 next: (result: any) => {
                     resolve(result.result.data);
                 },
@@ -141,6 +143,24 @@ export class ApiService {
             });
         });
     }
+    
+    // E1-1 客戶配方清單
+    /**
+     * @returns 客戶配方清單
+     * @description 取得E1-1 客戶配方清單
+     */
+    getClientProduct(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.get(`${env.apiServer}/api/v1/client_product`).subscribe({
+                next: (result: any) => {
+                    resolve(result.result.data);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
 
     // E1-2 新增客戶配方
     /**
@@ -161,7 +181,7 @@ export class ApiService {
         });
     }
 
-    //E1-3 修改客戶配方
+    // E1-3 修改客戶配方
     /**
      * @param rawValue 客戶配方資料
      * @returns 修改客戶配方
@@ -180,16 +200,40 @@ export class ApiService {
         });
     }
 
-    del(id): Promise<any> {
+    // E1-4 刪除客戶配方
+    /**
+     * @param rawValue 客戶配方資料
+     * @returns 刪除客戶配方
+     * @description 刪除客戶配方
+     */
+    delClientProduct(rawValue: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            // this._httpClient.delete(`${env.apiServer}/dispatch/${id}`).subscribe({
-            //     next: (result: any) => {
-            //         resolve(true);
-            //     },
-            //     error: (err: any) => {
-            //         reject(err.error);
-            //     }
-            // });
+            this._httpClient.delete(`${env.apiServer}/api/v1/client_product/${rawValue.id}`, rawValue).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
+    // F1-3 新增需求單
+    /**
+     * @param rawValue 需求單資料
+     * @returns 新增需求單
+     */
+    addDemand(rawValue: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.post(`${env.apiServer}/api/v1/demand`, rawValue).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
         });
     }
 }

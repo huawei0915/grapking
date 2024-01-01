@@ -27,10 +27,11 @@ export class CommonConfirmModalComponent implements OnInit {
 
     // Confirm button only or two button instead?
     @Input() confirmButtonOnly = false;     //true:只有確認按鈕  false:保留取消跟確認按鈕
-
+    
     // Button event
     @Output() cancelEvent = new EventEmitter();  //取消事件
     @Output() submitEvent = new EventEmitter();  //加入草稿事件
+    @Output() memoText = new EventEmitter<string>(); //回傳備註文字
 
     i18nText: any;
 
@@ -49,14 +50,14 @@ export class CommonConfirmModalComponent implements OnInit {
         });
 
     }
-
     // 取得圖片
     getImage(img: string): string {
         return `${env.apiServer}/api/files/${img}`;
     }
 
-    //寫入備忘錄
-    setMemo(input: string) {
+    // 寫入備忘錄
+    setMemo(input: string): void {
         this.memo = input;
+        this.memoText.emit(this.memo);
     }
 }

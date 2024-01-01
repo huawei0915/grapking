@@ -9,7 +9,7 @@
     [confirmButtonOnly]="whetherOnlyNeedConfirmButton"
     (submitEvent)="confrimMethod(viewShareConfirmModal)" 
     (cancelEvent)="cancelMethod()">
-</app-shared-common-confirm-modal>    
+</app-shared-common-confirm-modal>
 -->
 
 <!-- ////Full custom example for other component.html to embed:
@@ -20,7 +20,7 @@
     <ng-container customContent>anotherContentIfNeeded</ng-container>
     <div customEnd>mainEnd</div>
     <ng-container customEnd>anotherEndIfNeeded</ng-container>
-</app-shared-common-confirm-modal> 
+</app-shared-common-confirm-modal>
 -->
 
 <!-- !!!Attention please: This component is integrate in shared.module.ts, please imports into your own module. -->
@@ -48,12 +48,11 @@
                     <div class="m-2.5">
                         <div class="pl-2.5 flex items-start flex-wrap">
                             <!-- Product image -->
-                            <div class="min-w-28 w-2/6 mr-8">
-                                <figure>
-                                    <img [src]="getImage(productImage)"
-                                        alt="Error">
-                                </figure>
-                            </div>
+                            <!-- <div class="min-w-28 w-2/6 mr-8"> -->
+                            <figure class="w-20 mr-4">
+                                <img [src]="getImage(productImage)" alt="">
+                            </figure>
+                            <!-- </div> -->
                             <!-- Product name -->
                             <div>
                                 <span class="font-bold break-word-legacy">{{productName}}</span>
@@ -62,11 +61,13 @@
                         <!-- Memo input field -->
                         <div class="flex items-center">
                             <div class="w-full">
-                                <div #viewMemo class="w-full leading-6 text-base text-black p-2 pt-6 min-h-[13vh] empty:before:content-[attr(placeholder)] before:text-base before:opacity-40"
+                                <div #viewMemo
+                                    class="w-full leading-6 text-base text-black p-2 pt-6 min-h-[13vh] empty:before:content-[attr(placeholder)] before:text-base before:opacity-40"
                                     spellcheck="false" autocorrect="off" autocapitalize="off" translate="no"
                                     contenteditable="true" role="textbox" aria-multiline="true"
                                     aria-labelledby="codemirror-label focus-trap-help-panel" data-language="yaml"
-                                    [attr.placeholder]="[t('product_dialog_memo_hint')]" (input)="setMemo(viewMemo.innerText)"></div>
+                                    [attr.placeholder]="[t('product_dialog_memo_hint')]"
+                                    (input)="setMemo(viewMemo.innerText)"></div>
                             </div>
                         </div>
                     </div>

@@ -1,14 +1,16 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from '../../api.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'question',
     templateUrl: './question.component.html',
+    styleUrls: ['./question.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent implements OnInit, OnDestroy {
 
-    rightList = ['功效', '器官', '年齡', '族群', '國家', '劑型', '包裝', '認證', '葷素'];
+    rightList = Array.from({ length: 9 }, (_, i) => `questionnaire_question_${i + 1}_keyword`);
 
     level1 = [];
     level2 = [];
@@ -19,6 +21,7 @@ export class QuestionComponent implements OnInit {
     level7 = [];
     level8 = [];
     level9 = [];
+
     currentLevel = 1; // 初始化當前等級為1
 
     puoductArr1 = [];
@@ -31,6 +34,7 @@ export class QuestionComponent implements OnInit {
     puoductArr8 = [];
     puoductArr9 = [];
 
+    closeTag = true;
     nowLevel = this.level1;
 
     /**
@@ -38,6 +42,7 @@ export class QuestionComponent implements OnInit {
      */
     constructor(
         private _apiService: ApiService,
+        private _router: Router,
     ) {
 
     }
@@ -72,6 +77,19 @@ export class QuestionComponent implements OnInit {
         });
     }
 
+    ngOnDestroy(): void {
+        this.puoductArr1 = [];
+        this.puoductArr2 = [];
+        this.puoductArr3 = [];
+        this.puoductArr4 = [];
+        this.puoductArr5 = [];
+        this.puoductArr6 = [];
+        this.puoductArr7 = [];
+        this.puoductArr8 = [];
+        this.puoductArr9 = [];
+    }
+
+
     selectProduct(item, idx: number): void {
         item.active = !item.active;
         if (item.active) {
@@ -96,4 +114,30 @@ export class QuestionComponent implements OnInit {
             this.nowLevel = this['level' + this.currentLevel];
         }
     }
+
+    handleRightPanel(idx: number): void {
+        this.currentLevel = idx + 1;
+        this.nowLevel = this['level' + this.currentLevel];
+    }
+
+    // 取得問題文字
+    getQuestionText(): string {
+        return 'questionnaire_question_' + this.currentLevel;
+    }
+
+    // 尋找產品
+    handleFinish(): void {
+        let categoryArr = [];
+
+        for (let i = 1; i <= 9; i++) {
+            categoryArr = categoryArr.concat(this['puoductArr' + i].map((product: any) => product.id));
+        }
+
+        this._router.navigate(['/home/recommend'], {
+            queryParams: {
+                category: categoryArr.toString()
+            }
+        });
+    }
+
 }

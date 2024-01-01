@@ -26,6 +26,22 @@
     }
 }
 
+.noSwipe {
+    transform: translateX(196px);
+    transition: 0.5s;
+}
+
+.swipeLeft {
+    transform: translateX(-196px);
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.dilute {
+    opacity: 0;
+    transition: .5s;
+}
+
 .main_information {
     position: relative;
 
