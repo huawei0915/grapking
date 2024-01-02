@@ -31,8 +31,6 @@ export class CommonConfirmModalComponent implements OnInit {
     // Button event
     @Output() cancelEvent = new EventEmitter();  //取消事件
     @Output() submitEvent = new EventEmitter();  //加入草稿事件
-    // TODO: 詢問wii必要性
-    @Output() memoText = new EventEmitter<string>(); //回傳備註文字
 
     i18nText: any;
 
@@ -59,7 +57,5 @@ export class CommonConfirmModalComponent implements OnInit {
     // 寫入備忘錄
     setMemo(input: string): void {
         this.memo = input;
-        // TODO: 詢問wii必要性
-        this.memoText.emit(this.memo);
     }
 }
