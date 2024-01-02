@@ -218,6 +218,30 @@ export class ApiService {
         });
     }
 
+    // E1-3ver2 綁定客戶
+    /**
+     * @param rawValue 客戶配方資料
+     * @returns 綁定狀況
+     * @description 綁定客戶
+     */
+    updateBindingClientProduct(rawValue: any, clientId: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.put(`${env.apiServer}/api/v1/client_product/${rawValue.id}`,
+                {
+                    // eslint-disable-next-line @typescript-eslint/naming-convention, quotes, @typescript-eslint/quotes
+                    client_id: clientId
+                }
+            ).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
     // E1-4 刪除客戶配方
     /**
      * @param rawValue 客戶配方資料

@@ -1,5 +1,5 @@
 import { filter } from 'rxjs';
-import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef, ChangeDetectorRef, Renderer2, ViewChildren, QueryList } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen';
 import { environment as env } from 'environments/environment';
@@ -15,6 +15,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     encapsulation: ViewEncapsulation.None
 })
 export class FolderComponent implements OnInit {
+    @ViewChildren('clientDetailView') clientDetailView: QueryList<ElementRef>;
     folderForm: FormGroup;
 
     productArr = [];
@@ -28,6 +29,8 @@ export class FolderComponent implements OnInit {
     deleteData: any;
 
     clientBindingCheck = false;
+    bindingData: any;
+    clientBindingId = '';
 
     editCheck = false;
     editData: any;
@@ -42,12 +45,12 @@ export class FolderComponent implements OnInit {
         public _domSanitizer: DomSanitizer,
         private _apiService: ApiService,
         private _translocoService: TranslocoService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private _renderer: Renderer2
     ) {
     }
 
     ngOnInit(): void {
-        //!!my own workflow
         this.getClientProduct();
         this.getClient();
         this._translocoService.langChanges$.subscribe((activeLang) => {
@@ -71,17 +74,9 @@ export class FolderComponent implements OnInit {
             });
     }
 
-    // 取得圖片
-    getImage(img: string): string {
-        if(img === null){
-            return '';
-        }else if((img.indexOf('http://') !== -1) || (img.indexOf('https://') !== -1)){
-            return img;
-        }else{
-            return `${env.apiServer}/api/files/${img}`;
-        }
-    }
-
+    //==============================================================
+    //api callback
+    //==============================================================
 
     // 取得客戶配方清單
     async getClientProduct(): Promise<void> {
@@ -98,6 +93,11 @@ export class FolderComponent implements OnInit {
         await this._apiService.delClientProduct(product);
     }
 
+    // 綁定客戶
+    async bindingClient(product: any, clientId: string): Promise<void> {
+        await this._apiService.updateBindingClientProduct(product, clientId);
+    }
+
     // 編輯客戶配方
     async editClientProduct(product: any): Promise<void> {
         await this._apiService.updateClientProduct(product);
@@ -110,6 +110,10 @@ export class FolderComponent implements OnInit {
             this.clientData = [...result];
         });
     }
+
+    //==============================================================
+    //Modal Behavior
+    //==============================================================
 
     // 觸發刪除視窗
     openDeleteModal(product: any): void {
@@ -128,7 +132,6 @@ export class FolderComponent implements OnInit {
         }
         await this.getClientProduct();
         this.closeDeleteModal();
-
     }
 
     // 關閉刪除視窗
@@ -137,14 +140,24 @@ export class FolderComponent implements OnInit {
     }
 
     // 觸發綁定帳戶視窗
-    openClientModal(): void {
+    openClientModal(product: any): void {
+        this.bindingData = product;
         this.searchText = '';
         this.clientBindingCheck = true;
+        this.clientBindingId = '';
     }
 
     // 確認綁定帳戶
-    confrimClientModal(): void {
-        // TODO:  綁定客戶API
+    async confrimClientModal(): Promise<void> {
+        if (this.bindingData.length) {
+            await this.bindingData.forEach(async (dataRaw) => {
+                await this.bindingClient(dataRaw, this.clientBindingId);
+            });
+        } else {
+            await this.bindingClient(this.bindingData, this.clientBindingId);
+        }
+        await this.getClientProduct();
+        this.closeClientModal();
     }
 
     // 關閉綁定帳戶視窗
@@ -169,6 +182,21 @@ export class FolderComponent implements OnInit {
     // 關閉編輯視窗
     closeEditModal(): void {
         this.editCheck = false;
+    }
+
+    //==============================================================
+    //Function method
+    //==============================================================
+
+    // 取得圖片
+    getImage(img: string): string {
+        if (img === null) {
+            return '';
+        } else if ((img.indexOf('http://') !== -1) || (img.indexOf('https://') !== -1)) {
+            return img;
+        } else {
+            return `${env.apiServer}/api/files/${img}`;
+        }
     }
 
     // 過濾客戶清單
@@ -210,4 +238,13 @@ export class FolderComponent implements OnInit {
         }
     }
 
+    // 綁定客戶，假設只能綁一個
+    chooseClient(inputElement: any, dataInject: any): void {
+        // inputElement.hasAttribute('isChosen')
+        this.clientDetailView.forEach((elementRef: ElementRef) => {
+            this._renderer.removeAttribute(elementRef.nativeElement, 'isChosen');
+        });
+        this._renderer.setAttribute(inputElement, 'isChosen', '');
+        this.clientBindingId = dataInject.id;
+    }
 }
