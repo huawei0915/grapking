@@ -264,6 +264,6 @@
     </div>
 </ng-container>
 
-<app-shared-common-confirm-modal *ngIf="popView" [productImage]="productDetail.files[0]"
-    [productName]="lang==='zh'?productDetail.name_zh:productDetail.name_en" [title]="'備註'" (cancelEvent)="popView=false"
-    (submitEvent)="handleOK($event)"></app-shared-common-confirm-modal>
+<app-shared-common-confirm-modal *ngIf="popView" [productImage]="productDetail.files[0]" #popViewDialog
+    [productName]="lang==='zh'?productDetail.name_zh:productDetail.name_en" [title]="['product_dialog_title'|transloco]"
+    (cancelEvent)="popView=false" (submitEvent)="handleOK(popViewDialog)"></app-shared-common-confirm-modal>
