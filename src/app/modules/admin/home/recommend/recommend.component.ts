@@ -13,7 +13,6 @@ import { ActivatedRoute } from '@angular/router';
     encapsulation: ViewEncapsulation.None
 })
 export class RecommendComponent implements OnInit {
-
     productArr = [];
     showDetailPage = false;
     showDetailTable = false;
@@ -118,13 +117,9 @@ export class RecommendComponent implements OnInit {
         this.popView = true;
     }
 
-    getNoteText(event: string): void {
-        this.productDetail.note = event;
-    }
-
-    handleOK(event: string): void {
+    handleOK(event: any): void {
         this.popView = false;
-
+        this.productDetail.note = event.memo;
         const data = {
             // eslint-disable-next-line quotes
             "product_id": this.productDetail.id,
