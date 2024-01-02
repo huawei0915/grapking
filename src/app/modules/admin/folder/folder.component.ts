@@ -1,12 +1,10 @@
-import { filter } from 'rxjs';
-import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef, ChangeDetectorRef, Renderer2, ViewChildren, QueryList } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { FuseSplashScreenService } from '@fuse/services/splash-screen';
+import { Component, ElementRef, OnInit, QueryList, Renderer2, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { TranslocoService } from '@ngneat/transloco';
 import { environment as env } from 'environments/environment';
 import 'hammerjs';
-import { TranslocoService } from '@ngneat/transloco';
 import { ApiService } from '../api.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'folder',
