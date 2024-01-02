@@ -73,7 +73,13 @@ export class FolderComponent implements OnInit {
 
     // 取得圖片
     getImage(img: string): string {
-        return `${env.apiServer}/api/files/${img}`;
+        if(img === null){
+            return '';
+        }else if((img.indexOf('http://') !== -1) || (img.indexOf('https://') !== -1)){
+            return img;
+        }else{
+            return `${env.apiServer}/api/files/${img}`;
+        }
     }
 
 
@@ -100,7 +106,7 @@ export class FolderComponent implements OnInit {
     // 取得客戶清單
     async getClient(): Promise<void> {
         await this._apiService.getClient().then((result) => {
-            console.log('result:::', [...result]);
+            // console.log('result:::', [...result]);
             this.clientData = [...result];
         });
     }
