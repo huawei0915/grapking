@@ -166,12 +166,14 @@ export class FolderComponent implements OnInit {
     }
 
     // 觸發編輯視窗
+    // TODO:獨立需求單詳細資料
     openEditModal(product: any): void {
         this.editData = product;
         this.editCheck = true;
     }
 
     // 確認編輯
+    // TODO:獨立需求單詳細資料
     async confrimEdit(viewEditData: any): Promise<void> {
         this.editData.note = viewEditData.memo;
         await this.editClientProduct(this.editData);

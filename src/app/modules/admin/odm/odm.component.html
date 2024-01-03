@@ -106,10 +106,10 @@
     </app-shared-common-confirm-modal>
 
     <!-- Edit modal -->
-    <app-shared-common-confirm-modal *ngIf="editCheck" #viewEditModal [productImage]="editData.files[0]"
+    <!-- <app-shared-common-confirm-modal *ngIf="editCheck" #viewEditModal [productImage]="editData.files[0]"
         [productName]="((lang==='en')?editData.name_en:editData.name_zh)" [memo]="editData.note"
         (submitEvent)="confrimEdit(viewEditModal)" (cancelEvent)="closeEditModal()">
-    </app-shared-common-confirm-modal>
+    </app-shared-common-confirm-modal> -->
 
     <!-- CLient modal -->
     <div *ngIf="clientBindingCheck"
