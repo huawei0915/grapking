@@ -36,7 +36,7 @@
                                         <div class="flex flex-col justify-center w-full sm:w-[calc(100%-160px)]">
                                             <div
                                                 class="flex flex-row flex-wrap justify-center sm:justify-start font-bold text-2xl text-center sm:text-left">
-                                                <div class="mr-4 w-full sm:w-fit">
+                                                <div class="mr-0 sm:mr-4 w-full sm:w-fit">
                                                     {{(lang==='en')?product.name_en:product.name_zh}}
                                                 </div>
                                                 <div class="bg-sky-500 text-white rounded-3xl px-5"
@@ -56,11 +56,11 @@
                                         <div>{{product.updatedAt | date:'yyyy-MM-dd HH:mm:ss':'GMT+08:00'}}</div>
                                         <div class="flex flex-row justify-between">
                                             <mat-icon class="text-slate-400" svgIcon="feather:trash-2"
-                                                (click)="openDeleteModal(product,$event)"></mat-icon>
+                                                (click)="openDeleteModal(product)"></mat-icon>
                                             <mat-icon class="text-slate-400" svgIcon="heroicons_outline:user"
-                                                (click)="openClientModal(product,$event)"></mat-icon>
+                                                (click)="openClientModal(product)"></mat-icon>
                                             <mat-icon class="text-slate-400" svgIcon="feather:edit"
-                                                (click)="openEditModal(product,$event)"></mat-icon>
+                                                (click)="openEditModal(product)"></mat-icon>
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@
         <div customContent class="text-center h-full ">
             <span class="relative top-[40%] text-xl font-bold">
                 {{t('dialog_confirm_delete_message')}}
-                <p>【{{(lang==='en')?deleteData.name_en:deleteData.name_zh}}】</p>
+                <p *ngIf="!deleteData.length">【{{(lang==='en')?deleteData.name_en:deleteData.name_zh}}】</p>
             </span>
         </div>
     </app-shared-common-confirm-modal>

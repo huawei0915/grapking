@@ -65,9 +65,9 @@ export class FolderComponent implements OnInit {
         this.folderForm.get('filterCheckBox')?.valueChanges.subscribe(
             (value) => {
                 if (value === 'hasClient') {
-                    this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] !== null));
+                    this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] !== null) && (person?.client));
                 } else if (value === 'noClient') {
-                    this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] === null));
+                    this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] === null) || (!person?.client));
                 } else {
                     this.filterData = this.productArr;
                 }
@@ -116,8 +116,7 @@ export class FolderComponent implements OnInit {
     //==============================================================
 
     // 觸發刪除視窗
-    openDeleteModal(product: any, event: any): void {
-        event.stopPropagation();
+    openDeleteModal(product: any): void {
         this.deleteData = product;
         this.deleteCheck = true;
     }
@@ -141,8 +140,7 @@ export class FolderComponent implements OnInit {
     }
 
     // 觸發綁定帳戶視窗
-    openClientModal(product: any, event: any): void {
-        event.stopPropagation();
+    openClientModal(product: any): void {
         this.bindingData = product;
         this.searchText = '';
         this.clientBindingCheck = true;
@@ -168,8 +166,7 @@ export class FolderComponent implements OnInit {
     }
 
     // 觸發編輯視窗
-    openEditModal(product: any, event: any): void {
-        event.stopPropagation();
+    openEditModal(product: any): void {
         this.editData = product;
         this.editCheck = true;
     }
@@ -254,10 +251,12 @@ export class FolderComponent implements OnInit {
     // 前往商品詳細介紹頁面
     goToProductDetail(data: any): void {
         // TODO:詳細邏輯待修正
-        this._router.navigate(['/home/recommend'], {
-            queryParams: {
-                function: data.product_id
-            }
-        });
+        if(!(this.clientMultiSelectCheck || this.clientBindingCheck || this.deleteCheck || this.editCheck)){
+            this._router.navigate(['/home/recommend'], {
+                queryParams: {
+                    function: data.product_id
+                }
+            });
+        }
     }
 }

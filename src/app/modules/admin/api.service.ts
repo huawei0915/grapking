@@ -218,7 +218,7 @@ export class ApiService {
         });
     }
 
-    // E1-3ver2 綁定客戶
+    // E1-3ver2 配方綁定客戶
     /**
      * @param rawValue 客戶配方資料
      * @returns 綁定狀況
@@ -261,6 +261,24 @@ export class ApiService {
         });
     }
 
+    // F1-1 需求單清單
+    /**
+     * @returns 需求單清單
+     * @description 取得需求單清單
+     */
+    getDemand(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.get(`${env.apiServer}/api/v1/demand`).subscribe({
+                next: (result: any) => {
+                    resolve(result.result.data);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
     // F1-3 新增需求單
     /**
      * @param rawValue 需求單資料
@@ -269,6 +287,49 @@ export class ApiService {
     addDemand(rawValue: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.post(`${env.apiServer}/api/v1/demand`, rawValue).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
+    // F1-4ver2 需求單綁定客戶
+    /**
+     * @param rawValue 需求單資料
+     * @returns 綁定狀況
+     * @description 綁定客戶
+     */
+    updateBindingDemand(rawValue: any, clientId: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.put(`${env.apiServer}/api/v1/demand/${rawValue.id}`,
+                {
+                    // eslint-disable-next-line @typescript-eslint/naming-convention, quotes, @typescript-eslint/quotes
+                    client_id: clientId
+                }
+            ).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
+    // F1-5 刪除需求單
+    /**
+     * @param rawValue 需求單資料
+     * @returns 刪除需求單
+     * @description 刪除需求單
+     */
+    delDemand(rawValue: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.delete(`${env.apiServer}/api/v1/demand/${rawValue.id}`, rawValue).subscribe({
                 next: (result: any) => {
                     resolve(result.result);
                 },
