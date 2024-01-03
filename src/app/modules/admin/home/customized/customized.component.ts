@@ -7,12 +7,15 @@ import { ApiService } from '../../api.service';
 @Component({
     selector: 'customized',
     templateUrl: './customized.component.html',
+    styleUrls: ['./customized.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class CustomizedComponent implements OnInit {
 
     form: FormGroup;
-
+    alertPOPUP = false;
+    showToast = false;
+    message = 'dialog_confirm_exit_message';
     /**
      * Constructor
      */
@@ -45,7 +48,16 @@ export class CustomizedComponent implements OnInit {
     }
 
     handleCancel(): void {
-        // TODO: alert reset form
+        this.alertPOPUP = true;
+        this.message = 'dialog_confirm_exit_message';
+    }
+
+    confrimCancel(): void {
+        this.alertPOPUP = false;
+    }
+
+    confrimOK(): void {
+        this.alertPOPUP = false;
         this.form.reset();
     }
 
@@ -53,9 +65,14 @@ export class CustomizedComponent implements OnInit {
         const data = this.form.getRawValue();
         this._apiService.addDemand(data).then((result) => {
             console.log(result);
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 1500);
         }).catch((err) => {
-            console.log(err);
+            console.log('fail', err);
+            this.alertPOPUP = true;
+            this.message = 'an_error_occurred';
         }).finally(() => {
+
         });
     }
 }

@@ -137,5 +137,17 @@
             (click)="handleCancel()">{{t('button_cancel')}}</button>
         <button class="bg-rose-600  text-white w-36 px-8 py-3 ml-4" (click)="handleSave()">{{t('button_save')}}</button>
     </div>
+</div>
 
+<app-shared-common-confirm-modal *ngIf="alertPOPUP" [title]="['product_notice'|transloco]" [fullCustomContent]="true"
+    [submitText]="['button_confirm'|transloco]" (cancelEvent)="confrimCancel()" (submitEvent)="confrimOK()">
+    <div customContent class="text-center h-full ">
+        <span class="relative top-[40%] text-xl font-bold">
+            {{message|transloco}}
+        </span>
+    </div>
+</app-shared-common-confirm-modal>
+
+<div class="toast" *ngIf="showToast">
+    {{'add_success'|transloco}}
 </div>

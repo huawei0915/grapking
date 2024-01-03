@@ -4,7 +4,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { environment as env } from 'environments/environment';
 import { TranslocoService } from '@ngneat/transloco';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'recommend',
@@ -29,12 +29,16 @@ export class RecommendComponent implements OnInit {
     selectIdx = 0;
 
     popView = false;
+    alertPOPUP = false;
+    message = '';
+    showToast = false;
     /**
      * Constructor
      */
     constructor(
         private _apiService: ApiService,
         private _route: ActivatedRoute,
+        private _router: Router,
         private _translocoService: TranslocoService,
     ) {
     }
@@ -52,22 +56,22 @@ export class RecommendComponent implements OnInit {
 
     // 取得產品
     getProduct(keyword?: string, func?: string, category?: string): void {
-        console.log(keyword, func, category);
         let isRecommand = '';
         isRecommand = keyword || func || category ? '' : '1';
         keyword = keyword || '';
         func = func || '';
         category = category || '';
 
-        console.log(keyword, func, category);
         this._apiService.getProduct(keyword, isRecommand, func, category).then((result) => {
             this.productArr = [...result];
             if ((keyword || func || category) && this.productArr.length > 0) {
                 this.showDetailPage = true;
                 this.getProductDetail(this.productArr[0].id, 0);
-            } else {
-                // TODO: 顯示無產品alert
+            } else if (this.productArr.length > 0) {
                 this.showDetailPage = false;
+            } else {
+                this.alertPOPUP = true;
+                this.message = 'product_not_found_message';
             }
         });
     }
@@ -91,9 +95,9 @@ export class RecommendComponent implements OnInit {
                 this.formArr = [...result];
                 this.formArr.sort((a, b) => {
                     if ((this.lang === 'zh' ? a.name_zh : a.name_en) === this.getFilteredCategories('FM000')[0]) {
-                        return -1; // 将满足条件的元素排在前面
+                        return -1; // 將滿足條件的元素排在前面
                     } else if ((this.lang === 'zh' ? b.name_zh : b.name_en) === this.getFilteredCategories('FM000')[0]) {
-                        return 1; // 将满足条件的元素排在后面
+                        return 1; // 將滿足條件的元素排在后面
                     } else {
                         return 0; // 保持原有顺序
                     }
@@ -105,9 +109,9 @@ export class RecommendComponent implements OnInit {
                 this.packageArr = [...result];
                 this.packageArr.sort((a, b) => {
                     if ((this.lang === 'zh' ? a.name_zh : a.name_en) === this.getFilteredCategories('PK000')[0]) {
-                        return -1; // 将满足条件的元素排在前面
+                        return -1; // 將滿足條件的元素排在前面
                     } else if ((this.lang === 'zh' ? b.name_zh : b.name_en) === this.getFilteredCategories('PK000')[0]) {
-                        return 1; // 将满足条件的元素排在后面
+                        return 1; // 將滿足條件的元素排在后面
                     } else {
                         return 0; // 保持原有顺序
                     }
@@ -132,14 +136,26 @@ export class RecommendComponent implements OnInit {
             "note": this.productDetail.note
         };
         this._apiService.addClientProduct(data).then((result) => {
-            console.log(result);
-            console.log('success');
+            console.log('success', result);
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 1500);
         }).catch((err) => {
-            console.log(err);
-            console.log('fail');
+            console.log('fail', err);
+            this.alertPOPUP = true;
+            this.message = 'an_error_occurred';
         }).finally(() => {
 
         });
+    }
+
+    confrimCancel(): void {
+        this.alertPOPUP = false;
+        this._router.navigate(['/home/question']);
+    }
+
+    confrimOK(): void {
+        this.alertPOPUP = false;
+        this.getProduct();
     }
 
     // 取得商品詳細
@@ -148,6 +164,10 @@ export class RecommendComponent implements OnInit {
         this._apiService.getProductDetail(id).then((result) => {
             this.productDetail = result;
             this.showDetailPage = true;
+        }).catch((err) => {
+            this.alertPOPUP = true;
+            this.showDetailPage = false;
+            this.message = 'an_error_occurred';
         });
     }
 }
