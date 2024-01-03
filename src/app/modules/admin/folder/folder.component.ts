@@ -124,8 +124,12 @@ export class FolderComponent implements OnInit {
     // 確認刪除
     async confrimDelete(): Promise<void> {
         if (this.deleteData.length) {
+            let localCount = 0;
             await this.deleteData.forEach(async (dataRaw) => {
-                await this.delClientProduct(dataRaw);
+                await this.delClientProduct(dataRaw).then(() => {
+                    localCount++;
+                    if(this.deleteData.length === localCount){this.getClientProduct();}
+                });
             });
         } else {
             await this.delClientProduct(this.deleteData);
@@ -150,8 +154,12 @@ export class FolderComponent implements OnInit {
     // 確認綁定帳戶
     async confrimClientModal(): Promise<void> {
         if (this.bindingData.length) {
+            let localCount = 0;
             await this.bindingData.forEach(async (dataRaw) => {
-                await this.bindingClient(dataRaw, this.clientBindingId);
+                await this.bindingClient(dataRaw, this.clientBindingId).then(() => {
+                    localCount++;
+                    if(this.bindingData.length === localCount){this.getClientProduct();}
+                });
             });
         } else {
             await this.bindingClient(this.bindingData, this.clientBindingId);

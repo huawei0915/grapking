@@ -133,8 +133,12 @@ export class OdmComponent implements OnInit {
     // 確認刪除
     async confrimDelete(): Promise<void> {
         if (this.deleteData.length) {
+            let localCount = 0;
             await this.deleteData.forEach(async (dataRaw) => {
-                await this.delDemand(dataRaw);
+                await this.delDemand(dataRaw).then(() => {
+                    localCount++;
+                    if(this.deleteData.length === localCount){this.getDemand();}
+                });
             });
         } else {
             await this.delDemand(this.deleteData);
@@ -159,8 +163,12 @@ export class OdmComponent implements OnInit {
     // 確認綁定帳戶
     async confrimClientModal(): Promise<void> {
         if (this.bindingData.length) {
+            let localCount = 0;
             await this.bindingData.forEach(async (dataRaw) => {
-                await this.bindingClient(dataRaw, this.clientBindingId);
+                await this.bindingClient(dataRaw, this.clientBindingId).then(() => {
+                    localCount++;
+                    if(this.bindingData.length === localCount){this.getDemand();}
+                });
             });
         } else {
             await this.bindingClient(this.bindingData, this.clientBindingId);
