@@ -40,8 +40,10 @@ export class RecommendComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        const keyword = this._route.snapshot.queryParams['keyword'];
         const category = this._route.snapshot.queryParams['category'];
-        this.getProduct(category);
+        const func = this._route.snapshot.queryParams['function'];
+        this.getProduct(keyword, func, category);
         this._translocoService.langChanges$.subscribe((activeLang) => {
             // Get the active lang
             this.lang = activeLang;
@@ -49,15 +51,18 @@ export class RecommendComponent implements OnInit {
     }
 
     // 取得產品
-    getProduct(category: string): void {
+    getProduct(keyword?: string, func?: string, category?: string): void {
+        console.log(keyword, func, category);
         let isRecommand = '';
-        if (!category) {
-            isRecommand = '1';
-            category = '';
-        }
-        this._apiService.getProduct('', isRecommand, '', category).then((result) => {
+        isRecommand = keyword || func || category ? '' : '1';
+        keyword = keyword || '';
+        func = func || '';
+        category = category || '';
+
+        console.log(keyword, func, category);
+        this._apiService.getProduct(keyword, isRecommand, func, category).then((result) => {
             this.productArr = [...result];
-            if (category && this.productArr.length > 0) {
+            if ((keyword || func || category) && this.productArr.length > 0) {
                 this.showDetailPage = true;
                 this.getProductDetail(this.productArr[0].id, 0);
             } else {
