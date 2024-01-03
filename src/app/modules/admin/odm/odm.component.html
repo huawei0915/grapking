@@ -2,7 +2,7 @@
     <!-- Main Content -->
     <div class="min-h-max max-h-max w-full">
         <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20">
-            <span class="text-lg sm:text-2xl font-semibold bg-white text-slate-900">{{t('tabbar_product')}}</span>
+            <span class="text-lg sm:text-2xl font-semibold bg-white text-slate-900">{{t('tabbar_demand')}}</span>
         </div>
 
         <ng-container>
@@ -60,7 +60,7 @@
                                             <mat-icon class="text-slate-400" svgIcon="heroicons_outline:user"
                                                 (click)="openClientModal(demmand)"></mat-icon>
                                             <mat-icon class="text-slate-400" svgIcon="feather:edit"
-                                                (click)="openEditModal(demmand)"></mat-icon>
+                                                (click)="openEditModal(demmand,$event)"></mat-icon>
                                         </div>
                                     </div>
                                 </div>
@@ -100,16 +100,12 @@
         <div customContent class="text-center h-full ">
             <span class="relative top-[40%] text-xl font-bold">
                 {{t('dialog_confirm_delete_message')}}
-                <!-- <p>【{{(lang==='en')?deleteData.name_en:deleteData.name_zh}}】</p> -->
             </span>
         </div>
     </app-shared-common-confirm-modal>
 
     <!-- Edit modal -->
-    <!-- <app-shared-common-confirm-modal *ngIf="editCheck" #viewEditModal [productImage]="editData.files[0]"
-        [productName]="((lang==='en')?editData.name_en:editData.name_zh)" [memo]="editData.note"
-        (submitEvent)="confrimEdit(viewEditModal)" (cancelEvent)="closeEditModal()">
-    </app-shared-common-confirm-modal> -->
+    <app-shared-demmand-form-modal #demandFormView *ngIf="editCheck" [dataInject]="demandDetailData" (cancelEvent)="closeEditModal()" (submitEvent)="closeEditModal()"></app-shared-demmand-form-modal>
 
     <!-- CLient modal -->
     <div *ngIf="clientBindingCheck"

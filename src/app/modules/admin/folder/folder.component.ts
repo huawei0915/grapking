@@ -116,7 +116,7 @@ export class FolderComponent implements OnInit {
     //==============================================================
 
     // 觸發刪除視窗
-    openDeleteModal(product: any): void {
+    openDeleteModal(product: any, event: any): void {
         this.deleteData = product;
         this.deleteCheck = true;
     }
@@ -140,7 +140,7 @@ export class FolderComponent implements OnInit {
     }
 
     // 觸發綁定帳戶視窗
-    openClientModal(product: any): void {
+    openClientModal(product: any, event: any): void {
         this.bindingData = product;
         this.searchText = '';
         this.clientBindingCheck = true;
@@ -166,14 +166,12 @@ export class FolderComponent implements OnInit {
     }
 
     // 觸發編輯視窗
-    // TODO:獨立需求單詳細資料
-    openEditModal(product: any): void {
+    openEditModal(product: any, event: any): void {
         this.editData = product;
         this.editCheck = true;
     }
 
     // 確認編輯
-    // TODO:獨立需求單詳細資料
     async confrimEdit(viewEditData: any): Promise<void> {
         this.editData.note = viewEditData.memo;
         await this.editClientProduct(this.editData);
@@ -253,7 +251,7 @@ export class FolderComponent implements OnInit {
     // 前往商品詳細介紹頁面
     goToProductDetail(data: any): void {
         // TODO:詳細邏輯待修正
-        if(!(this.clientMultiSelectCheck || this.clientBindingCheck || this.deleteCheck || this.editCheck)){
+        if (!(this.clientMultiSelectCheck || this.clientBindingCheck || this.deleteCheck || this.editCheck)) {
             this._router.navigate(['/home/recommend'], {
                 queryParams: {
                     function: data.product_id

@@ -14,10 +14,13 @@ import { ApiService } from '../api.service';
 })
 export class OdmComponent implements OnInit {
     @ViewChildren('clientDetailView') clientDetailView: QueryList<ElementRef>;
+    @ViewChildren('demandFormView') demandFormView: any;
     folderForm: FormGroup;
 
-    productArr = [];
+    demandArr = [];
     filterData = [];
+
+    demandDetailData: any;
 
     clientData = [];
     clientMultiSelectData = [];
@@ -64,11 +67,11 @@ export class OdmComponent implements OnInit {
         this.folderForm.get('filterCheckBox')?.valueChanges.subscribe(
             (value) => {
                 if (value === 'hasClient') {
-                    this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] !== null) && (person?.client));
+                    this.filterData = this.demandArr?.filter((person: any) => (person?.['client_id'] !== null) && (person?.client));
                 } else if (value === 'noClient') {
-                    this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] === null) || (!person?.client));
+                    this.filterData = this.demandArr?.filter((person: any) => (person?.['client_id'] === null) || (!person?.client));
                 } else {
-                    this.filterData = this.productArr;
+                    this.filterData = this.demandArr;
                 }
             });
     }
@@ -80,10 +83,17 @@ export class OdmComponent implements OnInit {
     // 取得需求清單
     async getDemand(): Promise<void> {
         await this._apiService.getDemand().then((result) => {
-            this.productArr = [...result];
-            this.filterData = this.productArr;
+            this.demandArr = [...result];
+            this.filterData = this.demandArr;
             this.clientMultiSelectCheck = false;
             this.clientMultiSelectData = [];
+        });
+    }
+
+    // 取得需求清單
+    async getDemandDetail(demand: any): Promise<void> {
+        await this._apiService.getDemandDetail(demand).then((result) => {
+            this.demandDetailData = result;
         });
     }
 
@@ -165,12 +175,15 @@ export class OdmComponent implements OnInit {
     }
 
     // 觸發編輯視窗
-    openEditModal(product: any): void {
-        this.editData = product;
+    // TODO:獨立需求單詳細資料
+    async openEditModal(client: any,event: any): Promise<void> {
+        event.stopPropagation();
+        await this.getDemandDetail(client);
         this.editCheck = true;
     }
 
     // 確認編輯
+    // TODO:獨立需求單詳細資料
     async confrimEdit(viewEditData: any): Promise<void> {
         this.editData.note = viewEditData.memo;
         await this.editClientProduct(this.editData);
@@ -179,8 +192,9 @@ export class OdmComponent implements OnInit {
     }
 
     // 關閉編輯視窗
-    closeEditModal(): void {
+    async closeEditModal(): Promise<void> {
         this.editCheck = false;
+        await this.getDemand();
     }
 
     //==============================================================

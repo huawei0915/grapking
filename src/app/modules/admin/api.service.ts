@@ -279,14 +279,54 @@ export class ApiService {
         });
     }
 
+    // F1-2 需求單詳細
+    /**
+     * @param rawValue 需求單資料
+     * @returns 需求單詳細
+     * @description 取得需求單詳細
+     */
+    getDemandDetail(rawValue: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.get(`${env.apiServer}/api/v1/demand/${rawValue.id}`).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
     // F1-3 新增需求單
     /**
      * @param rawValue 需求單資料
      * @returns 新增需求單
+     * @description 新增需求單資料
      */
     addDemand(rawValue: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.post(`${env.apiServer}/api/v1/demand`, rawValue).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
+    // F1-4 修改需求單
+    /**
+     * @param rawValue 需求單資料
+     * @returns 修改需求單
+     * @description 修改需求單
+     */
+    updateDemand(rawValue: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.put(`${env.apiServer}/api/v1/demand/${rawValue.id}`, rawValue
+            ).subscribe({
                 next: (result: any) => {
                     resolve(result.result);
                 },

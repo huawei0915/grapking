@@ -1,0 +1,282 @@
+<!-- !!!Attention please: This component is integrate in shared.module.ts, please imports into your own module. -->
+
+<ng-container *transloco="let t">
+    <div class="fixed inset-0 z-50 bg-black/40 flex flex-col items-center visible opacity-100">
+        <div class="relative z-50 light">
+            <div class="fixed bg-white w-screen h-16 flex justify-between items-center z-20">
+                <!-- put emit event!!!!! -->
+                <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer"
+                    (click)="handleCancel()"></mat-icon>
+                <div class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900 mr-6">
+                    {{t('demand_form_edit')}}</div>
+            </div>
+            <div class="flex flex-col w-screen overflow-auto mt-16 max-h-[calc(100vh-64px)]">
+                <div class="w-full p-8">
+                    <div class="w-full p-8 bg-white text-xl " [formGroup]="form">
+                        <!-- 需求單位/客戶 -->
+                        <div class="flex w-full border-2">
+                            <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                {{t('demand_form_customer')}}</div>
+                            <div style="width: calc(100% - 10rem);" (click)="openClientModal()">
+                                <input class="w-full h-full pl-4 pointer-events-none" type="text"
+                                    formControlName="name">
+                            </div>
+                        </div>
+
+                        <!-- 產品名稱 -->
+                        <div class="flex w-full border-2 mt-3">
+                            <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                {{t('demand_form_product_name')}}
+                            </div>
+                            <div style="width: calc(100% - 10rem);">
+                                <input class="w-full h-full pl-4" type="text" formControlName="title">
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col border-2 mt-3">
+                            <div class="flex flex-wrap border-b-2">
+                                <!-- 劑型 -->
+                                <div class="flex w-full md:w-1/2 border-b-2 md:border-b-0">
+                                    <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                        {{t('demand_form_dosage')}}
+                                    </div>
+                                    <div style="width: calc(100% - 10rem);">
+                                        <input class="w-full h-full pl-4" type="text" formControlName="form">
+                                    </div>
+                                </div>
+                                <!-- 每日攝取量 -->
+                                <div class="flex w-full md:w-1/2">
+                                    <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                        {{t('demand_form_intake')}}
+                                    </div>
+                                    <div style="width: calc(100% - 10rem);">
+                                        <input class="w-full h-full pl-4" type="text" formControlName="daily_intake">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 預設包裝規格 -->
+                            <div class="flex border-b-2">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    {{t('demand_form_package')}}</div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="package">
+                                </div>
+                            </div>
+                            <!-- 效期需求 -->
+                            <div class="flex border-b-2">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    {{t('demand_form_validity')}}
+                                </div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="validity">
+                                </div>
+                            </div>
+                            <!-- 需求價格 -->
+                            <div class="flex border-b-2">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    {{t('demand_form_raw_material_costs')}}</div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="estimate_cost">
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap border-b-2">
+                                <!-- 銷售國家 -->
+                                <div class="flex w-full md:w-1/2 border-b-2 md:border-b-0">
+                                    <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                        {{t('demand_form_country_of_sale')}}</div>
+                                    <div style="width: calc(100% - 10rem);">
+                                        <input class="w-full h-full pl-4" type="text" formControlName="sale_country">
+                                    </div>
+                                </div>
+                                <!-- 銷售方式 -->
+                                <div class="flex w-full md:w-1/2">
+                                    <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                        {{t('demand_form_method_of_sale')}}</div>
+                                    <div style="width: calc(100% - 10rem);">
+                                        <input class="w-full h-full pl-4" type="text" formControlName="sale_method">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 保健訴求 -->
+                            <div class="flex border-b-2">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    {{t('demand_form_health_claims')}}
+                                </div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="health_demand">
+                                </div>
+                            </div>
+                            <!-- 保健族群 -->
+                            <div class="flex border-b-2">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    {{t('demand_form_health_group')}}
+                                </div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="health_group">
+                                </div>
+                            </div>
+                            <!-- 指定功效原料&劑量 -->
+                            <div class="flex border-b-2">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 px-3 h-32">
+                                    {{t('demand_form_specified_functional_ingredients_and_dosage')}}</div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="effect">
+                                </div>
+                            </div>
+                            <!-- 口感/風味 -->
+                            <div class="flex border-b-2">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    {{t('demand_form_taste_or_flavor')}}
+                                </div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="flavor">
+                                </div>
+                            </div>
+                            <!-- 參考競品 -->
+                            <div class="flex border-b-2">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    {{t('demand_form_competing_products')}}</div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="competitor">
+                                </div>
+                            </div>
+                            <!-- 認證需求 -->
+                            <div class="flex border-b-2">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    {{t('demand_form_certification_requirements')}}</div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="certification">
+                                </div>
+                            </div>
+                            <!-- 需求項目與日期 -->
+                            <div class="flex border-b-2">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 h-32">
+                                    {{t('demand_form_required_items_and_dates')}}
+                                </div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="requirement">
+                                </div>
+                            </div>
+                            <!-- 其他 -->
+                            <div class="flex">
+                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 h-32">
+                                    {{t('demand_form_other')}}
+                                </div>
+                                <div style="width: calc(100% - 10rem);">
+                                    <input class="w-full h-full pl-4" type="text" formControlName="note">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex w-full justify-center mb-10">
+                    <button class="border-rose-600 bg-white border-2  text-rose-600 w-36 px-8 py-3"
+                        (click)="handleCancel()">{{t('button_cancel')}}</button>
+                    <button class="bg-rose-600  text-white w-36 px-8 py-3 ml-4"
+                        (click)="handleSave()">{{t('button_save')}}</button>
+                </div>
+            </div>
+
+            <app-shared-common-confirm-modal *ngIf="alertPOPUP" [title]="['product_notice'|transloco]"
+                [fullCustomContent]="true" [confirmButtonOnly]="confirmButtonOnly"
+                [submitText]="['button_confirm'|transloco]" (cancelEvent)="confrimCancel()" (submitEvent)="confrimOK()">
+                <div customContent class="text-center h-full ">
+                    <span class="relative top-[40%] text-xl font-bold">
+                        {{message|transloco}}
+                    </span>
+                </div>
+            </app-shared-common-confirm-modal>
+
+            <div class="toast" *ngIf="showToast">
+                {{'add_success'|transloco}}
+            </div>
+
+        </div>
+    </div>
+</ng-container>
+
+<!-- CLient modal -->
+<ng-container *transloco="let t">
+    <!-- Main Content -->
+    <div *ngIf="clientBindingCheck"
+        class="fixed inset-0 z-50 bg-black/40 flex flex-col items-center justify-center visible opacity-100">
+        <div class="relative z-50 bg-white min-h-1/2 max-h-[80%] w-[90%] max-w-5xl">
+            <!-- Title -->
+            <div #viewTitle class="flex flex-row flex-nowrap justify-between items-end w-full h-[60px]">
+                <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer"
+                    (click)="closeClientModal()"></mat-icon>
+                <div class="w-full text-center text-black font-bold text-2xl mr-6">
+                    {{t('demand_form_bind_customer')}}
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div #viewContent class="w-full overflow-auto h-[calc(100%-168px)]">
+                <div class="m-4">
+                    <!-- Search filter -->
+                    <div class="bg-slate-100 w-full h-12 flex flex-row flex-nowrap items-center justify-start">
+                        <mat-icon class="mx-2 text-slate-300" svgIcon="mat_solid:search"></mat-icon>
+                        <input placeholder="{{t('search_hint')}}"
+                            class="w-full placeholder:text-slate-300 font-mono text-lg font-semibold"
+                            (input)="setSearchText($event)">
+                    </div>
+
+                    <div class="my-2">
+                        <ng-container *ngFor="let client of getFilteredClient(searchText);let i=index">
+                            <div class="relative">
+                                <!-- TODO: 再找找看有沒有適合的套件做點擊改背景!! -->
+                                <div [id]="client.id" #clientDetailView
+                                    class="flex flex-wrap justify-between cursor-pointer pr-5"
+                                    [ngClass]="{'bg-red-100':(clientDetailView.hasAttribute('isChosen'))}"
+                                    (click)="chooseClient(clientDetailView,client)">
+                                    <div class="flex flex-row flex-nowrap justify-start 
+                                        items-center w-full">
+                                        <figure class="flex items-center mx-4 bg-slate-100 rounded-[50%]">
+                                            <!-- TODO: 有效的照片網址 -->
+                                            <img class="rounded-[50%] min-w-14 w-14 h-14"
+                                                [src]="getImage(client.avatar)" alt="Error">
+                                        </figure>
+                                        <div class="flex flex-col justify-center w-full my-5">
+                                            <div class="font-semibold text-xl text-left leading-5">
+                                                <div class="text-white h-6" *ngIf="!client.name">
+                                                </div>
+                                                {{client.name??''}}
+                                            </div>
+                                            <div class="text-slate-400 leading-5">
+                                                <ng-container *ngIf="lang==='en'">
+                                                    <div class="text-white h-4" *ngIf="!client.company_name_en"></div>
+                                                </ng-container>
+                                                <ng-container *ngIf="lang!=='en'">
+                                                    <div class="text-white h-4" *ngIf="!client.company_name_zh"></div>
+                                                </ng-container>
+                                                {{(lang==='en')?(client.company_name_en??''):(client.company_name_zh??'')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End -->
+            <div #viewButton class="w-full bg-white flex flex-row flex-wrap justify-center pt-2">
+                <!-- Cancel button -->
+                <button class="w-48 min-w-48 m-[2%] min-h-16 bg-white border-solid border-2 border-red-600"
+                    (click)="closeClientModal()">
+                    <span class="text-red-600 font-semibold text-lg break-word-legacy">
+                        {{t('button_cancel')}}
+                    </span>
+                </button>
+                <!-- Submit button -->
+                <button class="w-48 min-w-48 m-[2%] min-h-16 bg-red-600" (click)="confrimClientModal()">
+                    <span class="text-white font-semibold text-lg break-word-legacy">
+                        {{t('demand_form_bind_customer')}}
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>
