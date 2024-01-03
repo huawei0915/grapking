@@ -251,7 +251,9 @@ export class FolderComponent implements OnInit {
         this.clientBindingId = dataInject.id;
     }
 
+    // 前往商品詳細介紹頁面
     goToProductDetail(data: any): void {
+        // TODO:詳細邏輯待修正
         this._router.navigate(['/home/recommend'], {
             queryParams: {
                 function: data.product_id
