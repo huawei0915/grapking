@@ -5,6 +5,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { environment as env } from 'environments/environment';
 import 'hammerjs';
 import { ApiService } from '../api.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'folder',
@@ -44,7 +45,8 @@ export class FolderComponent implements OnInit {
         private _apiService: ApiService,
         private _translocoService: TranslocoService,
         private _formBuilder: FormBuilder,
-        private _renderer: Renderer2
+        private _renderer: Renderer2,
+        private _router: Router
     ) {
     }
 
@@ -114,7 +116,8 @@ export class FolderComponent implements OnInit {
     //==============================================================
 
     // 觸發刪除視窗
-    openDeleteModal(product: any): void {
+    openDeleteModal(product: any, event: any): void {
+        event.stopPropagation();
         this.deleteData = product;
         this.deleteCheck = true;
     }
@@ -138,7 +141,8 @@ export class FolderComponent implements OnInit {
     }
 
     // 觸發綁定帳戶視窗
-    openClientModal(product: any): void {
+    openClientModal(product: any, event: any): void {
+        event.stopPropagation();
         this.bindingData = product;
         this.searchText = '';
         this.clientBindingCheck = true;
@@ -164,7 +168,8 @@ export class FolderComponent implements OnInit {
     }
 
     // 觸發編輯視窗
-    openEditModal(product: any): void {
+    openEditModal(product: any, event: any): void {
+        event.stopPropagation();
         this.editData = product;
         this.editCheck = true;
     }
@@ -244,5 +249,13 @@ export class FolderComponent implements OnInit {
         });
         this._renderer.setAttribute(inputElement, 'isChosen', '');
         this.clientBindingId = dataInject.id;
+    }
+
+    goToProductDetail(data: any): void {
+        this._router.navigate(['/home/recommend'], {
+            queryParams: {
+                function: data.product_id
+            }
+        });
     }
 }
