@@ -164,5 +164,7 @@
     "permission_denied_message": "由於您尚未授予權限，暫時無法使用此功能，請開啟權限再試試。",
     "pick_photo_from_camera": "開啟相機",
     "pick_photo_from_gallery": "選擇照片",
-    "upload_avatar_success": "上傳成功"
+    "upload_avatar_success": "上傳成功",
+    "an_error_occurred": "發生錯誤，請稍後再試。",
+    "add_success": "新增成功"
 }

@@ -267,3 +267,16 @@
 <app-shared-common-confirm-modal *ngIf="popView" [productImage]="productDetail.files[0]" #popViewDialog
     [productName]="lang==='zh'?productDetail.name_zh:productDetail.name_en" [title]="['product_dialog_title'|transloco]"
     (cancelEvent)="popView=false" (submitEvent)="handleOK(popViewDialog)"></app-shared-common-confirm-modal>
+
+<app-shared-common-confirm-modal *ngIf="alertPOPUP" [title]="['product_notice'|transloco]" [fullCustomContent]="true"
+    [submitText]="['button_ok'|transloco]" (cancelEvent)="confrimCancel()" (submitEvent)="confrimOK()">
+    <div customContent class="text-center h-full ">
+        <span class="relative top-[40%] text-xl font-bold">
+            {{message|transloco}}
+        </span>
+    </div>
+</app-shared-common-confirm-modal>
+
+<div class="toast" *ngIf="showToast">
+    {{'add_success'|transloco}}
+</div>
