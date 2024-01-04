@@ -22,11 +22,11 @@
                     </div>
                 </div>
 
-                <div class="m-8 mt-0 mb-12 bg-white w-[calc(100%-64px)]">
-                    <div class="p-8">
+                <div *ngIf="filterData.length !== 0" class="m-8 mt-0 mb-12 bg-white w-[calc(100%-64px)]">
+                    <div class="py-2">
                         <ng-container *ngFor="let demmand of filterData;let i=index">
-                            <div class="relative m-2 mb-7">
-                                <div class="flex flex-wrap justify-center sm:justify-between cursor-pointer"
+                            <div class="relative m-2 px-2">
+                                <div class="flex flex-wrap justify-center sm:justify-between cursor-pointer min-h-32"
                                     (click)="goToProductDetail(demmand)">
                                     <div class="flex flex-row flex-wrap justify-center sm:justify-start 
                                     items-start w-full sm:w-[calc(100%-176px)]">
@@ -65,6 +65,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr class="my-4" *ngIf="(i + 1) !== this.filterData.length">
                         </ng-container>
 
                     </div>
