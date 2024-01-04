@@ -50,6 +50,7 @@ export class AccountComponent implements OnInit {
             // Navigate to the redirect url
             // this._router.navigateByUrl(redirectURL);
 
+            this._authService.signOut();
             //Bad Method
             window.location.href = '/signed-in';
 
