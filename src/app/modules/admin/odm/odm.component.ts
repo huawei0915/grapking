@@ -228,7 +228,7 @@ export class OdmComponent implements OnInit {
             cateString = cateString.toLowerCase();
             return this.clientData.filter(
                 client => (
-                    client.id?.toLowerCase().includes(cateString) ||
+                    // client.id?.toLowerCase().includes(cateString) ||
                     client.company_name_zh?.toLowerCase().includes(cateString) ||
                     client.company_name_en?.toLowerCase().includes(cateString) ||
                     client.name?.toLowerCase().includes(cateString)));
