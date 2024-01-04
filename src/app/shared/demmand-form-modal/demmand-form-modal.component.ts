@@ -10,6 +10,7 @@ import { take } from 'rxjs';
 @Component({
     selector: 'app-shared-demmand-form-modal',
     templateUrl: './demmand-form-modal.component.html',
+    styleUrls: ['./demmand-form-modal.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class DemmandFormModalComponent implements OnInit {

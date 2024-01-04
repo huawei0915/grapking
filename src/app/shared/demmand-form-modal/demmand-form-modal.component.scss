@@ -1,0 +1,11 @@
+@media screen and (max-width: 450px) {
+    .w-\[calc\(100\%-10rem\)\] {
+        width: calc(100% - 5rem) !important;
+        font-size: 14px;
+    }
+    
+    .w-40 {
+        width: 5rem !important;
+        font-size: 14px;
+    }
+}
