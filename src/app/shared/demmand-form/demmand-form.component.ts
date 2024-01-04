@@ -8,12 +8,12 @@ import { environment as env } from 'environments/environment';
 import { take } from 'rxjs';
 
 @Component({
-    selector: 'app-shared-demmand-form-modal',
-    templateUrl: './demmand-form-modal.component.html',
-    styleUrls: ['./demmand-form-modal.component.scss'],
+    selector: 'app-shared-demmand-form',
+    templateUrl: './demmand-form.component.html',
+    styleUrls: ['./demmand-form.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class DemmandFormModalComponent implements OnInit {
+export class DemmandFormComponent implements OnInit {
     // Template reference variable
     @ViewChildren('clientDetailView') clientDetailView: QueryList<ElementRef>;
 

@@ -106,7 +106,7 @@
     </app-shared-common-confirm-modal>
 
     <!-- Edit modal -->
-    <app-shared-demmand-form-modal #demandFormView *ngIf="editCheck" [dataInject]="demandDetailData" (cancelEvent)="closeEditModal()" (submitEvent)="closeEditModal()"></app-shared-demmand-form-modal>
+    <app-shared-demmand-form #demandFormView *ngIf="editCheck" [dataInject]="demandDetailData" (cancelEvent)="closeEditModal()" (submitEvent)="closeEditModal()"></app-shared-demmand-form>
 
     <!-- CLient modal -->
     <div *ngIf="clientBindingCheck"

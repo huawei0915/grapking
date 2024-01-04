@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 import { CommonConfirmModalComponent } from './common-confirm-modal/common-confirm-modal.component';
-import { DemmandFormModalComponent } from './demmand-form-modal/demmand-form-modal.component';
+import { DemmandFormComponent } from './demmand-form/demmand-form.component';
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations:[
         CommonConfirmModalComponent,
-        DemmandFormModalComponent
+        DemmandFormComponent
     ],
     imports: [
         CommonModule,
@@ -25,7 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
         ReactiveFormsModule,
         FormsModule,
         CommonConfirmModalComponent,
-        DemmandFormModalComponent
+        DemmandFormComponent
     ]
 })
 export class SharedModule
