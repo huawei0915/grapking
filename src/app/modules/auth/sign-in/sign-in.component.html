@@ -1,53 +1,55 @@
-<ng-container *transloco="let t">
-    <div class="z-50" *ngIf="!isSigned">
-        <div class="fixed top-0 left-0 bottom-0 right-0 -z-50">
-            <!-- Background - @formatter:off -->
-            <figure>
-                <img class="h-screen min-w-[143ch] w-full" src="assets/images/login_bg.png" alt="">
-            </figure>
-        </div>
-        <div class="w-full h-full absolute flex flex-col items-center justify-center flex-nowrap">
-            <div class="max-w-lg w-11/12">
-                <div class="bg-[#ffffff4f] p-6 sm:p-10 w-full mx-auto sm:mx-0">
-                    <!-- Logo -->
-                    <div class="w-full max-w-40 block mx-auto">
-                        <img src="assets/images/logo/logo.png">
+<div id="sign">
+    <ng-container *transloco="let t">
+        <div class="z-50" *ngIf="!isSigned">
+            <div class="fixed top-0 left-0 bottom-0 right-0 z-50">
+                <!-- Background - @formatter:off -->
+                <figure>
+                    <img class="h-screen min-w-[143ch] w-full" src="assets/images/login_bg.png" alt="">
+                </figure>
+            </div>
+            <div class="w-full h-full absolute flex flex-col items-center justify-center flex-nowrap z-50">
+                <div class="max-w-lg w-11/12">
+                    <div class="bg-[#ffffff4f] p-6 sm:p-10 w-full mx-auto sm:mx-0">
+                        <!-- Logo -->
+                        <div class="w-full max-w-40 block mx-auto">
+                            <img src="assets/images/logo/logo.png">
+                        </div>
+    
+                        <!-- Title -->
+                        <div
+                            class="mt-8 text-3xl sm:text-4xl font-mono font-bold tracking-tight leading-tight text-center text-red-700">
+                            {{t('login_title')}}</div>
+    
+                        <!-- Sign in form -->
+                        <form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
+    
+                            <!-- Account field -->
+                            <mat-form-field class="w-full">
+                                <!-- <mat-label>Email address</mat-label> -->
+                                <input id="account" placeholder="{{t('login_account_hint')}}" matInput
+                                    class="placeholder:text-slate-300 font-mono text-lg font-semibold"
+                                    [formControlName]="'account'">
+                            </mat-form-field>
+    
+                            <!-- Password field -->
+                            <mat-form-field class="w-full">
+                                <!-- <mat-label>Password</mat-label> -->
+                                <input id="password" placeholder="{{t('login_password_hint')}}" matInput
+                                    class="placeholder:text-slate-300 font-mono text-lg font-semibold" type="password"
+                                    [formControlName]="'password'" #passwordField>
+                            </mat-form-field>
+    
+                            <!-- Submit button -->
+                            <button class="w-full mt-6 h-16 bg-red-600" [color]="'primary'"
+                                [disabled]="signInForm.disabled" (click)="signIn()">
+                                <span class="text-white font-semibold text-lg" *ngIf="!signInForm.disabled">
+                                    {{t('login_button')}}
+                                </span>
+                            </button>
+                        </form>
                     </div>
-
-                    <!-- Title -->
-                    <div
-                        class="mt-8 text-3xl sm:text-4xl font-mono font-bold tracking-tight leading-tight text-center text-red-700">
-                        {{t('login_title')}}</div>
-
-                    <!-- Sign in form -->
-                    <form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
-
-                        <!-- Account field -->
-                        <mat-form-field class="w-full">
-                            <!-- <mat-label>Email address</mat-label> -->
-                            <input id="account" placeholder="{{t('login_account_hint')}}" matInput
-                                class="placeholder:text-slate-300 font-mono text-lg font-semibold"
-                                [formControlName]="'account'">
-                        </mat-form-field>
-
-                        <!-- Password field -->
-                        <mat-form-field class="w-full">
-                            <!-- <mat-label>Password</mat-label> -->
-                            <input id="password" placeholder="{{t('login_password_hint')}}" matInput
-                                class="placeholder:text-slate-300 font-mono text-lg font-semibold" type="password"
-                                [formControlName]="'password'" #passwordField>
-                        </mat-form-field>
-
-                        <!-- Submit button -->
-                        <button class="w-full mt-6 h-16 bg-red-600" [color]="'primary'"
-                            [disabled]="signInForm.disabled" (click)="signIn()">
-                            <span class="text-white font-semibold text-lg" *ngIf="!signInForm.disabled">
-                                {{t('login_button')}}
-                            </span>
-                        </button>
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
-</ng-container>
+    </ng-container>
+</div>

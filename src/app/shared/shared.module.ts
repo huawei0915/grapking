@@ -1,15 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 import { CommonConfirmModalComponent } from './common-confirm-modal/common-confirm-modal.component';
 import { DemmandFormComponent } from './demmand-form/demmand-form.component';
-import { MatIconModule } from '@angular/material/icon';
+import { CustomerFormComponent } from './customer-form/customer-form.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations:[
         CommonConfirmModalComponent,
-        DemmandFormComponent
+        DemmandFormComponent,
+        CustomerFormComponent
     ],
     imports: [
         CommonModule,
@@ -17,7 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
         ReactiveFormsModule,
         TranslocoModule,
         FormsModule,
-        MatIconModule
+        MatIconModule,
+        MatSelectModule
     ],
     exports: [
         CommonModule,
@@ -25,7 +29,8 @@ import { MatIconModule } from '@angular/material/icon';
         ReactiveFormsModule,
         FormsModule,
         CommonConfirmModalComponent,
-        DemmandFormComponent
+        DemmandFormComponent,
+        CustomerFormComponent
     ]
 })
 export class SharedModule
