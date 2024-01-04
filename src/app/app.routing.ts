@@ -14,11 +14,6 @@ export const appRoutes: Route[] = [
 
     // Redirect signed in user to the '/example'
     //
-    // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
-    // path. Below is another redirection for that path to redirect the user to the desired
-    // location. This is a small convenience to keep all main routes together here on this file.
-    { path: 'signed-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule) },
-    { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'home' },
 
     // Auth routes for guests
     {
@@ -81,6 +76,11 @@ export const appRoutes: Route[] = [
             { path: 'odm', loadChildren: () => import('app/modules/admin/odm/odm.module').then(m => m.OdmModule) },
             { path: 'custom', loadChildren: () => import('app/modules/admin/custom/custom.module').then(m => m.CustomModule) },
             { path: 'account', loadChildren: () => import('app/modules/admin/account/account.module').then(m => m.AccountModule) },
+            // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
+            // path. Below is another redirection for that path to redirect the user to the desired
+            // location. This is a small convenience to keep all main routes together here on this file.
+            { path: 'signed-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule) },
+            { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'home' }
         ]
     }
 ];

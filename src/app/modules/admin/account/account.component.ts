@@ -1,9 +1,8 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'app/core/auth/auth.service';
-import { UserService } from 'app/core/user/user.service';
-import { ApiService } from '../api.service';
 import { environment as env } from 'environments/environment';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '../api.service';
 
 @Component({
     selector: 'account',
@@ -21,10 +20,8 @@ export class AccountComponent implements OnInit {
      */
     constructor(
         private _authService: AuthService,
-        private _userService: UserService,
         private _apiService: ApiService,
         private _router: Router,
-        private _activatedRoute: ActivatedRoute,
     ) {
     }
 
@@ -33,34 +30,18 @@ export class AccountComponent implements OnInit {
             this.usrData = result;
             console.log('UserTest::', this.usrData);
         }).catch(() => {
-
-            //!!!Not effect
-            // this._authService.signOut();
-            // this._router.navigate(['/signed-in'], {
-            //     queryParams: {}
-            //   });
-
-            //!!!Not effect
-            // Set the redirect url.
-            // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
-            // to the correct page after a successful sign in. This way, that url can be set via
-            // routing file and we don't have to touch here.
-            // const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in';
-            // console.log("redirectURL::" + this._activatedRoute.snapshot.queryParamMap.get('redirectURL') );
-            // Navigate to the redirect url
-            // this._router.navigateByUrl(redirectURL);
-
             this._authService.signOut();
-            //Bad Method
-            window.location.href = '/signed-in';
-
+            this._router.navigate(['/signed-in'], {
+                queryParams: {}
+            });
         }).finally(() => { });
     }
 
     signOut(): void {
         this._authService.signOut();
-        //Bad Method
-        window.location.href = '/signed-in';
+        this._router.navigate(['/signed-in'], {
+            queryParams: {}
+        });
 
     }
 }
