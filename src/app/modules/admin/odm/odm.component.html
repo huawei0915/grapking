@@ -27,7 +27,7 @@
                         <ng-container *ngFor="let demmand of filterData;let i=index">
                             <div class="relative m-2 px-2">
                                 <div class="flex flex-wrap justify-center sm:justify-between cursor-pointer min-h-32"
-                                    (click)="goToProductDetail(demmand)">
+                                    (click)="openEditModal(demmand,$event)">
                                     <div class="flex flex-row flex-wrap justify-center sm:justify-start 
                                     items-start w-full sm:w-[calc(100%-176px)]">
                                         <div class="flex items-start min-w-10 w-10 h-10 sm:h-20 mr-0 sm:mr-4">
@@ -56,9 +56,9 @@
                                         <div>{{demmand.updatedAt | date:'yyyy-MM-dd HH:mm:ss':'GMT+08:00'}}</div>
                                         <div class="flex flex-row justify-between">
                                             <mat-icon class="text-slate-400" svgIcon="feather:trash-2"
-                                                (click)="openDeleteModal(demmand)"></mat-icon>
+                                                (click)="openDeleteModal(demmand,$event)"></mat-icon>
                                             <mat-icon class="text-slate-400" svgIcon="heroicons_outline:user"
-                                                (click)="openClientModal(demmand)"></mat-icon>
+                                                (click)="openClientModal(demmand,$event)"></mat-icon>
                                             <mat-icon class="text-slate-400" svgIcon="feather:edit"
                                                 (click)="openEditModal(demmand,$event)"></mat-icon>
                                         </div>

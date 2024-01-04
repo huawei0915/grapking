@@ -125,7 +125,8 @@ export class OdmComponent implements OnInit {
     //==============================================================
 
     // 觸發刪除視窗
-    openDeleteModal(demand: any): void {
+    openDeleteModal(demand: any, event: any): void {
+        event.stopPropagation();
         this.deleteData = demand;
         this.deleteCheck = true;
     }
@@ -137,7 +138,7 @@ export class OdmComponent implements OnInit {
             await this.deleteData.forEach(async (dataRaw) => {
                 await this.delDemand(dataRaw).then(() => {
                     localCount++;
-                    if(this.deleteData.length === localCount){this.getDemand();}
+                    if (this.deleteData.length === localCount) { this.getDemand(); }
                 });
             });
         } else {
@@ -153,7 +154,8 @@ export class OdmComponent implements OnInit {
     }
 
     // 觸發綁定帳戶視窗
-    openClientModal(demand: any): void {
+    openClientModal(demand: any, event: any): void {
+        event.stopPropagation();
         this.bindingData = demand;
         this.searchText = '';
         this.clientBindingCheck = true;
@@ -167,7 +169,7 @@ export class OdmComponent implements OnInit {
             await this.bindingData.forEach(async (dataRaw) => {
                 await this.bindingClient(dataRaw, this.clientBindingId).then(() => {
                     localCount++;
-                    if(this.bindingData.length === localCount){this.getDemand();}
+                    if (this.bindingData.length === localCount) { this.getDemand(); }
                 });
             });
         } else {
@@ -184,7 +186,7 @@ export class OdmComponent implements OnInit {
 
     // 觸發編輯視窗
     // TODO:獨立需求單詳細資料
-    async openEditModal(client: any,event: any): Promise<void> {
+    async openEditModal(client: any, event: any): Promise<void> {
         event.stopPropagation();
         await this.getDemandDetail(client);
         this.editCheck = true;
@@ -267,17 +269,5 @@ export class OdmComponent implements OnInit {
         });
         this._renderer.setAttribute(inputElement, 'isChosen', '');
         this.clientBindingId = dataInject.id;
-    }
-
-    // 前往商品詳細介紹頁面
-    goToProductDetail(data: any): void {
-        // TODO:詳細邏輯待修正
-        if (!(this.clientMultiSelectCheck || this.clientBindingCheck || this.deleteCheck || this.editCheck)) {
-            this._router.navigate(['/home/recommend'], {
-                queryParams: {
-                    function: data.product_id
-                }
-            });
-        }
     }
 }
