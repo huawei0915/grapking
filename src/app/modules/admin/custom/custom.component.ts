@@ -22,16 +22,9 @@ export class CustomComponent implements OnInit {
 
     @Input() dataInject: any;
     form: FormGroup;
-    alertPOPUP = false;
-    showToast = false;
-    message = 'dialog_confirm_exit_message';
-    confirmButtonOnly = false;
 
-    clientBindingCheck = false;
-    clientBindingData: any;
     clientData = [];
     searchText = '';
-    confirmButtonClick = false;
 
     i18nText: any;
 
@@ -43,7 +36,6 @@ export class CustomComponent implements OnInit {
         private _translocoService: TranslocoService,
         private _formBuilder: FormBuilder,
         private _apiService: ApiService,
-        private _renderer: Renderer2
     ) {
     }
 
@@ -90,30 +82,6 @@ export class CustomComponent implements OnInit {
     }
 
     //==============================================================
-    //Modal Behavior
-    //==============================================================
-    // 觸發綁定帳戶視窗
-    openClientModal(): void {
-        this.getClient().then(() => {
-            this.searchText = '';
-            this.clientBindingCheck = true;
-            this.clientBindingData = [];
-        });
-    }
-
-    // 確認綁定帳戶
-    async confrimClientModal(): Promise<void> {
-        this.form.get('name').setValue(this.clientBindingData['name']);
-        this.form.get('client_id').setValue(this.clientBindingData['id']);
-        this.closeClientModal();
-    }
-
-    // 關閉綁定帳戶視窗
-    closeClientModal(): void {
-        this.clientBindingCheck = false;
-    }
-
-    //==============================================================
     //Common Function
     //==============================================================
 
@@ -122,57 +90,9 @@ export class CustomComponent implements OnInit {
         return `${env.apiServer}/api/files/${img}`;
     }
 
-    handleCancel(): void {
-        this.confirmButtonClick = false;
-        this.alertPOPUP = true;
-        this.confirmButtonOnly = false;
-        this.message = 'dialog_confirm_exit_message';
-    }
-
-    confrimCancel(): void {
-        this.alertPOPUP = false;
-        this.confirmButtonOnly = false;
-    }
-
-    confrimOK(): void {
-        this.alertPOPUP = false;
-        this.confirmButtonOnly = false;
-        // this.form.reset();
-        if(!this.confirmButtonClick){
-            this.cancelEvent.emit();
-        }
-    }
-
-    handleSave(): void {
-        this.confirmButtonClick = true;
-        const data = this.form.getRawValue();
-        this._apiService.updateDemand(data).then((result) => {
-            console.log(result);
-            this.showToast = true;
-            setTimeout(() => this.showToast = false, 1500);
-        }).catch((err) => {
-            this.confirmButtonOnly = true;
-            console.log('fail', err);
-            this.alertPOPUP = true;
-            this.message = 'an_error_occurred';
-        }).finally(() => {
-            this.submitEvent.emit();
-        });
-    }
-
     //==============================================================
     //Account choosen function
     //==============================================================
-    // 綁定客戶，假設只能綁一個
-    chooseClient(inputElement: any, dataInject: any): void {
-        // inputElement.hasAttribute('isChosen')
-        this.clientDetailView.forEach((elementRef: ElementRef) => {
-            this._renderer.removeAttribute(elementRef.nativeElement, 'isChosen');
-        });
-        this._renderer.setAttribute(inputElement, 'isChosen', '');
-        this.clientBindingData = dataInject;
-    }
-
     // 過濾客戶清單
     getFilteredClient(cateString: string): any[] {
         if (cateString !== '') {

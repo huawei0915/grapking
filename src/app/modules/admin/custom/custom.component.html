@@ -20,50 +20,44 @@
 
             <!-- Content -->
             <div #viewContent class="w-full overflow-auto h-[calc(100vh-120px)] sm:h-[calc(100vh-144px)]">
-
-                    <div class="mb-2">
-                        <ng-container *ngFor="let client of getFilteredClient(searchText);let i=index">
-                            <div class="relative">
-                                <!-- TODO: 再找找看有沒有適合的套件做點擊改背景!! -->
-                                <div [id]="client.id" #clientDetailView
-                                    class="flex flex-row flex-nowrap items-center cursor-pointer px-3"
-                                    [ngClass]="{'bg-red-100':(clientDetailView.hasAttribute('isChosen'))}"
-                                    (click)="chooseClient(clientDetailView,client)">
-                                    <div class="flex flex-row flex-nowrap justify-start 
+                <div class="mb-2">
+                    <ng-container *ngFor="let client of getFilteredClient(searchText);let i=index">
+                        <div class="relative">
+                            <div [id]="client.id" class="flex flex-row flex-nowrap items-center cursor-pointer px-3">
+                                <div class="flex flex-row flex-nowrap justify-start 
                                         items-center w-full">
-                                        <figure class="flex items-center mx-4 bg-slate-100 rounded-[50%]">
-                                            <!-- TODO: 有效的照片網址 -->
-                                            <img class="rounded-[50%] min-w-14 w-14 h-13"
-                                                [src]="getImage(client.avatar)" alt="Error">
-                                        </figure>
-                                        <div class="flex flex-col justify-center w-full my-2">
-                                            <div class="text-left leading-5 break-all">
-                                                <div class="text-white h-6" *ngIf="!client.name">
-                                                </div>
-                                                {{client.name??''}}
+                                    <figure class="flex items-center mx-4 bg-slate-100 rounded-[50%]">
+                                        <!-- TODO: 有效的照片網址 -->
+                                        <img class="rounded-[50%] min-w-14 w-14 h-13" [src]="getImage(client.avatar)"
+                                            alt="Error">
+                                    </figure>
+                                    <div class="flex flex-col justify-center w-full my-2">
+                                        <div class="text-left leading-5 break-all">
+                                            <div class="text-white h-6" *ngIf="!client.name">
                                             </div>
-                                            <div class="text-slate-400 leading-5 break-all">
-                                                <ng-container *ngIf="lang==='en'">
-                                                    <div class="text-white h-4" *ngIf="!client.company_name_en"></div>
-                                                </ng-container>
-                                                <ng-container *ngIf="lang!=='en'">
-                                                    <div class="text-white h-4" *ngIf="!client.company_name_zh"></div>
-                                                </ng-container>
-                                                {{(lang==='en')?(client.company_name_en??''):(client.company_name_zh??'')}}
-                                            </div>
+                                            {{client.name??''}}
+                                        </div>
+                                        <div class="text-slate-400 leading-5 break-all">
+                                            <ng-container *ngIf="lang==='en'">
+                                                <div class="text-white h-4" *ngIf="!client.company_name_en"></div>
+                                            </ng-container>
+                                            <ng-container *ngIf="lang!=='en'">
+                                                <div class="text-white h-4" *ngIf="!client.company_name_zh"></div>
+                                            </ng-container>
+                                            {{(lang==='en')?(client.company_name_en??''):(client.company_name_zh??'')}}
                                         </div>
                                     </div>
-                                    <div class="flex flex-row justify-between items-center w-14">
-                                        <mat-icon svgIcon="mat_solid:edit" class="w-4 h-4"></mat-icon>
-                                        <mat-icon svgIcon="mat_solid:delete_outline"></mat-icon>
-                                    </div>
+                                </div>
+                                <div class="flex flex-row justify-between items-center w-14">
+                                    <mat-icon svgIcon="mat_solid:edit" class="w-4 h-4"></mat-icon>
+                                    <mat-icon svgIcon="mat_solid:delete_outline"></mat-icon>
                                 </div>
                             </div>
-                            <hr class="my-2" *ngIf="(i + 1) !== getFilteredClient(searchText).length">
-                        </ng-container>
-                    </div>
+                        </div>
+                        <hr class="my-2" *ngIf="(i + 1) !== getFilteredClient(searchText).length">
+                    </ng-container>
+                </div>
             </div>
-
         </div>
     </div>
 </ng-container>
