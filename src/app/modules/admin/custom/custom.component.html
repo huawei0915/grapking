@@ -1,1 +1,69 @@
-<div>custom</div>
+<ng-container *transloco="let t">
+
+    <div class="min-h-max max-h-max w-full">
+        <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20 px-5">
+            <!-- Search filter -->
+            <div class="bg-slate-100 w-full h-12 flex flex-row flex-nowrap items-center justify-start">
+                <mat-icon class="mx-2 text-slate-300" svgIcon="mat_solid:search"></mat-icon>
+                <input placeholder="{{t('search_hint')}}"
+                    class="w-full placeholder:text-slate-300 font-mono text-lg font-semibold"
+                    (input)="setSearchText($event)">
+            </div>
+            <mat-icon svgIcon="mat_outline:person_add" class="ml-4"></mat-icon>
+        </div>
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="fixed inset-10 top-16 flex flex-col items-center justify-start">
+        <div class="relative z-50 bg-white w-screen h-[calc(100vh-120px)] sm:h-[calc(100vh-144px)]">
+
+            <!-- Content -->
+            <div #viewContent class="w-full overflow-auto h-[calc(100vh-120px)] sm:h-[calc(100vh-144px)]">
+
+                    <div class="mb-2">
+                        <ng-container *ngFor="let client of getFilteredClient(searchText);let i=index">
+                            <div class="relative">
+                                <!-- TODO: 再找找看有沒有適合的套件做點擊改背景!! -->
+                                <div [id]="client.id" #clientDetailView
+                                    class="flex flex-row flex-nowrap items-center cursor-pointer px-3"
+                                    [ngClass]="{'bg-red-100':(clientDetailView.hasAttribute('isChosen'))}"
+                                    (click)="chooseClient(clientDetailView,client)">
+                                    <div class="flex flex-row flex-nowrap justify-start 
+                                        items-center w-full">
+                                        <figure class="flex items-center mx-4 bg-slate-100 rounded-[50%]">
+                                            <!-- TODO: 有效的照片網址 -->
+                                            <img class="rounded-[50%] min-w-14 w-14 h-13"
+                                                [src]="getImage(client.avatar)" alt="Error">
+                                        </figure>
+                                        <div class="flex flex-col justify-center w-full my-2">
+                                            <div class="text-left leading-5 break-all">
+                                                <div class="text-white h-6" *ngIf="!client.name">
+                                                </div>
+                                                {{client.name??''}}
+                                            </div>
+                                            <div class="text-slate-400 leading-5 break-all">
+                                                <ng-container *ngIf="lang==='en'">
+                                                    <div class="text-white h-4" *ngIf="!client.company_name_en"></div>
+                                                </ng-container>
+                                                <ng-container *ngIf="lang!=='en'">
+                                                    <div class="text-white h-4" *ngIf="!client.company_name_zh"></div>
+                                                </ng-container>
+                                                {{(lang==='en')?(client.company_name_en??''):(client.company_name_zh??'')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-row justify-between items-center w-14">
+                                        <mat-icon svgIcon="mat_solid:edit" class="w-4 h-4"></mat-icon>
+                                        <mat-icon svgIcon="mat_solid:delete_outline"></mat-icon>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-2" *ngIf="(i + 1) !== getFilteredClient(searchText).length">
+                        </ng-container>
+                    </div>
+            </div>
+
+        </div>
+    </div>
+</ng-container>
