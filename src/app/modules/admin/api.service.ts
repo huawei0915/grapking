@@ -404,9 +404,9 @@ export class ApiService {
      * @returns 修改需求單
      * @description 修改需求單
      */
-    updateDemand(rawValue: any): Promise<any> {
+    updateDemand(rawValue: any, demandId:string): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.put(`${env.apiServer}/api/v1/demand/${rawValue.id}`, rawValue
+            this._httpClient.put(`${env.apiServer}/api/v1/demand/${demandId}`, rawValue
             ).subscribe({
                 next: (result: any) => {
                     resolve(result.result);

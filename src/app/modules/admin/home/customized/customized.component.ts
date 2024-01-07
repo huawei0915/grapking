@@ -3,6 +3,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ApiService } from '../../api.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'customized',
@@ -22,6 +23,7 @@ export class CustomizedComponent implements OnInit {
     constructor(
         private _formBuilder: FormBuilder,
         private _apiService: ApiService,
+        private _router: Router
     ) {
     }
 
@@ -74,5 +76,20 @@ export class CustomizedComponent implements OnInit {
         }).finally(() => {
 
         });
+    }
+
+    // 關閉編輯視窗
+    async closeEditModal(): Promise<void> {
+        // await this.getDemand();
+    }
+
+    goBackToHomePage(): void {
+        this._router.navigate(['/home'], {
+            queryParams: {}
+        });
+    }
+
+    countTimeAndGoHome(): void {
+        // setTimeout(() => this.goBackToHomePage(), 3000);
     }
 }

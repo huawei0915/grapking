@@ -22,6 +22,7 @@ export class DemmandFormComponent implements OnInit {
     @Output() submitEvent = new EventEmitter();  //肯定事件
 
     @Input() dataInject: any;
+    @Input() addDemandCheck = false;
     demmandForm: FormGroup;
     alertPOPUP = false;
     showToast = false;
@@ -37,6 +38,8 @@ export class DemmandFormComponent implements OnInit {
     i18nText: any;
 
     searchText3 = '';
+
+    demandId = '';
 
 
     /**
@@ -55,6 +58,7 @@ export class DemmandFormComponent implements OnInit {
             this.i18nText = translation;
         });
 
+        this.demandId = (this.dataInject?.id) ?? '';
         this.demmandForm = this._formBuilder.group({
             client_id: [(this.dataInject?.client?.id) ?? ''],
             name: [(this.dataInject?.client?.name) ?? ''],
@@ -75,7 +79,6 @@ export class DemmandFormComponent implements OnInit {
             requirement: [(this.dataInject?.requirement) ?? ''],
             note: [(this.dataInject?.note) ?? ''],
             department: [(this.dataInject?.department) ?? ''],
-            id: [(this.dataInject?.id) ?? ''],
         });
 
     }
@@ -155,18 +158,33 @@ export class DemmandFormComponent implements OnInit {
     handleSave(): void {
         this.confirmButtonClick = true;
         const data = this.demmandForm.getRawValue();
-        this._apiService.updateDemand(data).then((result) => {
-            console.log(result);
-            this.showToast = true;
-            setTimeout(() => this.showToast = false, 1500);
-        }).catch((err) => {
-            this.confirmButtonOnly = true;
-            console.log('fail', err);
-            this.alertPOPUP = true;
-            this.message = 'an_error_occurred';
-        }).finally(() => {
-            this.submitEvent.emit();
-        });
+        if (this.addDemandCheck) {
+            this._apiService.addDemand(data).then((result) => {
+                console.log(result);
+                this.showToast = true;
+                setTimeout(() => this.showToast = false, 1500);
+            }).catch((err) => {
+                this.confirmButtonOnly = true;
+                console.log('fail', err);
+                this.alertPOPUP = true;
+                this.message = 'an_error_occurred';
+            }).finally(() => {
+                this.submitEvent.emit();
+            });
+        } else {
+            this._apiService.updateDemand(data, this.demandId).then((result) => {
+                console.log(result);
+                this.showToast = true;
+                setTimeout(() => this.showToast = false, 1500);
+            }).catch((err) => {
+                this.confirmButtonOnly = true;
+                console.log('fail', err);
+                this.alertPOPUP = true;
+                this.message = 'an_error_occurred';
+            }).finally(() => {
+                this.submitEvent.emit();
+            });
+        }
     }
 
     //==============================================================
