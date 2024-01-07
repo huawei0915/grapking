@@ -22,7 +22,7 @@ export class DemmandFormComponent implements OnInit {
     @Output() submitEvent = new EventEmitter();  //肯定事件
 
     @Input() dataInject: any;
-    form: FormGroup;
+    demmandForm: FormGroup;
     alertPOPUP = false;
     showToast = false;
     message = 'dialog_confirm_exit_message';
@@ -35,6 +35,8 @@ export class DemmandFormComponent implements OnInit {
     confirmButtonClick = false;
 
     i18nText: any;
+
+    searchText3 = '';
 
 
     /**
@@ -53,7 +55,7 @@ export class DemmandFormComponent implements OnInit {
             this.i18nText = translation;
         });
 
-        this.form = this._formBuilder.group({
+        this.demmandForm = this._formBuilder.group({
             client_id: [(this.dataInject?.client?.id) ?? ''],
             name: [(this.dataInject?.client?.name) ?? ''],
             title: [(this.dataInject?.title) ?? ''],
@@ -103,8 +105,8 @@ export class DemmandFormComponent implements OnInit {
 
     // 確認綁定帳戶
     async confrimClientModal(): Promise<void> {
-        this.form.get('name').setValue(this.clientBindingData['name']);
-        this.form.get('client_id').setValue(this.clientBindingData['id']);
+        this.demmandForm.get('name').setValue(this.clientBindingData['name']);
+        this.demmandForm.get('client_id').setValue(this.clientBindingData['id']);
         this.closeClientModal();
     }
 
@@ -120,6 +122,13 @@ export class DemmandFormComponent implements OnInit {
     // 取得圖片
     getImage(img: string): string {
         return `${env.apiServer}/api/files/${img}`;
+    }
+
+    getDefaultImg(input: any): void {
+        input.src = 'assets/images/logo.png';
+        this._renderer.setStyle(input, 'display', 'none');
+        // eslint-disable-next-line max-len
+        this._renderer.setProperty(input.parentNode, 'innerHTML', '<mat-icon role="img" svgicon="mat_solid:person" class="text-white mat-icon notranslate mat-icon-no-color" aria-hidden="true" ng-reflect-svg-icon="mat_solid:person" data-mat-icon-type="svg" data-mat-icon-name="person" data-mat-icon-namespace="mat_solid"><svg viewBox="0 0 24 24" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg></mat-icon>');
     }
 
     handleCancel(): void {
@@ -138,14 +147,14 @@ export class DemmandFormComponent implements OnInit {
         this.alertPOPUP = false;
         this.confirmButtonOnly = false;
         // this.form.reset();
-        if(!this.confirmButtonClick){
+        if (!this.confirmButtonClick) {
             this.cancelEvent.emit();
         }
     }
 
     handleSave(): void {
         this.confirmButtonClick = true;
-        const data = this.form.getRawValue();
+        const data = this.demmandForm.getRawValue();
         this._apiService.updateDemand(data).then((result) => {
             console.log(result);
             this.showToast = true;
@@ -191,5 +200,27 @@ export class DemmandFormComponent implements OnInit {
     // 寫入搜尋欄位
     setSearchText(event: any): void {
         this.searchText = event.target.value;
+    }
+
+
+    //==============================================================
+    //Input Behavior
+    //==============================================================
+    showDeleteButton(inputElement: any, event: any): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this._renderer.setAttribute(inputElement, inputElement.getAttribute('formControlName'), '');
+    }
+
+    hideDeleteButton(inputElement: any, event: any): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this._renderer.removeAttribute(inputElement, inputElement.getAttribute('formControlName'));
+    }
+
+    clearInputText(inputElement: any, event: any): void {
+        event.preventDefault();
+        event.stopPropagation();
+        inputElement.value = '';
     }
 }

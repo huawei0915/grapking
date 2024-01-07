@@ -147,10 +147,10 @@
                                         (click)="chooseClient(clientDetailView,client)">
                                         <div class="flex flex-row flex-nowrap justify-start 
                                                     items-center w-full">
-                                            <figure class="flex items-center mx-4 bg-slate-100 rounded-[50%]">
+                                            <figure class="flex items-center justify-center mx-4 bg-zinc-300 rounded-[50%] min-w-14 w-14 h-14">
                                                 <!-- TODO: 有效的照片網址 -->
-                                                <img class="rounded-[50%] min-w-14 w-14 h-14"
-                                                    [src]="getImage(client.avatar)" alt="Error">
+                                                <img #imgView class="rounded-[50%] min-w-14 w-14 h-14 object-cover"
+                                                    [src]="getImage(client.avatar)" (error)="getDefaultImg(imgView)">
                                             </figure>
                                             <div class="flex flex-col justify-center w-full my-5">
                                                 <div class="font-semibold text-xl text-left leading-5">

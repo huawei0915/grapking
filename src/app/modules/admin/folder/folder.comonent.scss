@@ -24,4 +24,8 @@
         border-color: #f43f5e !important;
         /* 设置框框为红色 */
     }
+
+    .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+        color: #64748b !important;
+    }
 }
