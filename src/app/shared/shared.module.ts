@@ -7,30 +7,43 @@ import { CommonConfirmModalComponent } from './common-confirm-modal/common-confi
 import { DemmandFormComponent } from './demmand-form/demmand-form.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { MatSelectModule } from '@angular/material/select';
+import { OdmFormComponent } from './odm-form/odm-form.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations:[
         CommonConfirmModalComponent,
         DemmandFormComponent,
-        CustomerFormComponent
+        CustomerFormComponent,
+        OdmFormComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         TranslocoModule,
-        FormsModule,
         MatIconModule,
-        MatSelectModule
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSlideToggleModule,
+        MatTooltipModule,
+        MatSelectModule,
+        MatCheckboxModule,
     ],
     exports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        FormsModule,
         CommonConfirmModalComponent,
         DemmandFormComponent,
-        CustomerFormComponent
+        CustomerFormComponent,
+        OdmFormComponent
     ]
 })
 export class SharedModule
