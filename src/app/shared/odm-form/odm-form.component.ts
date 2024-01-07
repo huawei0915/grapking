@@ -69,18 +69,12 @@ export class OdmFormComponent implements OnInit {
         });
 
         this.folderForm = this._formBuilder.group({
-            filterCheckBox: ['all']
+            filterCheckBox: ['noClient']
         });
 
         this.folderForm.get('filterCheckBox')?.valueChanges.subscribe(
             (value) => {
-                if (value === 'hasClient') {
-                    this.filterData = this.demandArr?.filter((person: any) => (person?.['client_id'] !== null) && (person?.client));
-                } else if (value === 'noClient') {
-                    this.filterData = this.demandArr?.filter((person: any) => (person?.['client_id'] === null) || (!person?.client));
-                } else {
-                    this.filterData = this.demandArr;
-                }
+                this.filterCheckboxOnchange(value);
             });
     }
 
@@ -96,6 +90,7 @@ export class OdmFormComponent implements OnInit {
                 this.filterData = this.demandArr;
                 this.clientMultiSelectCheck = false;
                 this.clientMultiSelectData = [];
+                this.folderForm.get('filterCheckBox').setValue('all');
             });
         } else {
             await this._apiService.getDemand().then((result) => {
@@ -103,6 +98,7 @@ export class OdmFormComponent implements OnInit {
                 this.filterData = this.demandArr;
                 this.clientMultiSelectCheck = false;
                 this.clientMultiSelectData = [];
+                this.filterCheckboxOnchange(this.folderForm.get('filterCheckBox').value);
             });
         }
     }
@@ -287,5 +283,15 @@ export class OdmFormComponent implements OnInit {
         });
         this._renderer.setAttribute(inputElement, 'isChosen', '');
         this.clientBindingId = dataInject.id;
+    }
+
+    filterCheckboxOnchange(value: string): void {
+        if (value === 'hasClient') {
+            this.filterData = this.demandArr?.filter((person: any) => (person?.['client_id'] !== null) && (person?.client));
+        } else if (value === 'noClient') {
+            this.filterData = this.demandArr?.filter((person: any) => (person?.['client_id'] === null) || (!person?.client));
+        } else {
+            this.filterData = this.demandArr;
+        }
     }
 }

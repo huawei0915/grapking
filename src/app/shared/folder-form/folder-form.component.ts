@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, Renderer2, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService, setValue } from '@ngneat/transloco';
 import { environment as env } from 'environments/environment';
 import 'hammerjs';
 import { Router } from '@angular/router';
@@ -66,18 +66,12 @@ export class FolderFormComponent implements OnInit {
         });
 
         this.folderForm = this._formBuilder.group({
-            filterCheckBox: ['all']
+            filterCheckBox: ['noClient']
         });
 
         this.folderForm.get('filterCheckBox')?.valueChanges.subscribe(
             (value) => {
-                if (value === 'hasClient') {
-                    this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] !== null) && (person?.client));
-                } else if (value === 'noClient') {
-                    this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] === null) || (!person?.client));
-                } else {
-                    this.filterData = this.productArr;
-                }
+                this.filterCheckboxOnchange(value);
             });
     }
 
@@ -93,6 +87,7 @@ export class FolderFormComponent implements OnInit {
                 this.filterData = this.productArr;
                 this.clientMultiSelectCheck = false;
                 this.clientMultiSelectData = [];
+                this.folderForm.get('filterCheckBox').setValue('all');
             });
         } else {
             await this._apiService.getClientProduct().then((result) => {
@@ -100,6 +95,7 @@ export class FolderFormComponent implements OnInit {
                 this.filterData = this.productArr;
                 this.clientMultiSelectCheck = false;
                 this.clientMultiSelectData = [];
+                this.filterCheckboxOnchange(this.folderForm.get('filterCheckBox').value);
             });
         }
     }
@@ -288,6 +284,16 @@ export class FolderFormComponent implements OnInit {
                     function: data.product_id
                 }
             });
+        }
+    }
+
+    filterCheckboxOnchange(value: string): void {
+        if (value === 'hasClient') {
+            this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] !== null) && (person?.client));
+        } else if (value === 'noClient') {
+            this.filterData = this.productArr?.filter((person: any) => (person?.['client_id'] === null) || (!person?.client));
+        } else {
+            this.filterData = this.productArr;
         }
     }
 }
