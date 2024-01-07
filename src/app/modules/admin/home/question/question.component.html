@@ -1,4 +1,5 @@
-<div class="min-h-max max-h-max" *transloco="let t">
+<div class="min-h-max max-h-max absolute overflow-auto h-[calc(100vh-64px)] sm:h-[calc(100vh-80px)]" *transloco="let t">
+    <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer absolute z-50 mt-3" [routerLink]="'/home'"></mat-icon>
     <figure>
         <img src="assets/images/bg.png" alt="">
     </figure>
@@ -111,7 +112,7 @@
             <h2 class="text-3xl font-bold mb-3">{{ t(getQuestionText()) }}</h2>
             <div class="h-80 overflow-auto ">
                 <div class="flex flex-wrap justify-center">
-                    <div *ngFor="let item of nowLevel; let i=index;" class="h-11">
+                    <div *ngFor="let item of nowLevel; let i=index;" class="mb-2">
                         <button class="flex items-center  font-bold py-2 px-4 rounded-full border-2 shadow-md mx-1 z-20"
                             [ngClass]="{'bg-slate-700': item.active,'text-white': item.active, 'bg-white':!item.active}"
                             (click)="selectProduct(item,i)">
