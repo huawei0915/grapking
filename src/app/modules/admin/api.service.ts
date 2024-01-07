@@ -248,7 +248,7 @@ export class ApiService {
      */
     getClientProduct(clientId?: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(`${env.apiServer}/api/v1/client_product?client_id=${clientId??''}`).subscribe({
+            this._httpClient.get(`${env.apiServer}/api/v1/client_product?client_id=${clientId ?? ''}`).subscribe({
                 next: (result: any) => {
                     resolve(result.result.data);
                 },
@@ -349,7 +349,7 @@ export class ApiService {
      */
     getDemand(clientId?: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(`${env.apiServer}/api/v1/demand?client_id=${clientId??''}`).subscribe({
+            this._httpClient.get(`${env.apiServer}/api/v1/demand?client_id=${clientId ?? ''}`).subscribe({
                 next: (result: any) => {
                     resolve(result.result.data);
                 },
@@ -404,7 +404,7 @@ export class ApiService {
      * @returns 修改需求單
      * @description 修改需求單
      */
-    updateDemand(rawValue: any, demandId:string): Promise<any> {
+    updateDemand(rawValue: any, demandId: string): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.put(`${env.apiServer}/api/v1/demand/${demandId}`, rawValue
             ).subscribe({
