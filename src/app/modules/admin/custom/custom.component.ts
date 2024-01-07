@@ -6,6 +6,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { environment as env } from 'environments/environment';
 import { ApiService } from '../api.service';
 import { take } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'custom',
@@ -26,6 +27,7 @@ export class CustomComponent implements OnInit {
     clientData = [];
     searchText = '';
     showToast = false;
+    showToast2 = false;
 
     i18nText: any;
 
@@ -46,12 +48,16 @@ export class CustomComponent implements OnInit {
     selectedFile = '';
 
     demandArr = [];
+    productArr = [];
 
     demandDetailData: any;
     editDemandCheck = false;
     editDemandData: any;
 
     odmPageCheck = false;
+    folderPageCheck = false;
+
+    lang = 'zh';
 
     /**
      * Constructor
@@ -60,7 +66,8 @@ export class CustomComponent implements OnInit {
         private _translocoService: TranslocoService,
         private _formBuilder: FormBuilder,
         private _apiService: ApiService,
-        private _renderer: Renderer2
+        private _renderer: Renderer2,
+        private _router: Router
     ) {
     }
 
@@ -69,27 +76,11 @@ export class CustomComponent implements OnInit {
         this._translocoService.load(this._translocoService.getActiveLang()).pipe(take(1)).subscribe((translation: any) => {
             this.i18nText = translation;
         });
-        //     client_id: [(this.dataInject?.client?.id) ?? ''],
-        //     name: [(this.dataInject?.client?.name) ?? ''],
-        //     title: [(this.dataInject?.title) ?? ''],
-        //     form: [(this.dataInject?.form) ?? ''],
-        //     daily_intake: [(this.dataInject?.daily_intake) ?? ''],
-        //     package: [(this.dataInject?.package) ?? ''],
-        //     validity: [(this.dataInject?.validity) ?? ''],
-        //     estimate_cost: [(this.dataInject?.estimate_cost) ?? ''],
-        //     sale_country: [(this.dataInject?.sale_country) ?? ''],
-        //     sale_method: [(this.dataInject?.sale_method) ?? ''],
-        //     health_demand: [(this.dataInject?.health_demand) ?? ''],
-        //     health_group: [(this.dataInject?.health_group) ?? ''],
-        //     effect: [(this.dataInject?.effect) ?? ''],
-        //     flavor: [(this.dataInject?.flavor) ?? ''],
-        //     competitor: [(this.dataInject?.competitor) ?? ''],
-        //     certification: [(this.dataInject?.certification) ?? ''],
-        //     requirement: [(this.dataInject?.requirement) ?? ''],
-        //     note: [(this.dataInject?.note) ?? ''],
-        //     department: [(this.dataInject?.department) ?? ''],
-        //     id: [(this.dataInject?.id) ?? ''],
-        // });
+
+        this._translocoService.langChanges$.subscribe((activeLang) => {
+            // Get the active lang
+            this.lang = activeLang;
+        });
 
     }
 
@@ -148,10 +139,20 @@ export class CustomComponent implements OnInit {
         });
     }
 
-    // 取得需求清單
+    // 取得需求詳情
     async getDemandDetail(demand: any): Promise<void> {
         await this._apiService.getDemandDetail(demand).then((result) => {
             this.demandDetailData = result;
+        });
+    }
+
+    // 取得客戶配方清單
+    async getClientProduct(clientId: string): Promise<void> {
+        await this._apiService.getClientProduct(clientId).then((result) => {
+            this.productArr = [...result];
+            // this.filterData = this.productArr;
+            // this.clientMultiSelectCheck = false;
+            // this.clientMultiSelectData = [];
         });
     }
 
@@ -192,6 +193,17 @@ export class CustomComponent implements OnInit {
         reader.readAsDataURL(file);
     }
 
+    async copyContent(input: string): Promise<void> {
+        try {
+            // 将内容复制到剪贴板
+            await navigator.clipboard.writeText(input);
+            console.log('複製成功');
+            this.showToast2 = true;
+            setTimeout(() => this.showToast2 = false, 1500);
+        } catch (error) {
+            console.error('複製失敗', error);
+        }
+    }
 
     openAgreementPage(): void {
         this.agreementPageCheck = true;
@@ -229,6 +241,7 @@ export class CustomComponent implements OnInit {
     // 觸發客戶詳情頁面
     openClientDetail(client: any): void {
         this.getDemand(client.id);
+        this.getClientProduct(client.id);
         this.clientDetail = client;
         this.clientDetailCheck = true;
     }
@@ -257,10 +270,31 @@ export class CustomComponent implements OnInit {
         this.odmPageCheck = true;
     }
 
-    // 關閉頁面
+    // 關閉odm頁面
     async closeOdmPage(): Promise<void> {
         this.odmPageCheck = false;
         await this.getDemand(this.clientDetail.id);
+    }
+
+    // 觸發folder頁面
+    async openFolderPage(): Promise<void> {
+        this.folderPageCheck = true;
+    }
+
+    // 關閉folder頁面
+    async closeFolderPage(): Promise<void> {
+        this.folderPageCheck = false;
+        await this.getClientProduct(this.clientDetail.id);
+    }
+
+    // 前往商品詳細介紹頁面
+    goToProductDetail(data: any): void {
+        // TODO:詳細邏輯待修正
+        this._router.navigate(['/home/recommend'], {
+            queryParams: {
+                function: data.product_id
+            }
+        });
     }
 
     //==============================================================
@@ -313,6 +347,11 @@ export class CustomComponent implements OnInit {
         // ViewElement.clientId
         this.editClient(ViewElement.customerForm.getRawValue(), ViewElement.clientId);
         this.closeCustomerForm();
+    }
+
+    backToCustomerList(): void {
+        this.openCustomerFormCheck = false;
+        this.clientDetailCheck = false;
     }
 }
 

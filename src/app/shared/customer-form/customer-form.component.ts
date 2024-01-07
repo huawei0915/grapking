@@ -22,6 +22,7 @@ export class CustomerFormComponent implements OnInit {
     @Output() cancelEvent = new EventEmitter();  //取消事件
     @Output() editEvent = new EventEmitter();  //肯定事件
     @Output() addEvent = new EventEmitter();  //新增客戶事件
+    @Output() homeEvent = new EventEmitter();  //回到客戶清單
 
     @Input() dataInject: any;
     @Input() originName = '';

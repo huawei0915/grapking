@@ -1,6 +1,5 @@
 <div id="custom">
     <ng-container *transloco="let t">
-
         <div class="min-h-max max-h-max w-full">
             <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20 px-5">
                 <!-- Search filter -->
@@ -66,9 +65,10 @@
             </div>
         </div>
 
-        <app-shared-customer-form #customerFormView *ngIf="openCustomerFormCheck" [addClientCheck]="addClientCheck"
-            [dataInject]="editData" (cancelEvent)="closeCustomerForm()" (addEvent)="addCustomer(customerFormView)"
-            (editEvent)="editCustomer(customerFormView)">
+        <app-shared-customer-form class="relative z-[100]" #customerFormView *ngIf="openCustomerFormCheck"
+            [addClientCheck]="addClientCheck" [dataInject]="editData" (cancelEvent)="closeCustomerForm()"
+            (addEvent)="addCustomer(customerFormView)" (editEvent)="editCustomer(customerFormView)"
+            (homeEvent)="backToCustomerList()">
         </app-shared-customer-form>
 
         <!-- Delete Modal -->
@@ -128,7 +128,7 @@
                     <div class="w-full p-8">
                         <!-- Area 1 -->
                         <div class="w-full p-8 bg-white min-w-[216px] flex flex-col flex-nowrap items-end">
-                            <div class="mb-5">
+                            <div class="mb-5" (click)="openCustomerForm(clientDetail)">
                                 <figure class="min-w-12 w-12 h-12">
                                     <img [src]="'assets/icons/edit.png'" />
                                 </figure>
@@ -159,32 +159,32 @@
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-32 text-lg">
-                                            電話
+                                        <div class="w-36 text-lg mr-4">
+                                            {{t('customer_form_phone_number')}}
                                         </div>
                                         <div
                                             class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
                                             {{clientDetail.phone_number}}
                                             <mat-icon *ngIf="clientDetail.phone_number" svgIcon="mat_solid:content_copy"
-                                                class="mr-4 md:mr-16 lg:mr-32"></mat-icon>
+                                                class="mr-4 md:mr-16 lg:mr-32" (click)="copyContent(clientDetail.phone_number)"></mat-icon>
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-32 text-lg">
-                                            E-mail
+                                        <div class="w-36 text-lg mr-4">
+                                            {{t('customer_form_email')}}
                                         </div>
                                         <div
                                             class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
                                             {{clientDetail.email}}
                                             <mat-icon *ngIf="clientDetail.email" svgIcon="mat_solid:content_copy"
-                                                class="mr-4 md:mr-16 lg:mr-32"></mat-icon>
+                                                class="mr-4 md:mr-16 lg:mr-32" (click)="copyContent(clientDetail.email)"></mat-icon>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="w-full sm:w-6/12 sm:min-w-100">
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg">
-                                            類型
+                                        <div class="w-36 text-lg mr-4">
+                                            {{t('customer_form_type')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
                                             <ng-container [ngSwitch]="clientDetail.type">
@@ -196,48 +196,48 @@
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg">
-                                            中文公司名稱
+                                        <div class="w-36 text-lg mr-4">
+                                            {{t('customer_form_company_name_zh')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
                                             {{clientDetail.company_name_zh}}
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg">
-                                            英文公司名稱
+                                        <div class="w-36 text-lg mr-4">
+                                            {{t('customer_form_company_name_en')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
                                             {{clientDetail.company_name_en}}
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg">
-                                            社群媒體
+                                        <div class="w-36 text-lg mr-4">
+                                            {{t('customer_form_social_media')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
                                             {{clientDetail.social_media}}
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg">
-                                            其他說明
+                                        <div class="w-36 text-lg mr-4">
+                                            {{t('customer_form_description')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
                                             {{clientDetail.description}}
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg">
-                                            推薦企業
+                                        <div class="w-36 text-lg mr-4">
+                                            {{t('customer_form_recommended_company')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
                                             {{clientDetail.recommended_company}}
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg">
-                                            關係
+                                        <div class="w-36 text-lg mr-4">
+                                            {{t('customer_form_relationship')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
                                             {{clientDetail.relationship}}
@@ -252,10 +252,10 @@
                                 <div class="flex flex-row justify-between items-center mb-4">
                                     <div class="flex flex-row items-center">
                                         <div class="w-1.5 h-7 bg-orange-400 mr-3"></div>
-                                        <span class="text-2xl">需求單</span>
+                                        <span class="text-2xl"> {{t('customer_detail_demand_form')}}</span>
                                     </div>
                                     <div class="text-sky-600 cursor-pointer" (click)="openOdmPage()">
-                                        查看全部
+                                        {{t('customer_detail_view_all')}}
                                     </div>
                                 </div>
 
@@ -266,17 +266,12 @@
                                             (click)="openEditDemandPage(demmand,$event)">
                                             <div class="flex flex-row flex-wrap justify-center sm:justify-start 
                                             items-start w-full sm:w-[calc(100%-176px)]">
-                                                <!-- <div class="flex items-start min-w-10 w-10 h-10 sm:h-20 mr-0 sm:mr-4">
-                                                    <mat-icon svgIcon="mat_solid:feed" class="min-w-10 w-10 h-10"></mat-icon>
-                                                </div> -->
                                                 <div class="flex flex-col justify-center w-full sm:w-[calc(100%-56px)]">
                                                     <div
                                                         class="flex flex-row flex-wrap justify-center sm:justify-start font-medium text-xl text-center sm:text-left">
                                                         <div class="mr-0 sm:mr-4 w-full sm:w-fit break-all">
                                                             {{demmand.title}}
                                                         </div>
-                                                        <!-- <div class="bg-sky-500 text-white rounded-3xl px-5 break-word-legacy"
-                                                            *ngIf="demmand.client?.name">{{demmand.client?.name??''}}</div> -->
                                                     </div>
                                                     <div
                                                         class="text-base text-center sm:text-left break-all text-slate-600">
@@ -292,38 +287,69 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="clientMultiSelectCheck">
-                                                <mat-checkbox color="primary"
-                                                    (change)="mutliSelect($event,demmand)"></mat-checkbox>
-                                            </div>
-                                            <div *ngIf="!clientMultiSelectCheck"
+                                            <div
                                                 class="min-w-44 flex flex-col justify-between content-center sm:content-end flex-wrap">
                                                 <mat-icon svgIcon="mat_outline:keyboard_arrow_right"></mat-icon>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <hr class="my-4" *ngIf="(i + 1) !== this.demandArr.slice(0, 3).length"> -->
                                 </ng-container>
 
 
 
                             </div>
                         </div>
-                    </div>
+                        <!-- Area 3 -->
+                        <div class="w-full p-8 mt-8 bg-white min-w-[216px] flex flex-col flex-nowrap items-end">
+                            <div class="w-full">
+                                <div class="flex flex-row justify-between items-center mb-8">
+                                    <div class="flex flex-row items-center">
+                                        <div class="w-1.5 h-7 bg-orange-400 mr-3"></div>
+                                        <span class="text-2xl">{{t('customer_detail_interested_product')}}</span>
+                                    </div>
+                                    <div class="text-sky-600 cursor-pointer" (click)="openFolderPage()">
+                                        {{t('customer_detail_view_all')}}
+                                    </div>
+                                </div>
 
-                    <div class="flex p-8 w-full justify-center mb-10 min-w-[280px]">
-                        <button class="border-rose-600 bg-white border-2  text-rose-600 w-36 px-8 py-3"
-                            (click)="handleCancel()">{{t('button_cancel')}}</button>
-                        <button class="bg-rose-600  text-white w-36 px-8 py-3 ml-4" (click)="handleSave()">
-                            {{addClientCheck?t('button_add'):t('button_save')}}
-                        </button>
+                                <div class="flex flex-row flex-wrap justify-around">
+                                    <ng-container *ngFor="let product of productArr.slice(0, 3);let i=index">
+                                        <div class="relative mb-6 sm:mr-8 w-full sm:w-56">
+                                            <div class="flex flex-wrap justify-center items-center cursor-pointer min-h-24"
+                                                (click)="goToProductDetail(product)">
+                                                <figure class="flex items-center min-w-56 w-56 h-56 bg-slate-100">
+                                                    <img [src]="getImage(product.files[0])" alt="">
+                                                </figure>
+                                                <div class="flex flex-row flex-wrap justify-center sm:justify-start 
+                                                items-start w-full">
+                                                    <div class="flex flex-col justify-center w-full">
+                                                        <div
+                                                            class="flex flex-row flex-wrap justify-center sm:justify-start font-medium text-xl text-center sm:text-left">
+                                                            <div class="w-full break-all">
+                                                                {{(lang==='en')?product.name_en:product.name_zh}}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="text-base text-center sm:text-left break-all text-slate-600">
+                                                            <span class="mr-3">
+                                                                {{t('product_dialog_title')}}:
+                                                            </span>
+                                                            {{product.note??''}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <app-shared-common-confirm-modal *ngIf="alertPOPUP" [title]="[t('product_notice')]"
                     [fullCustomContent]="true" [confirmButtonOnly]="confirmButtonOnly"
-                    [submitText]="[t('button_confirm')]" (cancelEvent)="confrimCancel()"
-                    (submitEvent)="confrimOK()">
+                    [submitText]="[t('button_confirm')]" (cancelEvent)="confrimCancel()" (submitEvent)="confrimOK()">
                     <div customContent class="text-center h-full ">
                         <span class="relative top-[40%] text-xl font-bold">
                             {{t(message)}}
@@ -333,6 +359,9 @@
 
                 <div class="toast" *ngIf="showToast">
                     {{t('upload_avatar_success')}}
+                </div>
+                <div class="toast" *ngIf="showToast2">
+                    {{t('customer_detail_copied')}}
                 </div>
             </div>
         </div>
@@ -350,5 +379,13 @@
     <div class="relative z-50 light">
         <odm-form [needFullHeight]="true" [needArrowLeft]="true" [specCientId]="clientDetail.id"
             [querySpecCientDemand]="true" (cancelEvent)="closeOdmPage()"></odm-form>
+    </div>
+</div>
+
+<!-- folder page -->
+<div *ngIf="folderPageCheck" class="fixed inset-0 z-50 light flex flex-col items-start visible opacity-100">
+    <div class="relative z-50 light">
+        <folder-form [needFullHeight]="true" [needArrowLeft]="true" [specCientId]="clientDetail.id"
+            [querySpecCientDemand]="true" (cancelEvent)="closeFolderPage()"></folder-form>
     </div>
 </div>
