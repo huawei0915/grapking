@@ -14,13 +14,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FolderFormComponent } from './folder-form/folder-form.component';
 
 @NgModule({
     declarations:[
         CommonConfirmModalComponent,
         DemmandFormComponent,
         CustomerFormComponent,
-        OdmFormComponent
+        OdmFormComponent,
+        FolderFormComponent
     ],
     imports: [
         CommonModule,
@@ -43,7 +45,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         CommonConfirmModalComponent,
         DemmandFormComponent,
         CustomerFormComponent,
-        OdmFormComponent
+        OdmFormComponent,
+        FolderFormComponent
     ]
 })
 export class SharedModule

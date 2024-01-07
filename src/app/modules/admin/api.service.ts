@@ -242,12 +242,13 @@ export class ApiService {
 
     // E1-1 客戶配方清單
     /**
+     * @param clientId 客戶id
      * @returns 客戶配方清單
      * @description 取得客戶配方清單
      */
-    getClientProduct(): Promise<any> {
+    getClientProduct(clientId?: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(`${env.apiServer}/api/v1/client_product`).subscribe({
+            this._httpClient.get(`${env.apiServer}/api/v1/client_product?client_id=${clientId??''}`).subscribe({
                 next: (result: any) => {
                     resolve(result.result.data);
                 },
@@ -342,6 +343,7 @@ export class ApiService {
 
     // F1-1 需求單清單
     /**
+     * @param clientId 客戶id
      * @returns 需求單清單
      * @description 取得需求單清單
      */

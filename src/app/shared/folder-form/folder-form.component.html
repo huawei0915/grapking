@@ -1,11 +1,11 @@
-<div id="odm-form">
+<div id="folder-form">
     <ng-container *transloco="let t" [formGroup]="folderForm">
         <!-- Main Content -->
         <div class="min-h-max max-h-max w-full">
             <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20">
                 <mat-icon *ngIf="needArrowLeft" svgIcon="feather:chevron-left" class="ml-3 cursor-pointer"
                 (click)="cancelEvent.emit()"></mat-icon>
-                <span class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900" [ngClass]="{'mr-9': needArrowLeft}">{{t('tabbar_demand')}}</span>
+                <span class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900" [ngClass]="{'mr-9': needArrowLeft}">{{t('tabbar_product')}}</span>
             </div>
     
             <ng-container>
@@ -27,43 +27,43 @@
     
                     <div *ngIf="filterData.length !== 0" class="m-8 mt-0 mb-12 bg-white w-[calc(100%-64px)]">
                         <div class="py-2">
-                            <ng-container *ngFor="let demmand of filterData;let i=index">
+                            <ng-container *ngFor="let product of filterData;let i=index">
                                 <div class="relative m-2 px-2">
-                                    <div class="flex flex-wrap justify-center sm:justify-between min-h-32" [ngClass]="{'cursor-pointer': !clientMultiSelectCheck}"
-                                        (click)="openEditModal(demmand,$event)">
+                                    <div class="flex flex-wrap justify-center sm:justify-between cursor-pointer"
+                                        (click)="goToProductDetail(product)">
                                         <div class="flex flex-row flex-wrap justify-center sm:justify-start 
                                         items-start w-full sm:w-[calc(100%-176px)]">
-                                            <div class="flex items-start min-w-10 w-10 h-10 sm:h-20 mr-0 sm:mr-4">
-                                                <mat-icon svgIcon="mat_solid:feed" class="min-w-10 w-10 h-10"></mat-icon>
-                                            </div>
-                                            <div class="flex flex-col justify-center w-full sm:w-[calc(100%-56px)]">
+                                            <figure class="flex items-center min-w-36 w-36 h-36 mr-0 sm:mr-4 bg-slate-100">
+                                                <img [src]="getImage(product.files[0])" alt="">
+                                            </figure>
+                                            <div class="flex flex-col justify-center w-full sm:w-[calc(100%-160px)]">
                                                 <div
                                                     class="flex flex-row flex-wrap justify-center sm:justify-start font-bold text-2xl text-center sm:text-left">
-                                                    <div class="mr-0 sm:mr-4 w-full sm:w-fit break-word-legacy">
-                                                        {{demmand.title}}
+                                                    <div class="mr-0 sm:mr-4 w-full sm:w-fit">
+                                                        {{(lang==='en')?product.name_en:product.name_zh}}
                                                     </div>
                                                     <div class="bg-sky-500 text-white rounded-3xl px-5 break-word-legacy"
-                                                        *ngIf="demmand.client?.name">{{demmand.client?.name??''}}</div>
+                                                        *ngIf="product.client?.name">{{product.client?.name??''}}</div>
                                                 </div>
                                                 <div class="text-base text-center sm:text-left break-all">
-                                                    {{demmand.note??''}}
+                                                    {{product.note??''}}
                                                 </div>
                                             </div>
                                         </div>
                                         <div *ngIf="clientMultiSelectCheck">
                                             <mat-checkbox color="primary"
-                                                (change)="mutliSelect($event,demmand)" (click)="$event.stopPropagation()"></mat-checkbox>
+                                                (change)="mutliSelect($event,product)"></mat-checkbox>
                                         </div>
                                         <div *ngIf="!clientMultiSelectCheck"
                                             class="min-w-44 flex flex-col justify-between content-center sm:content-end flex-wrap">
-                                            <div>{{demmand.updatedAt | date:'yyyy-MM-dd HH:mm:ss':'GMT+08:00'}}</div>
+                                            <div>{{product.updatedAt | date:'yyyy-MM-dd HH:mm:ss':'GMT+08:00'}}</div>
                                             <div class="flex flex-row justify-between">
                                                 <mat-icon class="text-slate-400" svgIcon="feather:trash-2"
-                                                    (click)="openDeleteModal(demmand,$event)"></mat-icon>
+                                                    (click)="openDeleteModal(product)"></mat-icon>
                                                 <mat-icon class="text-slate-400" svgIcon="heroicons_outline:user"
-                                                    (click)="openClientModal(demmand,$event)"></mat-icon>
+                                                    (click)="openClientModal(product)"></mat-icon>
                                                 <mat-icon class="text-slate-400" svgIcon="feather:edit"
-                                                    (click)="openEditModal(demmand,$event)"></mat-icon>
+                                                    (click)="openEditModal(product)"></mat-icon>
                                             </div>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                     <!-- Delete button -->
                     <button
                         class="w-[44%] min-w-28 m-[2%] min-h-12 sm:min-h-14 bg-white border-solid border-2 border-red-600"
-                        (click)="openDeleteModal(clientMultiSelectData, $event)">
+                        (click)="openDeleteModal(clientMultiSelectData)">
                         <span class="text-red-600 font-semibold text-lg break-word-legacy">
                             {{t('button_delete')}}({{clientMultiSelectData.length}})
                         </span>
@@ -89,7 +89,7 @@
                     <!-- Submit button -->
                     <button class="min-w-28 m-[2%] min-h-12 sm:min-h-14 bg-red-600"
                         [ngClass]="{'w-[44%]':!confirmButtonOnly, 'w-[calc(96%-16px)]':confirmButtonOnly}"
-                        (click)="openClientModal(clientMultiSelectData, $event)">
+                        (click)="openClientModal(clientMultiSelectData)">
                         <span class="text-white font-semibold text-lg break-word-legacy">
                             {{t('demand_form_bind_customer')}}({{clientMultiSelectData.length}})
                         </span>
@@ -104,12 +104,16 @@
             <div customContent class="text-center h-full ">
                 <span class="relative top-[40%] text-xl font-bold">
                     {{t('dialog_confirm_delete_message')}}
+                    <p *ngIf="!deleteData.length">【{{(lang==='en')?deleteData.name_en:deleteData.name_zh}}】</p>
                 </span>
             </div>
         </app-shared-common-confirm-modal>
     
         <!-- Edit modal -->
-        <app-shared-demmand-form #demandFormView *ngIf="editCheck" [dataInject]="demandDetailData" (cancelEvent)="closeEditModal()" (submitEvent)="closeEditModal()"></app-shared-demmand-form>
+        <app-shared-common-confirm-modal *ngIf="editCheck" #viewEditModal [productImage]="editData.files[0]"
+            [productName]="((lang==='en')?editData.name_en:editData.name_zh)" [memo]="editData.note"
+            (submitEvent)="confrimEdit(viewEditModal)" (cancelEvent)="closeEditModal()">
+        </app-shared-common-confirm-modal>
     
         <!-- CLient modal -->
         <div *ngIf="clientBindingCheck"
