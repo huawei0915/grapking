@@ -12,6 +12,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 import { CommonConfirmModalComponent } from 'app/shared/common-confirm-modal/common-confirm-modal.component';
 import { SharedModule } from 'app/shared/shared.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 const homeRoutes: Route[] = [
     {
         path: '',
@@ -55,6 +63,14 @@ const homeRoutes: Route[] = [
         NgxHmCarouselModule,
         ReactiveFormsModule,
         TranslocoModule,
+        MatIconModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSlideToggleModule,
+        MatTooltipModule,
+        MatSelectModule,
+        MatCheckboxModule,
         SharedModule
     ]
 })

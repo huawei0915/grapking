@@ -1,26 +1,28 @@
 <ng-container *ngIf="!showDetailPage">
-    <div class="m-8 bg-white w-full">
-        <div class="p-8">
-            <ng-container *ngFor="let product of productArr;let i=index">
-                <div class="relative m-2  cursor-pointer" (click)="getProductDetail(product.id,i)">
-                    <div class="bag">
-                        <div>{{i+1}}</div>
-                    </div>
-                    <div class="flex">
-                        <figure class="w-36 h-36">
-                            <img [src]="getImage(product.files[0])" alt="">
-                        </figure>
-                        <div class="flex flex-col justify-center ml-4">
-                            <div class="font-bold text-2xl">
-                                {{product.name_zh}}
-                            </div>
-                            <div class="text-slate-400">
-                                {{product.spec_zh}}
+    <div class="w-full max-h-full overflow-auto absolute">
+        <div class="m-8 bg-white">
+            <div class="p-8">
+                <ng-container *ngFor="let product of productArr;let i=index">
+                    <div class="relative m-2  cursor-pointer" (click)="getProductDetail(product.id,i)">
+                        <div class="bag">
+                            <div>{{i+1}}</div>
+                        </div>
+                        <div class="flex">
+                            <figure class="w-36 h-36 flex items-center">
+                                <img [src]="getImage(product.files[0])" alt="">
+                            </figure>
+                            <div class="flex flex-col justify-center ml-4">
+                                <div class="font-bold text-2xl">
+                                    {{product.name_zh}}
+                                </div>
+                                <div class="text-slate-400">
+                                    {{product.spec_zh}}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
+            </div>
         </div>
     </div>
 </ng-container>
