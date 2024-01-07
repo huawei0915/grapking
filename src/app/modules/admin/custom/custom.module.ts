@@ -24,7 +24,7 @@ const customRoutes: Route[] = [
 
 @NgModule({
     declarations: [
-        CustomComponent
+        CustomComponent,
     ],
     imports     : [
         RouterModule.forChild(customRoutes),

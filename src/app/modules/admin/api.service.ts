@@ -162,6 +162,84 @@ export class ApiService {
         });
     }
 
+    // D1-2 新增客戶
+    /**
+     * @param rawValue 客戶資料
+     * @returns 客戶資料
+     * @description 新增客戶
+     */
+    addClient(rawValue: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.post(`${env.apiServer}/api/v1/client`, rawValue).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
+    // D1-3 修改客戶
+    /**
+     * @param rawValue 客戶資料
+     * @param clientId 客戶Id
+     * @returns 客戶資料
+     * @description 修改客戶
+     */
+    updateClient(rawValue: any, clientId: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.put(`${env.apiServer}/api/v1/client/${clientId}`, rawValue).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
+    // D1-4 刪除客戶
+    /**
+     * @param clientId 客戶Id
+     * @returns 客戶資料
+     * @description 刪除客戶
+     */
+    delClient(clientId: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.delete(`${env.apiServer}/api/v1/client/${clientId}`).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
+    // D1-5 上傳客戶圖像
+    /**
+     * @param rawValue 客戶照片
+     * @param clientId 客戶Id
+     * @returns 客戶資料
+     * @description 上傳客戶圖像
+     */
+    uploadClientImage(rawValue: any, clientId: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.post(`${env.apiServer}/api/v1/client/${clientId}/upload`, rawValue).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
     // E1-1 客戶配方清單
     /**
      * @returns 客戶配方清單
@@ -221,6 +299,7 @@ export class ApiService {
     // E1-3ver2 配方綁定客戶
     /**
      * @param rawValue 客戶配方資料
+     * @param clientId 客戶Id
      * @returns 綁定狀況
      * @description 綁定客戶
      */
@@ -266,9 +345,9 @@ export class ApiService {
      * @returns 需求單清單
      * @description 取得需求單清單
      */
-    getDemand(): Promise<any> {
+    getDemand(clientId?: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(`${env.apiServer}/api/v1/demand`).subscribe({
+            this._httpClient.get(`${env.apiServer}/api/v1/demand?client_id=${clientId??''}`).subscribe({
                 next: (result: any) => {
                     resolve(result.result.data);
                 },

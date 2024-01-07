@@ -1,65 +1,354 @@
-<ng-container *transloco="let t">
+<div id="custom">
+    <ng-container *transloco="let t">
 
-    <div class="min-h-max max-h-max w-full">
-        <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20 px-5">
-            <!-- Search filter -->
-            <div class="bg-slate-100 w-full h-12 flex flex-row flex-nowrap items-center justify-start">
-                <mat-icon class="mx-2 text-slate-300" svgIcon="mat_solid:search"></mat-icon>
-                <input placeholder="{{t('search_hint')}}"
-                    class="w-full placeholder:text-slate-300 font-mono text-lg font-semibold"
-                    (input)="setSearchText($event)">
+        <div class="min-h-max max-h-max w-full">
+            <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20 px-5">
+                <!-- Search filter -->
+                <div class="bg-slate-100 w-full h-12 flex flex-row flex-nowrap items-center justify-start">
+                    <mat-icon class="mx-2 text-slate-300" svgIcon="mat_solid:search"></mat-icon>
+                    <input placeholder="{{t('search_hint')}}"
+                        class="w-full placeholder:text-slate-300 font-mono text-lg font-semibold"
+                        (input)="setSearchText($event)">
+                </div>
+                <mat-icon class="ml-4" svgIcon="mat_outline:person_add" (click)="openAgreementPage()"></mat-icon>
             </div>
-            <mat-icon svgIcon="mat_outline:person_add" class="ml-4"></mat-icon>
         </div>
-    </div>
 
 
-    <!-- Main Content -->
-    <div class="fixed inset-10 top-16 flex flex-col items-center justify-start">
-        <div class="relative z-50 bg-white w-screen h-[calc(100vh-120px)] sm:h-[calc(100vh-144px)]">
+        <!-- Main Content -->
+        <div class="fixed inset-10 top-16 flex flex-col items-center justify-start">
+            <div class="relative z-50 bg-white w-screen h-[calc(100vh-120px)] sm:h-[calc(100vh-144px)]">
 
-            <!-- Content -->
-            <div #viewContent class="w-full overflow-auto h-[calc(100vh-120px)] sm:h-[calc(100vh-144px)]">
-                <div class="mb-2">
-                    <ng-container *ngFor="let client of getFilteredClient(searchText);let i=index">
-                        <div class="relative">
-                            <div [id]="client.id" class="flex flex-row flex-nowrap items-center cursor-pointer px-3">
-                                <div class="flex flex-row flex-nowrap justify-start 
-                                        items-center w-full">
-                                    <figure class="flex items-center mx-4 bg-slate-100 rounded-[50%]">
-                                        <!-- TODO: 有效的照片網址 -->
-                                        <img class="rounded-[50%] min-w-14 w-14 h-13" [src]="getImage(client.avatar)"
-                                            alt="Error">
-                                    </figure>
-                                    <div class="flex flex-col justify-center w-full my-2">
-                                        <div class="text-left leading-5 break-all">
-                                            <div class="text-white h-6" *ngIf="!client.name">
+                <!-- Content -->
+                <div #viewContent class="w-full overflow-auto h-[calc(100vh-120px)] sm:h-[calc(100vh-144px)]">
+                    <div class="my-2">
+                        <ng-container *ngFor="let client of getFilteredClient(searchText);let i=index">
+                            <div class="relative">
+                                <div [id]="client.id"
+                                    class="flex flex-row flex-nowrap items-center cursor-pointer px-3">
+                                    <div class="flex flex-row flex-nowrap justify-start 
+                                            items-center w-full" (click)="openClientDetail(client)">
+                                        <figure
+                                            class="flex items-center justify-center mx-4 bg-zinc-300 rounded-[50%] min-w-14 w-14 h-14">
+                                            <!-- TODO: 有效的照片網址 -->
+                                            <img #imgView class="rounded-[50%] min-w-14 w-14 h-14 object-cover"
+                                                [src]="getImage(client.avatar)" (error)="getDefaultImg(imgView)">
+                                        </figure>
+                                        <div class="flex flex-col justify-center w-full my-2">
+                                            <div class="text-left leading-5 break-all">
+                                                <div class="text-white h-6" *ngIf="!client.name">
+                                                </div>
+                                                {{client.name??''}}
                                             </div>
-                                            {{client.name??''}}
-                                        </div>
-                                        <div class="text-slate-400 leading-5 break-all">
-                                            <ng-container *ngIf="lang==='en'">
-                                                <div class="text-white h-4" *ngIf="!client.company_name_en"></div>
-                                            </ng-container>
-                                            <ng-container *ngIf="lang!=='en'">
-                                                <div class="text-white h-4" *ngIf="!client.company_name_zh"></div>
-                                            </ng-container>
-                                            {{(lang==='en')?(client.company_name_en??''):(client.company_name_zh??'')}}
+                                            <div class="text-slate-400 leading-5 break-all">
+                                                <ng-container *ngIf="lang==='en'">
+                                                    <div class="text-white h-4" *ngIf="!client.company_name_en"></div>
+                                                </ng-container>
+                                                <ng-container *ngIf="lang!=='en'">
+                                                    <div class="text-white h-4" *ngIf="!client.company_name_zh"></div>
+                                                </ng-container>
+                                                {{(lang==='en')?(client.company_name_en??''):(client.company_name_zh??'')}}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="flex flex-row justify-between items-center w-14">
-                                    <mat-icon svgIcon="mat_solid:edit" class="w-4 h-4"></mat-icon>
-                                    <mat-icon svgIcon="mat_solid:delete_outline"></mat-icon>
+                                    <div class="flex flex-row justify-between items-center w-14">
+                                        <mat-icon svgIcon="mat_solid:edit" class="w-4 h-4"
+                                            (click)="openCustomerForm(client)"></mat-icon>
+                                        <mat-icon svgIcon="mat_solid:delete_outline"
+                                            (click)="openDeleteModal(client,$event)"></mat-icon>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr class="my-2" *ngIf="(i + 1) !== getFilteredClient(searchText).length">
-                    </ng-container>
+                            <hr class="my-2" *ngIf="(i + 1) !== getFilteredClient(searchText).length">
+                        </ng-container>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <app-shared-customer-form *ngIf="false"></app-shared-customer-form>
-</ng-container>
+        <app-shared-customer-form #customerFormView *ngIf="openCustomerFormCheck" [addClientCheck]="addClientCheck"
+            [dataInject]="editData" (cancelEvent)="closeCustomerForm()" (addEvent)="addCustomer(customerFormView)"
+            (editEvent)="editCustomer(customerFormView)">
+        </app-shared-customer-form>
+
+        <!-- Delete Modal -->
+        <app-shared-common-confirm-modal *ngIf="deleteCheck" [title]="t('button_delete')" [fullCustomContent]="true"
+            [submitText]="t('button_delete')" (cancelEvent)="closeDeleteModal()" (submitEvent)="confrimDelete()">
+            <div customContent class="text-center h-full ">
+                <span class="relative top-[40%] text-xl font-bold">
+                    {{t('dialog_confirm_delete_message')}}
+                </span>
+            </div>
+        </app-shared-common-confirm-modal>
+
+        <!-- Agreement Page -->
+        <div class="fixed inset-0 z-50 bg-black/40 flex flex-col items-center visible opacity-100"
+            [ngClass]="{'hidden': !agreementPageCheck}">
+            <div class="relative z-50 light h-screen">
+                <div class="fixed bg-white w-screen h-16 flex justify-between items-center z-20">
+                    <!-- put emit event!!!!! -->
+                    <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer"
+                        (click)="cancelAgreementPage()"></mat-icon>
+                </div>
+                <div class="flex flex-col w-screen overflow-auto mt-16 max-h-[calc(100vh-64px)]">
+                    <div class="w-full px-4 pt-4">
+                        <div class="flex flex-col items-center min-w-[216px]">
+                            <div class="bg-white overflow-auto max-w-screen">
+                                <img [src]="'assets/images/consent_form.png'" alt="" class="h-[80vh] min-w-[92vh]" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex p-8 w-full justify-center">
+                        <button class="border-rose-600 bg-white border-2  text-rose-600 w-36 px-8 py-3"
+                            (click)="cancelAgreementPage()">{{t('button_disagree')}}</button>
+                        <button class="bg-rose-600  text-white w-36 px-8 py-3 ml-4"
+                            (click)="confirmAgreementPage()">{{t('button_agree')}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Detail Page -->
+        <div *ngIf="clientDetailCheck"
+            class="fixed inset-0 z-50 bg-black/40 flex flex-col items-center visible opacity-100">
+            <div class="relative z-50 light h-screen">
+                <div class="fixed bg-white w-screen h-16 flex justify-between items-center z-20">
+                    <!-- put emit event!!!!! -->
+                    <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer"
+                        (click)="closeClientDetail()"></mat-icon>
+                    <div class="w-full text-center text-lg sm:text-2xl font-semibold 
+                        bg-white text-slate-900 mr-6 overflow-hidden text-ellipsis whitespace-nowrap">
+                        {{clientDetail.name??''}}
+                    </div>
+                    <mat-icon svgIcon="mat_solid:home" class="mr-8 cursor-pointer"
+                        (click)="closeClientDetail()"></mat-icon>
+                </div>
+                <div class="flex flex-col w-screen overflow-auto mt-16 max-h-[calc(100vh-64px)]">
+                    <div class="w-full p-8">
+                        <!-- Area 1 -->
+                        <div class="w-full p-8 bg-white min-w-[216px] flex flex-col flex-nowrap items-end">
+                            <div class="mb-5">
+                                <figure class="min-w-12 w-12 h-12">
+                                    <img [src]="'assets/icons/edit.png'" />
+                                </figure>
+                            </div>
+                            <div class="w-full min-w-[216px] flex flex-row flex-wrap justify-center">
+                                <div class="w-full sm:w-6/12 sm:min-w-100">
+                                    <div class="flex flex-row flex-wrap align-start items-center min-w-[216px] mb-4">
+                                        <div
+                                            class="w-32 h-32 bg-white rounded-full flex flex-col flex-nowrap items-center justify-center mr-4 mb-4 select-none">
+                                            <figure
+                                                class="relative top-[131px] flex items-center justify-center bg-zinc-300 rounded-[50%] min-w-32 w-32 h-32">
+                                                <img #imgView
+                                                    [src]="(selectedFile === '')?getImage(clientDetail.avatar):selectedFile"
+                                                    class="w-32 h-32 rounded-full object-cover"
+                                                    (error)="getDefaultImg(imgView)" />
+                                            </figure>
+                                            <div class="w-8 h-8 bg-orange-400 rounded-full relative mt-24 ml-20">
+                                                <mat-icon svgIcon="heroicons_outline:pencil"
+                                                    class="text-white customSvgSize ml-1 mt-1"></mat-icon>
+                                            </div>
+                                            <input type="file"
+                                                class="relative top-[-129px] opacity-0 w-8 min-h-8 h-8 rounded-full mt-24 ml-20"
+                                                accept="image/png, image/jpeg" required
+                                                (change)="onFileSelected($event)">
+                                        </div>
+                                        <div class="w-[calc(100%-171px)] font-semibold text-xl">
+                                            {{clientDetail.name}}
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <div class="w-32 text-lg">
+                                            電話
+                                        </div>
+                                        <div
+                                            class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
+                                            {{clientDetail.phone_number}}
+                                            <mat-icon *ngIf="clientDetail.phone_number" svgIcon="mat_solid:content_copy"
+                                                class="mr-4 md:mr-16 lg:mr-32"></mat-icon>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <div class="w-32 text-lg">
+                                            E-mail
+                                        </div>
+                                        <div
+                                            class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
+                                            {{clientDetail.email}}
+                                            <mat-icon *ngIf="clientDetail.email" svgIcon="mat_solid:content_copy"
+                                                class="mr-4 md:mr-16 lg:mr-32"></mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-full sm:w-6/12 sm:min-w-100">
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <div class="w-36 text-lg">
+                                            類型
+                                        </div>
+                                        <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
+                                            <ng-container [ngSwitch]="clientDetail.type">
+                                                <p *ngSwitchDefault></p>
+                                                <p *ngSwitchCase="'CL001'">客戶類型1</p>
+                                                <p *ngSwitchCase="'CL002'">客戶類型2</p>
+                                                <p *ngSwitchCase="'CL003'">客戶類型3</p>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <div class="w-36 text-lg">
+                                            中文公司名稱
+                                        </div>
+                                        <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
+                                            {{clientDetail.company_name_zh}}
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <div class="w-36 text-lg">
+                                            英文公司名稱
+                                        </div>
+                                        <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
+                                            {{clientDetail.company_name_en}}
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <div class="w-36 text-lg">
+                                            社群媒體
+                                        </div>
+                                        <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
+                                            {{clientDetail.social_media}}
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <div class="w-36 text-lg">
+                                            其他說明
+                                        </div>
+                                        <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
+                                            {{clientDetail.description}}
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <div class="w-36 text-lg">
+                                            推薦企業
+                                        </div>
+                                        <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
+                                            {{clientDetail.recommended_company}}
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <div class="w-36 text-lg">
+                                            關係
+                                        </div>
+                                        <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
+                                            {{clientDetail.relationship}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Area 2 -->
+                        <div class="w-full p-8 mt-8 bg-white min-w-[216px] flex flex-col flex-nowrap items-end">
+                            <div class="w-full">
+                                <div class="flex flex-row justify-between items-center mb-4">
+                                    <div class="flex flex-row items-center">
+                                        <div class="w-1.5 h-7 bg-orange-400 mr-3"></div>
+                                        <span class="text-2xl">需求單</span>
+                                    </div>
+                                    <div class="text-sky-600 cursor-pointer" (click)="openOdmPage()">
+                                        查看全部
+                                    </div>
+                                </div>
+
+
+                                <ng-container *ngFor="let demmand of demandArr.slice(0, 3);let i=index">
+                                    <div class="relative mb-4 sm:mb-0">
+                                        <div class="flex flex-wrap justify-center items-center sm:justify-between cursor-pointer min-h-24"
+                                            (click)="openEditDemandPage(demmand,$event)">
+                                            <div class="flex flex-row flex-wrap justify-center sm:justify-start 
+                                            items-start w-full sm:w-[calc(100%-176px)]">
+                                                <!-- <div class="flex items-start min-w-10 w-10 h-10 sm:h-20 mr-0 sm:mr-4">
+                                                    <mat-icon svgIcon="mat_solid:feed" class="min-w-10 w-10 h-10"></mat-icon>
+                                                </div> -->
+                                                <div class="flex flex-col justify-center w-full sm:w-[calc(100%-56px)]">
+                                                    <div
+                                                        class="flex flex-row flex-wrap justify-center sm:justify-start font-medium text-xl text-center sm:text-left">
+                                                        <div class="mr-0 sm:mr-4 w-full sm:w-fit break-all">
+                                                            {{demmand.title}}
+                                                        </div>
+                                                        <!-- <div class="bg-sky-500 text-white rounded-3xl px-5 break-word-legacy"
+                                                            *ngIf="demmand.client?.name">{{demmand.client?.name??''}}</div> -->
+                                                    </div>
+                                                    <div
+                                                        class="text-base text-center sm:text-left break-all text-slate-600">
+                                                        <span class="mr-3">
+                                                            {{t('product_dialog_title')}}:
+                                                        </span>
+                                                        {{demmand.note??''}}
+                                                    </div>
+                                                    <div
+                                                        class="text-sm text-slate-300 text-center sm:text-left break-all">
+                                                        {{t('customer_detail_create_at') + ' ' + (demmand.createdAt |
+                                                        date:'yyyy-MM-dd':'GMT+08:00')}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="clientMultiSelectCheck">
+                                                <mat-checkbox color="primary"
+                                                    (change)="mutliSelect($event,demmand)"></mat-checkbox>
+                                            </div>
+                                            <div *ngIf="!clientMultiSelectCheck"
+                                                class="min-w-44 flex flex-col justify-between content-center sm:content-end flex-wrap">
+                                                <mat-icon svgIcon="mat_outline:keyboard_arrow_right"></mat-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <hr class="my-4" *ngIf="(i + 1) !== this.demandArr.slice(0, 3).length"> -->
+                                </ng-container>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex p-8 w-full justify-center mb-10 min-w-[280px]">
+                        <button class="border-rose-600 bg-white border-2  text-rose-600 w-36 px-8 py-3"
+                            (click)="handleCancel()">{{t('button_cancel')}}</button>
+                        <button class="bg-rose-600  text-white w-36 px-8 py-3 ml-4" (click)="handleSave()">
+                            {{addClientCheck?t('button_add'):t('button_save')}}
+                        </button>
+                    </div>
+                </div>
+
+                <app-shared-common-confirm-modal *ngIf="alertPOPUP" [title]="[t('product_notice')]"
+                    [fullCustomContent]="true" [confirmButtonOnly]="confirmButtonOnly"
+                    [submitText]="[t('button_confirm')]" (cancelEvent)="confrimCancel()"
+                    (submitEvent)="confrimOK()">
+                    <div customContent class="text-center h-full ">
+                        <span class="relative top-[40%] text-xl font-bold">
+                            {{t(message)}}
+                        </span>
+                    </div>
+                </app-shared-common-confirm-modal>
+
+                <div class="toast" *ngIf="showToast">
+                    {{t('upload_avatar_success')}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Demand Page -->
+        <app-shared-demmand-form #demandFormView *ngIf="editDemandCheck" [dataInject]="demandDetailData"
+            (cancelEvent)="closeEditDemandPage()" (submitEvent)="closeEditDemandPage()"></app-shared-demmand-form>
+
+
+    </ng-container>
+</div>
+
+<!-- odm page -->
+<div *ngIf="odmPageCheck" class="fixed inset-0 z-50 light flex flex-col items-start visible opacity-100">
+    <div class="relative z-50 light">
+        <odm-form [needFullHeight]="true" [needArrowLeft]="true" [specCientId]="clientDetail.id"
+            [querySpecCientDemand]="true" (cancelEvent)="closeOdmPage()"></odm-form>
+    </div>
+</div>
