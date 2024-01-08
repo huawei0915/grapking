@@ -166,5 +166,7 @@
     "pick_photo_from_gallery": "Select Photo",
     "upload_avatar_success": "Upload completed",
     "an_error_occurred": "An error occurred. Please try again later.",
-    "add_success": "Add success"
+    "add_success": "Add success",
+    "remind": "Remind",
+    "login_again": "You have not operated the system for too long. The system has logged you out. Please log in again."
 }

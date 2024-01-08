@@ -1,18 +1,32 @@
-import { Injectable } from '@angular/core';
+import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
+import { AuthService } from 'app/core/auth/auth.service';
+import { CommonConfirmModalComponent } from 'app/shared/common-confirm-modal/common-confirm-modal.component';
 import { environment as env } from 'environments/environment';
+import { take } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
 
+    isOK = false;
+    i18nText: any;
     /**
      * Constructor
      */
     constructor(
         private _httpClient: HttpClient,
+        private _authService: AuthService,
+        private _translocoService: TranslocoService,
+        private overlay: Overlay,
     ) {
+        this._translocoService.load(this._translocoService.getActiveLang()).pipe(take(1)).subscribe((translation: any) => {
+            this.i18nText = translation;
+        });
     }
 
     // A1-2 取得個人資料
@@ -27,6 +41,7 @@ export class ApiService {
                     resolve(result.result.user);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -45,6 +60,7 @@ export class ApiService {
                     resolve(result.result.data);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -63,6 +79,7 @@ export class ApiService {
                     resolve(result.result.data);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -83,6 +100,7 @@ export class ApiService {
                     resolve(result.result.data);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -102,6 +120,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -120,6 +139,7 @@ export class ApiService {
                     resolve(result.result.data);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -138,6 +158,7 @@ export class ApiService {
                     resolve(result.result.data);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -156,6 +177,7 @@ export class ApiService {
                     resolve(result.result.data);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -175,6 +197,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -195,6 +218,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -214,6 +238,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -234,6 +259,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -253,6 +279,7 @@ export class ApiService {
                     resolve(result.result.data);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -272,6 +299,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -291,6 +319,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -316,6 +345,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -335,6 +365,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -354,6 +385,7 @@ export class ApiService {
                     resolve(result.result.data);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -373,6 +405,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -392,6 +425,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -412,6 +446,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -436,6 +471,7 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
@@ -455,9 +491,48 @@ export class ApiService {
                     resolve(result.result);
                 },
                 error: (err: any) => {
+                    this.isTokenExpired(err);
                     reject(err.error);
                 }
             });
         });
+    }
+
+    createConfirmModal(): void {
+        // 創建 Overlay 的配置
+        const config = new OverlayConfig({
+            hasBackdrop: true, // 背景是否有遮罩層
+            backdropClass: 'cdk-overlay-dark-backdrop', // 遮罩層 CSS
+            positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically() // 位置策略
+        });
+
+        // 創建 Overlay
+        const overlayRef = this.overlay.create(config);
+
+        // 創建元件 Portal
+        const componentPortal = new ComponentPortal(CommonConfirmModalComponent);
+
+        // 將元件 Portal 附加到 Overlay 上
+        const componentRef = overlayRef.attach(componentPortal);
+
+        // 設置元件的 customContent
+        componentRef.instance.title = this.i18nText['remind'] as any;
+        componentRef.instance.fullCustomContent = true as any;
+        componentRef.instance.contentTextOnly = this.i18nText['login_again'] as any;
+        componentRef.instance.confirmButtonOnly = true as any;
+        componentRef.instance.submitText = this.i18nText['button_confirm'] as any;
+        componentRef.instance.submitEvent.subscribe(() => {
+            this.isOK = true;
+            overlayRef.detach();
+        });
+    }
+
+    isTokenExpired(err: any): void {
+        if (err.status === 401) {
+            this.createConfirmModal();
+            if (this.isOK) {
+                this._authService.signOut();
+            }
+        }
     }
 }

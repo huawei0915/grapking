@@ -166,5 +166,7 @@
     "pick_photo_from_gallery": "選擇照片",
     "upload_avatar_success": "上傳成功",
     "an_error_occurred": "發生錯誤，請稍後再試。",
-    "add_success": "新增成功"
+    "add_success": "新增成功",
+    "remind": "提醒",
+    "login_again": "您已太久沒有進行系統操作，系統已爲您登出，請重新登入"
 }
