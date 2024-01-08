@@ -1,0 +1,21 @@
+#home {
+    @media (min-width: 960px){
+        .mordernVersion {
+            display: none;
+        }
+
+        .classicVersion {
+            display: block;
+        }
+    }
+
+    @media (max-width: 959.99px){
+        .mordernVersion {
+            display: block;
+        }
+
+        .classicVersion {
+            display: none;
+        }
+    }   
+}

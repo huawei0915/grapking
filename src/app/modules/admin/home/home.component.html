@@ -1,55 +1,157 @@
-<div class="absolute overflow-hidden max-h-[calc(100vh-56px)] sm:max-h-[calc(100vh-80px)] max-w-screen w-full select-none bg-cyan-900">
-    <ng-container *transloco="let t">
-        <figure class="flex flex-row justify-center">
-            <img src="assets/images/2.png" class="w-full h-[30vh] object-cover object-bottom">
-            <!-- <div class="absolute text-white font-bold text-2xl sm:text-5xl top-[10vh] select-none">{{t('home_title')}}</div> -->
-        </figure>
+<div id="home">
+    <!-- Below 960px -->
+    <div
+        class="mordernVersion absolute overflow-hidden max-h-[calc(100vh-56px)] sm:max-h-[calc(100vh-80px)] max-w-screen w-full select-none bg-cyan-900">
+        <ng-container *transloco="let t">
+            <figure class="flex flex-row justify-center">
+                <img src="assets/images/2.png" class="w-full h-[30vh] object-cover object-bottom">
+            </figure>
 
-        <figure class="flex flex-row justify-center">
-            <img src="assets/images/3.png" class="w-full h-[70vh] relative top-[-14px] object-cover object-center">
-        </figure>
+            <figure class="flex flex-row justify-center">
+                <img src="assets/images/3.png" class="w-full h-[70vh] relative top-[-14px] object-cover object-center">
+            </figure>
 
-        <!-- <figure class="flex flex-row justify-center">
-            <img src="assets/icons/search1.png" class="w-full h-[calc(70vh)] max-w-[630px] relative top-[-14px] object-cover object-center">
-            <img src="assets/icons/search1.png" class="w-full h-[calc(70vh)] max-w-[630px] relative top-[-14px] object-cover object-center">
-        </figure> -->
-
-        <div class="absolute top-10 left-5">
-            <div class="button r" id="button-3">
-                <input type="checkbox" class="checkbox" (click)="changeLang()">
-                <div class="knobs"></div>
-                <div class="layer"></div>
+            <div class="absolute top-10 left-5">
+                <div class="button r" id="button-3">
+                    <input type="checkbox" class="checkbox" (click)="changeLang()">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                </div>
             </div>
-        </div>
 
-        <div class="flex flex-row justify-center w-full">
-            <div class="relative text-white font-bold w-full h-[28.5vh] top-[-100vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#00000038] cursor-pointer select-none" [routerLink]="'company'">
-                 <div class="text-white font-bold text-2xl sm:text-5xl select-none">{{t('home_title')}}</div>
+            <div class="flex flex-row justify-center w-full">
+                <div class="relative text-white font-bold w-full h-[28.5vh] top-[-100vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#00000038] cursor-pointer select-none"
+                    [routerLink]="'company'">
+                    <div class="text-white font-bold text-2xl sm:text-5xl select-none">{{t('home_title')}}</div>
+                </div>
             </div>
-        </div>
 
-        <div class="flex flex-row justify-center w-full">
-            <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#e7002bad] cursor-pointer select-none" [ngClass]="{'border-b-2': (!searchAreaCheck && !recommandAreaCheck), 'border-r-2':(!searchAreaCheck && !questionAreaCheck)}" (mouseover)="searchAreaCheck = true" (mouseout)="searchAreaCheck = false" [routerLink]="'inquire'">
-                <img src="assets/icons/search1.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                <div class="text-2xl mt-4">{{t('home_search')}}</div>
+            <div class="flex flex-row justify-center w-full">
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#e7002bad] cursor-pointer select-none"
+                    [ngClass]="{'border-b-2': (!searchAreaCheck && !recommandAreaCheck), 'border-r-2':(!searchAreaCheck && !questionAreaCheck)}"
+                    (mouseover)="searchAreaCheck = true" (mouseout)="searchAreaCheck = false" [routerLink]="'inquire'">
+                    <img src="assets/icons/search1.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
+                    <div class="text-2xl mt-4">{{t('home_search')}}</div>
+                </div>
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#5dafff91] cursor-pointer select-none"
+                    [ngClass]="{'border-b-2': (!questionAreaCheck && !demmandAreaCheck)}"
+                    (mouseover)="questionAreaCheck = true" (mouseout)="questionAreaCheck = false"
+                    [routerLink]="'question'">
+                    <img src="assets/icons/chatting.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
+                    <div class="text-2xl mt-4">{{t('home_questionnaire')}}</div>
+                </div>
             </div>
-            <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#5dafff91] cursor-pointer select-none" [ngClass]="{'border-b-2': (!questionAreaCheck && !demmandAreaCheck)}" (mouseover)="questionAreaCheck = true" (mouseout)="questionAreaCheck = false" [routerLink]="'question'">
-                <img src="assets/icons/chatting.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                <div class="text-2xl mt-4">{{t('home_questionnaire')}}</div>
-            </div>
-        </div>
 
-        <div class="flex flex-row justify-center w-full">
-            <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#addf1aa1] cursor-pointer select-none" [ngClass]="{'border-r-2': (!recommandAreaCheck && !demmandAreaCheck)}" (mouseover)="recommandAreaCheck = true" (mouseout)="recommandAreaCheck = false" [routerLink]="'recommend'">
-                <img src="assets/icons/thumbs-up.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                <div class="text-2xl mt-4 sm:mb-[400px]">{{t('home_recommend_product')}}</div>
+            <div class="flex flex-row justify-center w-full">
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#addf1aa1] cursor-pointer select-none"
+                    [ngClass]="{'border-r-2': (!recommandAreaCheck && !demmandAreaCheck)}"
+                    (mouseover)="recommandAreaCheck = true" (mouseout)="recommandAreaCheck = false"
+                    [routerLink]="'recommend'">
+                    <img src="assets/icons/thumbs-up.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
+                    <div class="text-2xl mt-4 sm:mb-[400px]">{{t('home_recommend_product')}}</div>
+                </div>
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center hover:bg-[#e4891bab] cursor-pointer select-none"
+                    (mouseover)="demmandAreaCheck = true" (mouseout)="demmandAreaCheck = false"
+                    [routerLink]="'customized'">
+                    <img src="assets/icons/file.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
+                    <div class="text-2xl mt-4 sm:mb-[400px]">{{t('customer_detail_demand_form')}}</div>
+                </div>
             </div>
-            <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center hover:bg-[#e4891bab] cursor-pointer select-none" (mouseover)="demmandAreaCheck = true" (mouseout)="demmandAreaCheck = false" [routerLink]="'customized'">
-                <img src="assets/icons/file.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                <div class="text-2xl mt-4 sm:mb-[400px]">{{t('customer_detail_demand_form')}}</div>
-            </div>
-        </div>
+        </ng-container>
+    </div>
 
 
-    </ng-container>
+    <!-- Above 960px -->
+    <div
+        class="classicVersion absolute overflow-hidden sm:overflow-auto max-h-[calc(100vh-64px)] sm:max-h-[calc(100vh-80px)] pb-2.5 max-w-screen">
+        <ng-container *transloco="let t">
+            <figure>
+                <img src="assets/images/bg.png" alt="">
+            </figure>
+
+            <div class="mb-5 relative">
+                <figure class="w-9/12 m-auto relative">
+                    <img class="mt-[20vh] md:mt-0" src="assets/images/home_logo.png" alt="">
+
+                    <img class="absolute top-[-120%] sm:top-[-97%] w-[14%] min-w-[45px] left-[23%]"
+                        src="assets/images/bottle.gif" alt="">
+                    <img class="absolute top-[-45%] sm:top-[-35%] w-[14%] min-w-[45px] left-[-2%]"
+                        src="assets/images/bird.gif" alt="">
+                    <img class="absolute top-[-30%] sm:top-[-23%] w-[14%] min-w-[45px] left-[87%]"
+                        src="assets/images/heart.gif" alt="">
+                </figure>
+            </div>
+
+
+            <div class="absolute top-12 left-10">
+                <div class="button r" id="button-3">
+                    <input type="checkbox" class="checkbox" (click)="changeLang()">
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                </div>
+            </div>
+
+            <div class="justify-center grid grid-cols-1 grid-cols-5 gap-6 w-full min-w-0 px-10">
+                <!-- 公司介紹 -->
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
+                    [routerLink]="'company'">
+                    <div class="flex flex-col items-center mt-2">
+                        <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
+                            <img src="assets/icons/desktop.png" alt="">
+                        </div>
+                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_about_us')}}</div>
+                    </div>
+                </div>
+
+                <!-- 推薦商品 -->
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
+                    [routerLink]="'recommend'">
+                    <div class="flex flex-col items-center mt-2">
+                        <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
+                            <img src="assets/icons/like.png" alt="">
+                        </div>
+                        <div class="text-lg font-medium text-gray-700 hidden md:block">{{t('home_recommend_product')}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 問卷 -->
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
+                    [routerLink]="'question'">
+
+                    <div class="flex flex-col items-center mt-2">
+                        <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
+                            <img src="assets/icons/edit.png" alt="">
+                        </div>
+                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_questionnaire')}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 客製需求 -->
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
+                    [routerLink]="'customized'">
+
+                    <div class="flex flex-col items-center mt-2">
+                        <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
+                            <img src="assets/icons/document.png" alt="">
+                        </div>
+                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_demand')}}</div>
+                    </div>
+                </div>
+
+                <!-- 查詢 -->
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
+                    [routerLink]="'inquire'">
+                    <div class="flex flex-col items-center mt-2">
+                        <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
+                            <img src="assets/icons/search.png" alt="">
+                        </div>
+                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_search')}}</div>
+                    </div>
+                </div>
+
+            </div>
+        </ng-container>
+    </div>
 </div>
