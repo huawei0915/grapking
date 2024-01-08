@@ -24,6 +24,7 @@ export class CommonConfirmModalComponent implements OnInit {
     @Input() memo = '';                          //備註
     @Input() submitText = '';                    //確認按鈕文字
     @Input() cancelText = '';                    //取消按鈕文字
+    @Input() contentTextOnly = '';               //純注入內容的文字(要在客製內容打開情況下)
 
     // Confirm button only or two button instead?
     @Input() confirmButtonOnly = false;     //true:只有確認按鈕  false:保留取消跟確認按鈕

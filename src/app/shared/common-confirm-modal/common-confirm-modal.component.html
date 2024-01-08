@@ -74,6 +74,11 @@
                 </ng-container>
                 <!-- Custom content -->
                 <ng-content select="[customContent]"></ng-content>
+                <div *ngIf="fullCustomContent" class="text-center h-full ">
+                    <span class="relative top-[40%] text-xl font-bold">
+                        {{contentTextOnly}}
+                    </span>
+                </div>
             </div>
 
             <!-- End -->
