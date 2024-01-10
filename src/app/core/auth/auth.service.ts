@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { environment as env } from 'environments/environment';
+import { catchError, Observable, of, switchMap } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,8 @@ export class AuthService {
      */
     constructor(
         private _httpClient: HttpClient,
-        private _userService: UserService
+        private _userService: UserService,
+        private _router: Router,
     ) {
     }
 
@@ -137,6 +139,9 @@ export class AuthService {
         // Set the authenticated flag to false
         this._authenticated = false;
 
+        this._router.navigate(['/signed-in'], {
+            queryParams: {}
+        });
         // Return the observable
         return of(true);
     }
