@@ -1,14 +1,15 @@
 <div class="min-h-max max-h-max absolute overflow-auto h-[calc(100vh-64px)] sm:h-[calc(100vh-80px)]" *transloco="let t">
-    <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer absolute z-50 mt-3" [routerLink]="'/home'"></mat-icon>
+    <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer absolute z-50 mt-3"
+        [routerLink]="'/home'"></mat-icon>
     <figure>
         <img src="assets/images/bg.png" alt="">
     </figure>
 
     <div class="absolute top-1/2 flex w-8/12 justify-between" style="left: 10%;">
-        <div class="w-1/5">
+        <div class="w-1/5 hidden md:block">
             <figure class="w-60 -mt-40 relative">
                 <ng-container *ngIf="currentLevel===1">
-                    <img *ngIf="!puoductArr1.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="!puoductArr1.length" src="assets/images/question.png" alt="">
                     <img *ngIf="puoductArr1.length" src="assets/images/empty.png" alt="">
                     <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
                         style="transform: rotate(-90deg);">
@@ -108,7 +109,7 @@
                 </ng-container>
             </figure>
         </div>
-        <div class="w-3/5 -mt-30 text-center">
+        <div class="w-full -mt-30 text-center md:w-3/5">
             <h2 class="text-3xl font-bold mb-3">{{ t(getQuestionText()) }}</h2>
             <div class="h-80 overflow-auto ">
                 <div class="flex flex-wrap justify-center">
@@ -127,12 +128,12 @@
 
             <div class="flex justify-center mt-4">
                 <div *ngIf="currentLevel>1"
-                    class="text-xl text-white bg-stone-900 ml-4 flex-none rounded-md px-4 py-[0.3125rem] z-20 shadow-sm cursor-pointer"
+                    class="text-xl text-white bg-stone-900 mr-4 flex-none rounded-md px-4 py-[0.3125rem] z-20 shadow-sm cursor-pointer"
                     (click)="prevStep()">{{t('button_prev_step')}}</div>
-                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] z-20 shadow-sm cursor-pointer"
+                <div class="text-xl text-white bg-stone-900 flex-none rounded-md px-4 py-[0.3125rem] z-20 shadow-sm cursor-pointer"
                     *ngIf="currentLevel<9" (click)="nextStep()">{{t('button_next_step')}}</div>
 
-                <div class="text-xl text-white bg-stone-900  ml-4 flex-none rounded-md px-4 py-[0.3125rem] z-20 shadow-sm cursor-pointer"
+                <div class="text-xl text-white bg-stone-900 flex-none rounded-md px-4 py-[0.3125rem] z-20 shadow-sm cursor-pointer"
                     *ngIf="currentLevel===9" (click)="handleFinish()">{{t('questionnaire_question_finish')}}</div>
             </div>
 
