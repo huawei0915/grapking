@@ -26,6 +26,20 @@
     }
 }
 
+.basic_information_mobile {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: '';
+        left: -10px;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background-color: rgb(249 115 22 / var(--tw-text-opacity)) !important;
+    }
+}
+
 .noSwipe {
     transform: translateX(196px);
     transition: 0.5s;

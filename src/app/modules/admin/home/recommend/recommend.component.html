@@ -8,10 +8,10 @@
                             <div>{{i+1}}</div>
                         </div>
                         <div class="flex">
-                            <figure class="w-36 h-36 flex items-center">
+                            <figure class="w-[96px] h-[96px] flex items-center">
                                 <img [src]="getImage(product.files[0])" alt="">
                             </figure>
-                            <div class="flex flex-col justify-center ml-4">
+                            <div class="flex flex-col justify-center ml-4" style="width: calc(100% - 96px);">
                                 <div class="font-bold text-2xl">
                                     {{product.name_zh}}
                                 </div>
@@ -26,8 +26,9 @@
         </div>
     </div>
 </ng-container>
+
 <ng-container *ngIf="showDetailPage">
-    <div class="w-full h-full flex relative" *transloco="let t">
+    <div class="w-full h-full flex relative hidden md:flex" *transloco="let t">
         <div class="flex justify-between w-3/5 h-full bg-red-700 p-10 ">
             <div class=" ">
                 <h2 class="font-bold text-5xl text-white">
@@ -262,6 +263,126 @@
                     </table>
                 </div>
             </ng-container>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="showDetailPage">
+    <div class="w-full h-full flex flex-col md:hidden" *transloco="let t">
+        <div class="bg-white pb-2">
+            <!-- 產品圖 -->
+            <div class="flex items-center justify-center mt-10 z-20">
+                <figure class="w-72 p-4">
+                    <img [src]="getImage(productDetail.files[0])" alt="">
+                </figure>
+            </div>
+            <hr class="my-4">
+            <!-- 原料名稱 -->
+            <h2 class="font-bold text-5xl text-center">
+                {{lang==='zh'?productDetail.name_zh:productDetail.name_en}}
+            </h2>
+        </div>
+
+        <div class="bg-white p-4 my-4">
+            <p class="basic_information_mobile  ml-3">{{t('product_basic_information')}}</p>
+            <br>
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_basic_information_bom_id')}}</p>
+                <p class="w-4/5 text-zinc-500  flex items-center pl-3">{{productDetail.bom_no}}</p>
+            </div>
+            <!-- 功能訴求 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_info_benefit')}}</p>
+                <p class="w-4/5 text-zinc-500 flex items-center pl-3">{{getFilteredCategories('F000')}}</p>
+            </div>
+            <!-- 適用器官 -->
+
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_info_organ')}}</p>
+                <p class="w-4/5 text-zinc-500 flex items-center pl-3">{{getFilteredCategories('O000')}}</p>
+            </div>
+            <!-- 適用年齡 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_info_age')}}</p>
+                <p class="w-4/5 text-zinc-500 flex items-center pl-3">{{getFilteredCategories('AG000')}}</p>
+            </div>
+            <!-- 適用族群 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_info_group')}}</p>
+                <p class="w-4/5 text-zinc-500 flex items-center pl-3">{{getFilteredCategories('GR000')}}</p>
+            </div>
+            <!-- 劑型 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 flex">
+                    <span>{{t('product_info_form')}}</span>
+                <figure class="w-4 h-4 ml-2 cursor-pointer z-20" (click)="showDetail('form')">
+                    <img src="assets/icons/export.png" alt="">
+                </figure>
+                </p>
+                <p class="w-4/5 text-zinc-500 flex items-center pl-3"> {{getFilteredCategories('FM000')}}</p>
+            </div>
+
+            <!-- 重量 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_info_spec')}}</p>
+                <p class="w-4/5 text-zinc-500 flex items-center pl-3">
+                    {{lang==='zh'?productDetail.spec_zh:productDetail.spec_en}}</p>
+            </div>
+            <!-- 建議用量 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_info_recommended_dose')}}</p>
+                <p class="w-4/5 text-zinc-500 flex items-center pl-3">
+                    {{lang==='zh'?productDetail.recommended_dose_zh:productDetail.recommended_dose_en}}</p>
+            </div>
+            <!-- 包裝 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 flex">
+                    <span>{{t('product_info_package')}}</span>
+                <figure class="w-4 h-4 ml-2 cursor-pointer z-20" (click)="showDetail('package')">
+                    <img src="assets/icons/export.png" alt="">
+                </figure>
+                </p>
+                <p class="w-4/5 text-zinc-500 flex items-center pl-3"> {{getFilteredCategories('PK000')}}</p>
+            </div>
+        </div>
+
+
+        <!-- 注意事項 -->
+        <div class="bg-white p-4 mb-4">
+            <p class="basic_information_mobile ml-3">{{t('product_notice')}}</p>
+            <br>
+            <!-- 過敏原 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_info_allergens')}}</p>
+                <p class="w-4/5 text-zinc-500  flex items-center pl-3">{{getFilteredCategories('A000')}}</p>
+            </div>
+
+            <!-- 認證 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_info_certification')}}</p>
+                <p class="w-4/5 text-zinc-500  flex items-center pl-3">{{getFilteredCategories('CE000')}}</p>
+            </div>
+            <!-- 國家 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_info_country')}}</p>
+                <p class="w-4/5 text-zinc-500  flex items-center pl-3">{{getFilteredCategories('CY000')}}</p>
+            </div>
+            <!-- 葷素 -->
+            <div class="flex border">
+                <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                    {{t('product_info_meatvegan')}}</p>
+                <p class="w-4/5 text-zinc-500  flex items-center pl-3">{{getFilteredCategories('MV000')}}</p>
+            </div>
         </div>
     </div>
 </ng-container>
