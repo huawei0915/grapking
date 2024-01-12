@@ -1,16 +1,37 @@
 <div id="folder-form">
     <ng-container *transloco="let t" [formGroup]="folderForm">
-        <!-- Main Content -->
         <div class="min-h-max max-h-max w-full">
+            <!-- Header -->
             <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20">
                 <mat-icon *ngIf="needArrowLeft" svgIcon="feather:chevron-left" class="ml-3 cursor-pointer"
-                (click)="cancelEvent.emit()"></mat-icon>
-                <span class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900" [ngClass]="{'mr-9': needArrowLeft}">{{t('tabbar_product')}}</span>
+                    (click)="cancelEvent.emit()"></mat-icon>
+                <span class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900"
+                    [ngClass]="{'mr-9': needArrowLeft}">{{t('tabbar_product')}}</span>
             </div>
-    
+            <!-- Main Content -->
             <ng-container>
-                <div class="mt-16 fixed w-full overflow-auto" [ngClass]="{'h-[calc(100%-64px)]': needFullHeight, 'h-[calc(100%-120px)] sm:h-[calc(100%-144px)]': !needFullHeight}">
-                    <div class="w-full h-16 flex justify-between items-center z-20 text-2xl">
+                <div class="mt-16 fixed w-full overflow-auto"
+                    [ngClass]="{'h-[calc(100%-64px)]': needFullHeight, 'h-[calc(100%-120px)] sm:h-[calc(100%-144px)]': !needFullHeight}">
+                    <!-- Warning: There are no Demand Memos to display -->
+                    <div class="m-8 h-[60vh] text-center" *ngIf="filterData.length === 0">
+                        <mat-icon role="img"
+                            class="mat-icon notranslate mat-icon-no-color icon-size-20 w-20 h-20 text-slate-300 relative top-[30vh]"
+                            aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="inbox"
+                            data-mat-icon-namespace="heroicons_outline"><svg xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                aria-hidden="true" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet"
+                                focusable="false">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z">
+                                </path>
+                            </svg>
+                        </mat-icon>
+                        <div class="w-ful h-20 text-center text-slate-400 relative top-[30vh]">
+                            {{t('product_list_empty_message')}}
+                        </div>
+                    </div>
+                    <!-- Folder List -->
+                    <div class="w-full h-16 flex justify-between items-center z-20 text-2xl" *ngIf="filterData.length !== 0">
                         <mat-form-field *ngIf="!querySpecCientDemand">
                             <mat-select class="text-base font-semibold bg-white text-slate-900"
                                 formControlName="filterCheckBox">
@@ -19,12 +40,13 @@
                                 <mat-option [value]="'noClient'">{{t('filter_client_no_clientId')}}</mat-option>
                             </mat-select>
                         </mat-form-field>
-    
+
                         <div class="mr-8 text-red-600 text-base font-bold cursor-pointer select-none w-full text-right"
-                            (click)="clickMultiSelect()">{{clientMultiSelectCheck?t('button_cancel'):t('button_select')}}
+                            (click)="clickMultiSelect()">
+                            {{clientMultiSelectCheck?t('button_cancel'):t('button_select')}}
                         </div>
                     </div>
-    
+
                     <div *ngIf="filterData.length !== 0" class="m-8 mt-0 mb-12 bg-white w-[calc(100%-64px)]">
                         <div class="py-2">
                             <ng-container *ngFor="let product of filterData;let i=index">
@@ -33,7 +55,8 @@
                                         (click)="goToProductDetail(product)">
                                         <div class="flex flex-row flex-wrap justify-center sm:justify-start 
                                         items-start w-full sm:w-[calc(100%-176px)]">
-                                            <figure class="flex items-center min-w-36 w-36 h-36 mr-0 sm:mr-4 bg-slate-100">
+                                            <figure
+                                                class="flex items-center min-w-36 w-36 h-36 mr-0 sm:mr-4 bg-slate-100">
                                                 <img [src]="getImage(product.files[0])" alt="">
                                             </figure>
                                             <div class="flex flex-col justify-center w-full sm:w-[calc(100%-160px)]">
@@ -70,14 +93,14 @@
                                 </div>
                                 <hr class="my-4" *ngIf="(i + 1) !== this.filterData.length">
                             </ng-container>
-    
+
                         </div>
                     </div>
                 </div>
             </ng-container>
             <ng-container *ngIf="clientMultiSelectCheck">
-                <div
-                    class="fixed border-solid border-t-2 border-gray-200 bg-white w-full h-14 sm:h-20 flex justify-center items-center z-20" [ngClass]="{'top-[calc(100%-56px)] sm:top-[calc(100%-80px)]': needFullHeight, 'top-[calc(100%-112px)] sm:top-[calc(100%-160px)]': !needFullHeight}">
+                <div class="fixed border-solid border-t-2 border-gray-200 bg-white w-full h-14 sm:h-20 flex justify-center items-center z-20"
+                    [ngClass]="{'top-[calc(100%-56px)] sm:top-[calc(100%-80px)]': needFullHeight, 'top-[calc(100%-112px)] sm:top-[calc(100%-160px)]': !needFullHeight}">
                     <!-- Delete button -->
                     <button
                         class="w-[44%] min-w-28 m-[2%] min-h-12 sm:min-h-14 bg-white border-solid border-2 border-red-600"
@@ -97,7 +120,7 @@
                 </div>
             </ng-container>
         </div>
-    
+
         <!-- Delete Modal -->
         <app-shared-common-confirm-modal *ngIf="deleteCheck" [title]="t('button_delete')" [fullCustomContent]="true"
             [submitText]="t('button_delete')" (cancelEvent)="closeDeleteModal()" (submitEvent)="confrimDelete()">
@@ -108,13 +131,13 @@
                 </span>
             </div>
         </app-shared-common-confirm-modal>
-    
+
         <!-- Edit modal -->
         <app-shared-common-confirm-modal *ngIf="editCheck" #viewEditModal [productImage]="editData.files[0]"
             [productName]="((lang==='en')?editData.name_en:editData.name_zh)" [memo]="editData.note"
             (submitEvent)="confrimEdit(viewEditModal)" (cancelEvent)="closeEditModal()">
         </app-shared-common-confirm-modal>
-    
+
         <!-- CLient modal -->
         <div *ngIf="clientBindingCheck"
             class="fixed inset-0 z-50 bg-black/40 flex flex-col items-center justify-center visible opacity-100">
@@ -127,7 +150,7 @@
                         {{t('demand_form_bind_customer')}}
                     </div>
                 </div>
-    
+
                 <!-- Content -->
                 <div #viewContent class="w-full overflow-auto h-[calc(100%-168px)]">
                     <div class="m-4">
@@ -138,7 +161,7 @@
                                 class="w-full placeholder:text-slate-300 font-mono text-lg font-semibold"
                                 (input)="setSearchText($event)">
                         </div>
-    
+
                         <div class="my-2">
                             <ng-container *ngFor="let client of getFilteredClient(searchText);let i=index">
                                 <div class="relative">
@@ -149,10 +172,12 @@
                                         (click)="chooseClient(clientDetailView,client)">
                                         <div class="flex flex-row flex-nowrap justify-start 
                                                     items-center w-full">
-                                            <figure class="flex items-center justify-center mx-4 bg-zinc-300 rounded-[50%] min-w-14 w-14 h-14">
+                                            <figure
+                                                class="flex items-center justify-center mx-4 bg-zinc-300 rounded-[50%] min-w-14 w-14 h-14">
                                                 <!-- TODO: 有效的照片網址 -->
                                                 <img #imgView class="rounded-[50%] min-w-14 w-14 h-14 object-cover"
-                                                    [src]="getImage(client.avatar)" (error)="getDefaultImg(imgView,client.name)">
+                                                    [src]="getImage(client.avatar)"
+                                                    (error)="getDefaultImg(imgView,client.name)">
                                             </figure>
                                             <div class="flex flex-col justify-center w-full my-5">
                                                 <div class="font-semibold text-xl text-left leading-5">
@@ -162,10 +187,12 @@
                                                 </div>
                                                 <div class="text-slate-400 leading-5">
                                                     <ng-container *ngIf="lang==='en'">
-                                                        <div class="text-white h-4" *ngIf="!client.company_name_en"></div>
+                                                        <div class="text-white h-4" *ngIf="!client.company_name_en">
+                                                        </div>
                                                     </ng-container>
                                                     <ng-container *ngIf="lang!=='en'">
-                                                        <div class="text-white h-4" *ngIf="!client.company_name_zh"></div>
+                                                        <div class="text-white h-4" *ngIf="!client.company_name_zh">
+                                                        </div>
                                                     </ng-container>
                                                     {{(lang==='en')?(client.company_name_en??''):(client.company_name_zh??'')}}
                                                 </div>
@@ -175,9 +202,32 @@
                                 </div>
                             </ng-container>
                         </div>
+                        <div class="text-center"
+                            *ngIf="!getFilteredClient(searchText) ||getFilteredClient(searchText).length === 0">
+                            <mat-icon role="img"
+                                class="mat-icon notranslate mat-icon-no-color icon-size-16 w-16 text-slate-300 relative top-[30px]"
+                                aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="inbox"
+                                data-mat-icon-namespace="heroicons_outline"><svg xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                    aria-hidden="true" fit="" height="100%" width="100%"
+                                    preserveAspectRatio="xMidYMid meet" focusable="false">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z">
+                                    </path>
+                                </svg>
+                            </mat-icon>
+                            <div *ngIf="clientData.length !== 0"
+                                class="w-full text-center text-slate-400 relative top-[30px]">
+                                {{t('customer_search_empty_message')}}
+                            </div>
+                            <div *ngIf="clientData.length === 0"
+                                class="w-ful h-20 text-center text-slate-400 relative top-[30px]">
+                                {{t('customer_list_empty_message')}}
+                            </div>
+                        </div>
                     </div>
                 </div>
-    
+
                 <!-- End -->
                 <div #viewButton class="w-full bg-white flex flex-row flex-wrap justify-center pt-2">
                     <!-- Cancel button -->

@@ -31,7 +31,8 @@
                                             class="flex items-center justify-center mx-4 bg-zinc-300 rounded-[50%] min-w-14 w-14 h-14">
                                             <!-- TODO: 有效的照片網址 -->
                                             <img #imgView class="rounded-[50%] min-w-14 w-14 h-14 object-cover"
-                                                [src]="getImage(client.avatar)" (error)="getDefaultImg(imgView,client.name)">
+                                                [src]="getImage(client.avatar)"
+                                                (error)="getDefaultImg(imgView,client.name)">
                                         </figure>
                                         <div class="flex flex-col justify-center w-full my-2">
                                             <div class="text-left leading-5 break-all">
@@ -60,6 +61,27 @@
                             </div>
                             <hr class="my-2" *ngIf="(i + 1) !== getFilteredClient(searchText).length">
                         </ng-container>
+                    </div>
+                    <div class="m-8 h-[60vh] text-center"
+                        *ngIf="!getFilteredClient(searchText) ||getFilteredClient(searchText).length === 0">
+                        <mat-icon role="img"
+                            class="mat-icon notranslate mat-icon-no-color icon-size-20 w-20 h-20 text-slate-300 relative top-[30vh]"
+                            aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="inbox"
+                            data-mat-icon-namespace="heroicons_outline"><svg xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                aria-hidden="true" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet"
+                                focusable="false">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z">
+                                </path>
+                            </svg>
+                        </mat-icon>
+                        <div *ngIf="clientData.length !== 0" class="w-ful h-20 text-center text-slate-400 relative top-[30vh]">
+                            {{t('customer_search_empty_message')}}
+                        </div>
+                        <div *ngIf="clientData.length === 0" class="w-ful h-20 text-center text-slate-400 relative top-[30vh]">
+                            {{t('customer_list_empty_message')}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -166,7 +188,8 @@
                                             class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
                                             {{clientDetail.phone_number}}
                                             <mat-icon *ngIf="clientDetail.phone_number" svgIcon="mat_solid:content_copy"
-                                                class="mr-4 md:mr-16 lg:mr-32" (click)="copyContent(clientDetail.phone_number)"></mat-icon>
+                                                class="mr-4 md:mr-16 lg:mr-32"
+                                                (click)="copyContent(clientDetail.phone_number)"></mat-icon>
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
@@ -177,7 +200,8 @@
                                             class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
                                             {{clientDetail.email}}
                                             <mat-icon *ngIf="clientDetail.email" svgIcon="mat_solid:content_copy"
-                                                class="mr-4 md:mr-16 lg:mr-32" (click)="copyContent(clientDetail.email)"></mat-icon>
+                                                class="mr-4 md:mr-16 lg:mr-32"
+                                                (click)="copyContent(clientDetail.email)"></mat-icon>
                                         </div>
                                     </div>
                                 </div>
