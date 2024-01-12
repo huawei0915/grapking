@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, ViewEncapsulation, OnInit, QueryList, ElementRef, EventEmitter, Renderer2, ViewChildren, Input, Output } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, QueryList, ElementRef, EventEmitter, Renderer2, ViewChildren, Input, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { TranslocoService } from '@ngneat/transloco';
 import { environment as env } from 'environments/environment';
@@ -56,6 +57,8 @@ export class CustomComponent implements OnInit {
 
     odmPageCheck = false;
     folderPageCheck = false;
+
+    updateCusDetailStatus = false;
 
     lang = 'zh';
 
@@ -113,6 +116,7 @@ export class CustomComponent implements OnInit {
 
     // 遍及客戶資料
     async editClient(customerFormData: any, clientId: string): Promise<void> {
+        this.updateCusDetailStatus = true;
         await this._apiService.updateClient(customerFormData, clientId).then((result) => {
             this.uploadClientImage(this.uploadImgformData, result.id).finally(() => {
                 this.getClient();
@@ -123,6 +127,7 @@ export class CustomComponent implements OnInit {
                     client => (
                         client.id?.toLowerCase().includes(this.clientDetail.id)
                     ))[0];
+                this.updateCusDetailStatus = false;
             });
         });
     }
@@ -189,7 +194,9 @@ export class CustomComponent implements OnInit {
         }
         this.uploadClientImage(this.uploadImgformData, this.clientDetail.id).then(() => {
             this.showToast = true;
-            setTimeout(() => this.showToast = false, 1500);
+            setTimeout(() => {
+                this.showToast = false;
+            }, 1500);
         });
     }
 
@@ -254,6 +261,7 @@ export class CustomComponent implements OnInit {
         this.getClientProduct(client.id);
         this.clientDetail = client;
         this.clientDetailCheck = true;
+        this.selectedFile = '';
     }
 
     // 關閉客戶詳情頁面
@@ -339,7 +347,6 @@ export class CustomComponent implements OnInit {
         this.addClientCheck = false;
         this.editData = client;
         this.openCustomerFormCheck = true;
-        console.log('TEST:::', this.editData);
     }
 
     closeCustomerForm(): void {

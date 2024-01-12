@@ -38,13 +38,13 @@
                                     accept="image/png, image/jpeg" required (change)="onFileSelected($event)">
                             </div>
                         </div>
-                        <div class="w-full p-8 bg-white text-xl min-w-[216px]" [formGroup]="customerForm">
+                        <div class="w-full md:p-8 md:bg-white text-xl min-w-[216px]" [formGroup]="customerForm">
                             <!-- 類型 -->
-                            <div class="flex w-full border-2">
-                                <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                            <div class="flex w-full md:border-2 bg-white pr-4 md:pr-0 py-5 md:py-0">
+                                <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                     {{t('customer_form_type')}}</div>
-                                <div class="w-[calc(100%-10rem)] flex flex-row items-center">
-                                    <mat-form-field class="w-full max-w-[140px] sm:ml-9">
+                                <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex flex-row items-center border-2 md:border-0">
+                                    <mat-form-field class="w-full sm:ml-4">
                                         <mat-select class="text-base font-semibold bg-white text-slate-900"
                                             formControlName="type">
                                             <mat-option [value]="'CL001'">客戶類型1</mat-option>
@@ -55,14 +55,14 @@
                                 </div>
                             </div>
 
-                            <div class="flex w-full border-2 mt-3">
+                            <div class="flex w-full md:border-2 mt-5 md:mt-3 bg-white pt-5 md:pt-0">
                                 <div class="flex flex-wrap w-full">
                                     <!-- 中文公司名稱 -->
-                                    <div class="flex w-full md:w-1/2 border-b-2 md:border-b-0">
-                                        <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    <div class="flex w-full md:w-1/2 md:border-b-0 pr-4 md:pr-0 pb-5 md:pb-0">
+                                        <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                             {{t('customer_form_company_name_zh')}}
                                         </div>
-                                        <div class="w-[calc(100%-10rem)] flex items-center">
+                                        <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                             <input #company_name_zh class="w-full h-full pl-4" type="text"
                                                 formControlName="company_name_zh"
                                                 (focus)="showDeleteButton(company_name_zh,$event)"
@@ -74,11 +74,11 @@
                                         </div>
                                     </div>
                                     <!-- 英文公司名稱 -->
-                                    <div class="flex w-full md:w-1/2">
-                                        <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    <div class="flex w-full md:w-1/2 pr-4 md:pr-0 pb-5 md:pb-0">
+                                        <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                             {{t('customer_form_company_name_en')}}
                                         </div>
-                                        <div class="w-[calc(100%-10rem)] flex items-center">
+                                        <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                             <input #company_name_en class="w-full h-full pl-4" type="text"
                                                 formControlName="company_name_en"
                                                 (focus)="showDeleteButton(company_name_en,$event)"
@@ -92,14 +92,14 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-col border-2 mt-3">
-                                <div class="flex flex-wrap border-b-2">
+                            <div class="flex flex-col md:border-2 mt-5 md:mt-3 bg-white pt-5 md:pt-0">
+                                <div class="flex flex-wrap md:border-b-2">
                                     <!-- 姓名 -->
-                                    <div class="flex w-full md:w-1/2 border-b-2 md:border-b-0">
-                                        <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    <div class="flex w-full md:w-1/2 border-b-0 pr-4 md:pr-0 pb-5 md:pb-0">
+                                        <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                             {{t('customer_form_name')}}
                                         </div>
-                                        <div class="w-[calc(100%-10rem)] flex items-center">
+                                        <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                             <input #name class="w-full h-full pl-4" type="text" formControlName="name"
                                                 (focus)="showDeleteButton(name,$event)"
                                                 (blur)="hideDeleteButton(name,$event)">
@@ -110,11 +110,11 @@
                                         </div>
                                     </div>
                                     <!-- 電話 -->
-                                    <div class="flex w-full md:w-1/2">
-                                        <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                    <div class="flex w-full md:w-1/2 pr-4 md:pr-0 pb-5 md:pb-0">
+                                        <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                             {{t('customer_form_phone_number')}}
                                         </div>
-                                        <div class="w-[calc(100%-10rem)] flex items-center">
+                                        <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                             <input #phone_number class="w-full h-full pl-4" type="text"
                                                 formControlName="phone_number"
                                                 (focus)="showDeleteButton(phone_number,$event)"
@@ -127,10 +127,10 @@
                                     </div>
                                 </div>
                                 <!-- 社群媒體 -->
-                                <div class="flex border-b-2">
-                                    <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                <div class="flex md:border-b-2 pr-4 md:pr-0 pb-5 md:pb-0">
+                                    <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                         {{t('customer_form_social_media')}}</div>
-                                    <div class="w-[calc(100%-10rem)] flex items-center">
+                                    <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                         <input #social_media class="w-full h-full pl-4" type="text"
                                             formControlName="social_media"
                                             (focus)="showDeleteButton(social_media,$event)"
@@ -142,11 +142,11 @@
                                     </div>
                                 </div>
                                 <!-- E-mail -->
-                                <div class="flex">
-                                    <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                <div class="flex pr-4 md:pr-0 pb-5 md:pb-0">
+                                    <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                         {{t('customer_form_email')}}
                                     </div>
-                                    <div class="w-[calc(100%-10rem)] flex items-center">
+                                    <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                         <input #email class="w-full h-full pl-4" type="text" formControlName="email"
                                             (focus)="showDeleteButton(email,$event)"
                                             (blur)="hideDeleteButton(email,$event)">
@@ -158,12 +158,12 @@
                             </div>
 
 
-                            <div class="flex flex-col border-2 mt-3">
+                            <div class="flex flex-col md:border-2 mt-3 bg-white pt-5 md:pt-0">
                                 <!-- 其他說明 -->
-                                <div class="flex border-b-2">
-                                    <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                <div class="flex md:border-b-2 pr-4 md:pr-0 pb-5 md:pb-0">
+                                    <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                         {{t('customer_form_description')}}</div>
-                                    <div class="w-[calc(100%-10rem)] flex items-center">
+                                    <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                         <input #description class="w-full h-full pl-4" type="text"
                                             formControlName="description" (focus)="showDeleteButton(description,$event)"
                                             (blur)="hideDeleteButton(description,$event)">
@@ -174,11 +174,11 @@
                                     </div>
                                 </div>
                                 <!-- 推薦企業 -->
-                                <div class="flex border-b-2">
-                                    <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                <div class="flex md:border-b-2 pr-4 md:pr-0 pb-5 md:pb-0">
+                                    <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                         {{t('customer_form_recommended_company')}}
                                     </div>
-                                    <div class="w-[calc(100%-10rem)] flex items-center">
+                                    <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                         <input #recommended_company class="w-full h-full pl-4" type="text"
                                             formControlName="recommended_company"
                                             (focus)="showDeleteButton(recommended_company,$event)"
@@ -190,11 +190,11 @@
                                     </div>
                                 </div>
                                 <!-- 關係 -->
-                                <div class="flex">
-                                    <div class="w-40 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
+                                <div class="flex pr-4 md:pr-0 pb-5 md:pb-0">
+                                    <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                         {{t('customer_form_relationship')}}
                                     </div>
-                                    <div class="w-[calc(100%-10rem)] flex items-center">
+                                    <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                         <input #relationship class="w-full h-full pl-4" type="text"
                                             formControlName="relationship"
                                             (focus)="showDeleteButton(relationship,$event)"

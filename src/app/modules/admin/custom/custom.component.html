@@ -76,10 +76,12 @@
                                 </path>
                             </svg>
                         </mat-icon>
-                        <div *ngIf="clientData.length !== 0" class="w-ful h-20 text-center text-slate-400 relative top-[30vh]">
+                        <div *ngIf="clientData.length !== 0"
+                            class="w-ful h-20 text-center text-slate-400 relative top-[30vh]">
                             {{t('customer_search_empty_message')}}
                         </div>
-                        <div *ngIf="clientData.length === 0" class="w-ful h-20 text-center text-slate-400 relative top-[30vh]">
+                        <div *ngIf="clientData.length === 0"
+                            class="w-ful h-20 text-center text-slate-400 relative top-[30vh]">
                             {{t('customer_list_empty_message')}}
                         </div>
                     </div>
@@ -87,6 +89,7 @@
             </div>
         </div>
 
+        <!-- Add/Edit Customer Page -->
         <app-shared-customer-form class="relative z-[100]" #customerFormView *ngIf="openCustomerFormCheck"
             [addClientCheck]="addClientCheck" [dataInject]="editData" (cancelEvent)="closeCustomerForm()"
             (addEvent)="addCustomer(customerFormView)" (editEvent)="editCustomer(customerFormView)"
@@ -160,13 +163,22 @@
                                     <div class="flex flex-row flex-wrap align-start items-center min-w-[216px] mb-4">
                                         <div
                                             class="w-32 h-32 bg-white rounded-full flex flex-col flex-nowrap items-center justify-center mr-4 mb-4 select-none">
-                                            <figure
-                                                class="relative top-[131px] flex items-center justify-center bg-zinc-300 rounded-[50%] min-w-32 min-h-32 w-32 h-32">
-                                                <img #imgView
-                                                    [src]="(selectedFile === '')?getImage(clientDetail.avatar):selectedFile"
-                                                    class="w-32 h-32 rounded-full object-cover"
-                                                    (error)="getDefaultImg(imgView,clientDetail.name)" />
-                                            </figure>
+                                            <ng-container *ngIf="(selectedFile === '') && !updateCusDetailStatus">
+                                                <figure
+                                                    class="relative top-[131px] flex items-center justify-center bg-zinc-300 rounded-[50%] min-w-32 min-h-32 w-32 h-32">
+                                                    <img #imgViewDetail
+                                                        [src]="(selectedFile === '')?getImage(clientDetail.avatar):selectedFile"
+                                                        class="w-32 h-32 rounded-full object-cover"
+                                                        (error)="getDefaultImg(imgViewDetail,clientDetail.name)" />
+                                                </figure>
+                                            </ng-container>
+                                            <ng-container *ngIf="(selectedFile !== '')">
+                                                <figure
+                                                    class="relative top-[131px] flex items-center justify-center bg-zinc-300 rounded-[50%] min-w-32 min-h-32 w-32 h-32">
+                                                    <img [src]="(selectedFile === '')?getImage(clientDetail.avatar):selectedFile"
+                                                        class="w-32 h-32 rounded-full object-cover" />
+                                                </figure>
+                                            </ng-container>
                                             <div class="w-8 h-8 bg-orange-400 rounded-full relative mt-24 ml-20">
                                                 <mat-icon svgIcon="heroicons_outline:pencil"
                                                     class="text-white customSvgSize ml-1 mt-1"></mat-icon>
