@@ -16,6 +16,10 @@ import { take } from 'rxjs';
 export class DemmandFormComponent implements OnInit {
     // Template reference variable
     @ViewChildren('clientDetailView') clientDetailView: QueryList<ElementRef>;
+    @ViewChild('effect') effect: ElementRef;
+    @ViewChild('flavor') flavor: ElementRef;
+    @ViewChild('requirement') requirement: ElementRef;
+    @ViewChild('note') note: ElementRef;
 
     // Button event
     @Output() cancelEvent = new EventEmitter();  //取消事件
@@ -56,6 +60,12 @@ export class DemmandFormComponent implements OnInit {
     ngOnInit(): void {
         this._translocoService.load(this._translocoService.getActiveLang()).pipe(take(1)).subscribe((translation: any) => {
             this.i18nText = translation;
+            setTimeout(() => {
+                this.effect.nativeElement.innerText = ((this.dataInject?.effect) ?? '');
+                this.flavor.nativeElement.innerText = ((this.dataInject?.flavor) ?? '');
+                this.requirement.nativeElement.innerText = ((this.dataInject?.requirement) ?? '');
+                this.note.nativeElement.innerText = ((this.dataInject?.note) ?? '');
+            });
         });
 
         this.demandId = (this.dataInject?.id) ?? '';
@@ -127,11 +137,16 @@ export class DemmandFormComponent implements OnInit {
         return `${env.apiServer}/api/files/${img}`;
     }
 
-    getDefaultImg(input: any): void {
+    getDefaultImg(input: any, clientName: string): void {
+        const nameCheck = (clientName ?? '');
         input.src = 'assets/images/logo.png';
         this._renderer.setStyle(input, 'display', 'none');
-        // eslint-disable-next-line max-len
-        this._renderer.setProperty(input.parentNode, 'innerHTML', '<mat-icon role="img" svgicon="mat_solid:person" class="text-white mat-icon notranslate mat-icon-no-color" aria-hidden="true" ng-reflect-svg-icon="mat_solid:person" data-mat-icon-type="svg" data-mat-icon-name="person" data-mat-icon-namespace="mat_solid"><svg viewBox="0 0 24 24" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg></mat-icon>');
+        if (nameCheck !== '') {
+            this._renderer.setProperty(input.parentNode, 'innerHTML', '<div class="text-white text-2xl">' + nameCheck.substring(0, 1) + '</div>');
+        } else {
+            // eslint-disable-next-line max-len
+            this._renderer.setProperty(input.parentNode, 'innerHTML', '<mat-icon role="img" svgicon="mat_solid:person" class="text-white mat-icon notranslate mat-icon-no-color" aria-hidden="true" ng-reflect-svg-icon="mat_solid:person" data-mat-icon-type="svg" data-mat-icon-name="person" data-mat-icon-namespace="mat_solid"><svg viewBox="0 0 24 24" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg></mat-icon>');
+        }
     }
 
     handleCancel(): void {
@@ -240,5 +255,21 @@ export class DemmandFormComponent implements OnInit {
         event.preventDefault();
         event.stopPropagation();
         inputElement.value = '';
+    }
+
+    setEffect(input: string): void {
+        this.demmandForm.get('effect').setValue(input);
+    }
+
+    setFlavor(input: string): void {
+        this.demmandForm.get('flavor').setValue(input);
+    }
+
+    setRequirement(input: string): void {
+        this.demmandForm.get('requirement').setValue(input);
+    }
+
+    setNote(input: string): void {
+        this.demmandForm.get('note').setValue(input);
     }
 }

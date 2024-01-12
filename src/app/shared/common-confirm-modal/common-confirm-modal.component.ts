@@ -46,7 +46,11 @@ export class CommonConfirmModalComponent implements OnInit {
     ngOnInit(): void {
         this._translocoService.load(this._translocoService.getActiveLang()).pipe(take(1)).subscribe((translation: any) => {
             this.i18nText = translation;
-            setTimeout(() => { this.viewMemo.nativeElement.innerText = this.memo; });
+            setTimeout(() => {
+                if(this.viewMemo?.nativeElement){
+                    this.viewMemo.nativeElement.innerText = this.memo;
+                }
+            });
         });
 
     }

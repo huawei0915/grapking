@@ -37,25 +37,4 @@
             }
         }
     }
-
-    @media (min-width: 960px){
-        .mordernVersion {
-            display: none!important;
-        }
-
-        .classicVersion {
-            display: block!important;
-        }
-    }
-
-    @media (max-width: 959px){
-        .mordernVersion {
-            display: block!important;
-        }
-
-        .classicVersion {
-            display: none!important;
-        }
-    }
-
 }

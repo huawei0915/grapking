@@ -31,7 +31,7 @@
                                             class="flex items-center justify-center mx-4 bg-zinc-300 rounded-[50%] min-w-14 w-14 h-14">
                                             <!-- TODO: 有效的照片網址 -->
                                             <img #imgView class="rounded-[50%] min-w-14 w-14 h-14 object-cover"
-                                                [src]="getImage(client.avatar)" (error)="getDefaultImg(imgView)">
+                                                [src]="getImage(client.avatar)" (error)="getDefaultImg(imgView,client.name)">
                                         </figure>
                                         <div class="flex flex-col justify-center w-full my-2">
                                             <div class="text-left leading-5 break-all">
@@ -143,7 +143,7 @@
                                                 <img #imgView
                                                     [src]="(selectedFile === '')?getImage(clientDetail.avatar):selectedFile"
                                                     class="w-32 h-32 rounded-full object-cover"
-                                                    (error)="getDefaultImg(imgView)" />
+                                                    (error)="getDefaultImg(imgView,clientDetail.name)" />
                                             </figure>
                                             <div class="w-8 h-8 bg-orange-400 rounded-full relative mt-24 ml-20">
                                                 <mat-icon svgIcon="heroicons_outline:pencil"
