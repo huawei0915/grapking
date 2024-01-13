@@ -13,6 +13,7 @@ import { take } from 'rxjs';
 })
 export class ApiService {
 
+    expiredPopup = false;
     isOK = false;
     i18nText: any;
     /**
@@ -27,6 +28,12 @@ export class ApiService {
         this._translocoService.load(this._translocoService.getActiveLang()).pipe(take(1)).subscribe((translation: any) => {
             this.i18nText = translation;
         });
+    }
+
+    // Reset parameter
+    init(): void{
+        this.expiredPopup = false;
+        this.isOK = false;
     }
 
     // A1-2 取得個人資料
@@ -499,6 +506,7 @@ export class ApiService {
     }
 
     createConfirmModal(): void {
+        this.expiredPopup = true;
         // 創建 Overlay 的配置
         const config = new OverlayConfig({
             hasBackdrop: true, // 背景是否有遮罩層
@@ -524,15 +532,27 @@ export class ApiService {
         componentRef.instance.submitEvent.subscribe(() => {
             this.isOK = true;
             overlayRef.detach();
+            this._authService.signOut();
         });
+        // Handle auto logout if nothing is done after 6 seconds
+        setTimeout(() => {
+            if(!this.isOK){
+                overlayRef.detach();
+                this._authService.signOut();
+            }
+        }, 6000);
     }
 
     isTokenExpired(err: any): void {
         if (err.status === 401) {
-            this.createConfirmModal();
-            if (this.isOK) {
-                this._authService.signOut();
+            // Prevent multiple popup because of multiple 401 response
+            if(!this.expiredPopup){
+                this.createConfirmModal();
             }
+            // This can't be used because it doesn't detach the overlay
+            // if (this.isOK) {
+            //     this._authService.signOut();
+            // }
         }
     }
 }

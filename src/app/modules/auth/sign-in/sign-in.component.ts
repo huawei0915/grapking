@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { ApiService } from 'app/modules/admin/api.service';
 import { environment as env } from 'environments/environment';
 
 @Component({
@@ -29,6 +30,7 @@ export class AuthSignInComponent implements OnInit {
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _authService: AuthService,
+        private _apiService: ApiService,
         private _formBuilder: FormBuilder,
         private _router: Router
     ) {
@@ -42,6 +44,7 @@ export class AuthSignInComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
+        this._apiService.init();
         if ((this._authService.accessToken ?? '').trim() === '') {
             this._authService.signOut();
             this.isSigned = false;
