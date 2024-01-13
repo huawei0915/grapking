@@ -31,7 +31,8 @@
                         </div>
                     </div>
                     <!-- Folder List -->
-                    <div class="w-full h-16 flex justify-between items-center z-20 text-2xl" *ngIf="filterData.length !== 0">
+                    <div class="w-full h-16 flex justify-between items-center z-20 text-2xl"
+                        *ngIf="filterData.length !== 0">
                         <mat-form-field *ngIf="!querySpecCientDemand">
                             <mat-select class="text-base font-semibold bg-white text-slate-900"
                                 formControlName="filterCheckBox">
@@ -47,14 +48,16 @@
                         </div>
                     </div>
 
-                    <div *ngIf="filterData.length !== 0" class="m-8 mt-0 mb-12 bg-white w-[calc(100%-64px)]">
+                    <!-- Normal Version -->
+                    <div *ngIf="filterData.length !== 0"
+                        class="normalVersion m-8 mt-0 mb-12 bg-white w-[calc(100%-64px)]">
                         <div class="py-2">
                             <ng-container *ngFor="let product of filterData;let i=index">
                                 <div class="relative m-2 px-2">
                                     <div class="flex flex-wrap justify-center sm:justify-between cursor-pointer"
                                         (click)="goToProductDetail(product)">
                                         <div class="flex flex-row flex-wrap justify-center sm:justify-start 
-                                        items-start w-full sm:w-[calc(100%-176px)]">
+                                        items-start w-full sm:w-[calc(100%-176px)]" (click)="checkboxClick(i,product)">
                                             <figure
                                                 class="flex items-center min-w-36 w-36 h-36 mr-0 sm:mr-4 bg-slate-100">
                                                 <img [src]="getImage(product.files[0])" alt="">
@@ -73,10 +76,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div *ngIf="clientMultiSelectCheck">
-                                            <mat-checkbox color="primary"
-                                                (change)="mutliSelect($event,product)"></mat-checkbox>
-                                        </div>
                                         <div *ngIf="!clientMultiSelectCheck"
                                             class="min-w-44 flex flex-col justify-between content-center sm:content-end flex-wrap">
                                             <div>{{product.updatedAt | date:'yyyy-MM-dd HH:mm:ss':'GMT+08:00'}}</div>
@@ -89,6 +88,13 @@
                                                     (click)="openEditModal(product)"></mat-icon>
                                             </div>
                                         </div>
+                                        <div *ngIf="clientMultiSelectCheck" class="min-w-[152px]"
+                                            (click)="checkboxClick(i,product)">
+                                        </div>
+                                        <div *ngIf="clientMultiSelectCheck">
+                                            <mat-checkbox #normalVerCheckboxView color="primary"
+                                                (change)="mutliSelect($event,product,i,'normalVer')"></mat-checkbox>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr class="my-4" *ngIf="(i + 1) !== this.filterData.length">
@@ -96,6 +102,69 @@
 
                         </div>
                     </div>
+
+                    <!-- Grid Version -->
+                    <div *ngIf="filterData.length !== 0" class="gripVersion my-8 mt-0 mb-12 w-full">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-6">
+                            <ng-container *ngFor="let product of filterData;let i=index">
+                                <div class="px-3 pb-3 text-center text-2xl bg-white bg-opacity-80 min-h-96">
+                                    <div class="h-8 text-right leading-[50px]">
+                                        <mat-checkbox #gridVerCheckboxView *ngIf="clientMultiSelectCheck"
+                                            color="primary"
+                                            (change)="mutliSelect($event,product,i,'gridVer')"></mat-checkbox>
+                                    </div>
+                                    <!-- Grid Start -->
+                                    <div class="relative h-[calc(100%-32px)]" (click)="checkboxClick(i,product)">
+                                        <div class="flex flex-wrap justify-center sm:justify-between cursor-pointer h-full"
+                                            (click)="goToProductDetail(product)">
+                                            <div class="flex flex-row flex-wrap justify-center items-start w-full">
+                                                <figure class="flex items-center max-w-44 h-44 max-h-44 bg-slate-100">
+                                                    <img class="max-h-44" [src]="getImage(product.files[0])" alt="">
+                                                </figure>
+                                                <div
+                                                    class="w-full min-h-[calc(100%-176px)] flex flex-col flex-nowrap justify-between">
+                                                    <div class="flex flex-col justify-center w-full">
+                                                        <div
+                                                            class="mt-6 flex flex-row flex-wrap justify-center sm:justify-start font-semibold text-xl text-left overflow-hidden overflow-ellipsis line-clamp-2">
+                                                            <div class="w-full">
+                                                                {{(lang==='en')?product.name_en:product.name_zh}}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="text-base text-slate-900/80 text-left break-all overflow-hidden overflow-ellipsis line-clamp-2">
+                                                            {{(product.client?.name)?(product.client?.name +
+                                                            ','):''}}{{product.note??''}}
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="mt-2 w-full flex flex-row flex-wrap justify-between items-end content-center sm:content-end text-base">
+                                                        <div class="text-slate-900/70">{{product.updatedAt |
+                                                            date:'yyyy-MM-dd HH:mm':'GMT+08:00'}}</div>
+                                                        <div *ngIf="!clientMultiSelectCheck"
+                                                            class="flex flex-row justify-between min-w-24">
+                                                            <mat-icon class="text-slate-900/30 scale-90"
+                                                                svgIcon="feather:trash-2"
+                                                                (click)="openDeleteModal(product)"></mat-icon>
+                                                            <mat-icon class="text-slate-900/30 scale-90"
+                                                                svgIcon="heroicons_outline:user"
+                                                                (click)="openClientModal(product)"></mat-icon>
+                                                            <mat-icon class="text-slate-900/30 scale-90"
+                                                                svgIcon="feather:edit"
+                                                                (click)="openEditModal(product)"></mat-icon>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- Grid End^ -->
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <!-- Grid Version^ -->
                 </div>
             </ng-container>
             <ng-container *ngIf="clientMultiSelectCheck">
@@ -153,7 +222,7 @@
 
                 <!-- Content -->
                 <div #viewContent class="w-full overflow-auto h-[calc(100%-168px)]">
-                    <div class="m-4">
+                    <div class="m-4 h-1/2">
                         <!-- Search filter -->
                         <div class="bg-slate-100 w-full h-12 flex flex-row flex-nowrap items-center justify-start">
                             <mat-icon class="mx-2 text-slate-300" svgIcon="mat_solid:search"></mat-icon>
@@ -202,10 +271,10 @@
                                 </div>
                             </ng-container>
                         </div>
-                        <div class="text-center"
+                        <div class="text-center h-full flex flex-col justify-end items-center"
                             *ngIf="!getFilteredClient(searchText) ||getFilteredClient(searchText).length === 0">
                             <mat-icon role="img"
-                                class="mat-icon notranslate mat-icon-no-color icon-size-16 w-16 text-slate-300 relative top-[30px]"
+                                class="mat-icon notranslate mat-icon-no-color icon-size-16 w-16 text-slate-300 relative"
                                 aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="inbox"
                                 data-mat-icon-namespace="heroicons_outline"><svg xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -217,11 +286,11 @@
                                 </svg>
                             </mat-icon>
                             <div *ngIf="clientData.length !== 0"
-                                class="w-full text-center text-slate-400 relative top-[30px]">
+                                class="w-full text-center text-slate-400 relative">
                                 {{t('customer_search_empty_message')}}
                             </div>
                             <div *ngIf="clientData.length === 0"
-                                class="w-ful h-20 text-center text-slate-400 relative top-[30px]">
+                                class="w-ful h-20 text-center text-slate-400 relative">
                                 {{t('customer_list_empty_message')}}
                             </div>
                         </div>

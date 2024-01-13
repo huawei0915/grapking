@@ -28,4 +28,24 @@
     .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
         color: #64748b !important;
     }
+
+    @media (min-width: 960px){
+        .gripVersion {
+            display: none;
+        }
+
+        .normalVersion {
+            display: block;
+        }
+    }
+
+    @media (max-width: 959px){
+        .gripVersion {
+            display: block;
+        }
+
+        .normalVersion {
+            display: none;
+        }
+    }   
 }

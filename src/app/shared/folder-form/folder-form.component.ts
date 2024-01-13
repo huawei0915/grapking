@@ -6,6 +6,7 @@ import { environment as env } from 'environments/environment';
 import 'hammerjs';
 import { Router } from '@angular/router';
 import { ApiService } from 'app/modules/admin/api.service';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
     selector: 'folder-form',
@@ -15,6 +16,8 @@ import { ApiService } from 'app/modules/admin/api.service';
 })
 export class FolderFormComponent implements OnInit {
     @ViewChildren('clientDetailView') clientDetailView: QueryList<ElementRef>;
+    @ViewChildren('gridVerCheckboxView') gridVerCheckboxView: QueryList<MatCheckbox>;
+    @ViewChildren('normalVerCheckboxView') normalVerCheckboxView: QueryList<MatCheckbox>;
     @Input() querySpecCientDemand = false;
     @Input() specCientId = '';
     @Input() needFullHeight = false;
@@ -71,6 +74,8 @@ export class FolderFormComponent implements OnInit {
 
         this.folderForm.get('filterCheckBox')?.valueChanges.subscribe(
             (value) => {
+                this.clientMultiSelectCheck = false;
+                this.clientMultiSelectData = [];
                 this.filterCheckboxOnchange(value);
             });
     }
@@ -252,7 +257,14 @@ export class FolderFormComponent implements OnInit {
     }
 
     // 多選擇checkbox
-    mutliSelect(event: any, selectData: any[]): void {
+    mutliSelect(event: any, selectData: any[], index: number, whichVerBehavior?: string): void {
+        if (event.source?.id) {
+            if (whichVerBehavior === 'normalVer') {
+                this.gridVerCheckboxView.toArray()[index].checked = !this.gridVerCheckboxView.toArray()[index].checked;
+            } else if (whichVerBehavior === 'gridVer') {
+                this.normalVerCheckboxView.toArray()[index].checked = !this.normalVerCheckboxView.toArray()[index].checked;
+            }
+        }
         if (event.checked) {
             this.clientMultiSelectData.push(selectData);
         } else if (!event.checked) {
@@ -300,5 +312,13 @@ export class FolderFormComponent implements OnInit {
         } else {
             this.filterData = this.productArr;
         }
+    }
+
+    checkboxClick(index: number, selectData: any[]): void {
+        if (this.clientMultiSelectCheck) {
+            this.normalVerCheckboxView.toArray()[index].checked = !this.normalVerCheckboxView.toArray()[index].checked;
+            this.gridVerCheckboxView.toArray()[index].checked = !this.gridVerCheckboxView.toArray()[index].checked;
+        }
+        this.mutliSelect(this.normalVerCheckboxView.toArray()[index], selectData, index);
     }
 }
