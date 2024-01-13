@@ -49,8 +49,8 @@
                         <div class="pl-2.5 flex items-start flex-wrap">
                             <!-- Product image -->
                             <!-- <div class="min-w-28 w-2/6 mr-8"> -->
-                            <figure class="w-20 mr-4">
-                                <img [src]="getImage(productImage)" alt="">
+                            <figure *ngIf="!noEffectImg" class="w-20 mr-4">
+                                <img [src]="getImage(productImage)" (error)="noEffectImg = true">
                             </figure>
                             <!-- </div> -->
                             <!-- Product name -->

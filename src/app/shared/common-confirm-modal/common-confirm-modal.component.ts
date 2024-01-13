@@ -33,6 +33,8 @@ export class CommonConfirmModalComponent implements OnInit {
     @Output() cancelEvent = new EventEmitter();  //取消事件
     @Output() submitEvent = new EventEmitter();  //加入草稿事件
 
+    noEffectImg = false;
+
     i18nText: any;
 
     /**
