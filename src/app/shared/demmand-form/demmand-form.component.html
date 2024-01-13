@@ -371,7 +371,7 @@
 
                 <!-- Content -->
                 <div #viewContent class="w-full overflow-auto h-[calc(100%-168px)]">
-                    <div class="m-4">
+                    <div class="m-4 h-1/2">
                         <!-- Search filter -->
                         <div class="bg-slate-100 w-full h-12 flex flex-row flex-nowrap items-center justify-start">
                             <mat-icon class="mx-2 text-slate-300" svgIcon="mat_solid:search"></mat-icon>
@@ -420,7 +420,7 @@
                                 </div>
                             </ng-container>
                         </div>
-                        <div class="text-center"
+                        <div class="text-center h-full flex flex-col justify-end items-center"
                             *ngIf="!getFilteredClient(searchText) ||getFilteredClient(searchText).length === 0">
                             <mat-icon role="img"
                                 class="mat-icon notranslate mat-icon-no-color icon-size-16 w-16 text-slate-300 relative top-[30px]"

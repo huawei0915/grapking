@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, OnInit, ElementRef, QueryList, Renderer2, ViewChildren, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
@@ -15,6 +16,7 @@ import { environment as env } from 'environments/environment';
 export class OdmFormComponent implements OnInit {
     @ViewChildren('clientDetailView') clientDetailView: QueryList<ElementRef>;
     @ViewChildren('demandFormView') demandFormView: any;
+    @ViewChildren('checkboxView') checkboxView: QueryList<MatCheckbox>;
 
     @Input() querySpecCientDemand = false;
     @Input() specCientId = '';
@@ -297,6 +299,13 @@ export class OdmFormComponent implements OnInit {
             this.filterData = this.demandArr?.filter((person: any) => (person?.['client_id'] === null) || (!person?.client));
         } else {
             this.filterData = this.demandArr;
+        }
+    }
+
+    checkboxClick(index: number, selectData: any[]): void {
+        if (this.clientMultiSelectCheck) {
+            this.checkboxView.toArray()[index].checked = !this.checkboxView.toArray()[index].checked;
+            this.mutliSelect(this.checkboxView.toArray()[index], selectData);
         }
     }
 }

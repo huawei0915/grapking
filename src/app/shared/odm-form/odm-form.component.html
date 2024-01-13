@@ -56,7 +56,8 @@
                                         [ngClass]="{'cursor-pointer': !clientMultiSelectCheck}"
                                         (click)="openEditModal(demmand,$event)">
                                         <div class="flex flex-row flex-wrap justify-center sm:justify-start 
-                                        items-start w-full sm:w-[calc(100%-176px)]">
+                                        items-start w-full sm:w-[calc(100%-176px)]"
+                                            (click)="checkboxClick(i,demmand)">
                                             <div class="flex items-start min-w-10 w-10 h-10 sm:h-20 mr-0 sm:mr-4">
                                                 <mat-icon svgIcon="mat_solid:feed"
                                                     class="min-w-10 w-10 h-10"></mat-icon>
@@ -75,10 +76,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div *ngIf="clientMultiSelectCheck">
-                                            <mat-checkbox color="primary" (change)="mutliSelect($event,demmand)"
-                                                (click)="$event.stopPropagation()"></mat-checkbox>
-                                        </div>
                                         <div *ngIf="!clientMultiSelectCheck"
                                             class="min-w-44 flex flex-col justify-between content-center sm:content-end flex-wrap">
                                             <div>{{demmand.updatedAt | date:'yyyy-MM-dd HH:mm:ss':'GMT+08:00'}}</div>
@@ -90,6 +87,14 @@
                                                 <mat-icon class="text-slate-400" svgIcon="feather:edit"
                                                     (click)="openEditModal(demmand,$event)"></mat-icon>
                                             </div>
+                                        </div>
+                                        <div *ngIf="clientMultiSelectCheck" class="min-w-[152px]"
+                                            (click)="checkboxClick(i,demmand)">
+                                        </div>
+                                        <div *ngIf="clientMultiSelectCheck">
+                                            <mat-checkbox #checkboxView color="primary"
+                                                (change)="mutliSelect($event,demmand)"
+                                                (click)="$event.stopPropagation()"></mat-checkbox>
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +158,7 @@
 
                 <!-- Content -->
                 <div #viewContent class="w-full overflow-auto h-[calc(100%-168px)]">
-                    <div class="m-4">
+                    <div class="m-4 h-1/2">
                         <!-- Search filter -->
                         <div class="bg-slate-100 w-full h-12 flex flex-row flex-nowrap items-center justify-start">
                             <mat-icon class="mx-2 text-slate-300" svgIcon="mat_solid:search"></mat-icon>
@@ -202,10 +207,10 @@
                                 </div>
                             </ng-container>
                         </div>
-                        <div class="text-center"
+                        <div class="text-center h-full flex flex-col justify-end items-center"
                             *ngIf="!getFilteredClient(searchText) ||getFilteredClient(searchText).length === 0">
                             <mat-icon role="img"
-                                class="mat-icon notranslate mat-icon-no-color icon-size-16 w-16 text-slate-300 relative top-[30px]"
+                                class="mat-icon notranslate mat-icon-no-color icon-size-16 w-16 text-slate-300 relative"
                                 aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="inbox"
                                 data-mat-icon-namespace="heroicons_outline"><svg xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -216,12 +221,10 @@
                                     </path>
                                 </svg>
                             </mat-icon>
-                            <div *ngIf="clientData.length !== 0"
-                                class="w-full text-center text-slate-400 relative top-[30px]">
+                            <div *ngIf="clientData.length !== 0" class="w-full text-center text-slate-400 relative">
                                 {{t('customer_search_empty_message')}}
                             </div>
-                            <div *ngIf="clientData.length === 0"
-                                class="w-ful h-20 text-center text-slate-400 relative top-[30px]">
+                            <div *ngIf="clientData.length === 0" class="w-ful h-20 text-center text-slate-400 relative">
                                 {{t('customer_list_empty_message')}}
                             </div>
                         </div>
