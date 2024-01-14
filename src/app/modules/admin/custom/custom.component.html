@@ -205,6 +205,7 @@
                                 </figure>
                             </div>
                             <div class="w-full flex flex-row flex-wrap justify-center">
+                                <!-- normal text view for tel and email -->
                                 <div class="normalVersion w-full md:w-6/12 md:min-w-100">
                                     <div class="flex flex-row flex-wrap align-start items-center min-w-[216px] mb-4">
                                         <div
@@ -264,20 +265,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rwdVersion w-full flex flex-row flex-nowrap justify-center">
-                                    <a class="mr-[10%]" [href]="'tel:'+clientDetail.phone_number">
-                                        <div
-                                            class="w-16 h-16 sm:w-20 sm:h-20 bg-orange-400 rounded-full relative mb-10 flex flex-row flex-nowrap items-center justify-center">
+                                <!-- mat-icon for tel and email -->
+                                <div class="rwdVersion mb-10 w-full flex flex-row flex-nowrap justify-center">
+                                    <a class="mr-[10%] w-16 h-16 sm:w-20 sm:h-20 bg-orange-400 rounded-full relative flex flex-row flex-nowrap items-center justify-center" [href]="'tel:'+clientDetail.phone_number">
                                             <mat-icon class="scale-150 text-white mt-0.5"
                                                 svgIcon="mat_outline:phone"></mat-icon>
-                                        </div>
                                     </a>
-                                    <a [href]="'mailto:'+clientDetail.email">
-                                        <div
-                                            class="w-16 h-16 sm:w-20 sm:h-20 bg-orange-400 rounded-full relative mb-10 flex flex-row flex-nowrap items-center justify-center">
+                                    <a class="w-16 h-16 sm:w-20 sm:h-20 bg-orange-400 rounded-full relative flex flex-row flex-nowrap items-center justify-center" [href]="'mailto:'+clientDetail.email">
                                             <mat-icon class="scale-150 text-white"
                                                 svgIcon="mat_outline:email"></mat-icon>
-                                        </div>
                                     </a>
                                 </div>
                                 <div class="w-full md:w-6/12 md:min-w-100">
@@ -360,34 +356,33 @@
 
 
                                 <ng-container *ngFor="let demmand of demandArr.slice(0, 3);let i=index">
-                                    <div class="relative mb-4 sm:mb-0">
-                                        <div class="flex flex-wrap justify-center items-center sm:justify-between cursor-pointer min-h-24"
+                                    <div class="relative">
+                                        <div class="flex flex-wrap justify-center items-center sm:justify-between cursor-pointer min-h-24 mb-4"
                                             (click)="openEditDemandPage(demmand,$event)">
-                                            <div class="flex flex-row flex-wrap justify-center sm:justify-start 
-                                            items-start w-full sm:w-[calc(100%-176px)]">
-                                                <div class="flex flex-col justify-center w-full sm:w-[calc(100%-56px)]">
+                                            <div class="flex flex-row flex-wrap items-start w-[calc(100%-28px)]">
+                                                <div class="flex flex-col justify-center w-full">
                                                     <div
-                                                        class="flex flex-row flex-wrap justify-center sm:justify-start font-medium text-xl text-center sm:text-left">
+                                                        class="flex flex-row flex-wrap justify-start font-medium text-xl text-left">
                                                         <div class="mr-0 sm:mr-4 w-full sm:w-fit break-all">
                                                             {{demmand.title}}
                                                         </div>
                                                     </div>
                                                     <div
-                                                        class="text-base text-center sm:text-left break-all text-slate-600">
+                                                        class="text-base text-left break-all text-slate-600">
                                                         <span class="mr-3">
                                                             {{t('product_dialog_title')}}:
                                                         </span>
                                                         {{demmand.note??''}}
                                                     </div>
                                                     <div
-                                                        class="text-sm text-slate-300 text-center sm:text-left break-all">
+                                                        class="text-sm text-slate-300 text-left break-all">
                                                         {{t('customer_detail_create_at') + ' ' + (demmand.createdAt |
                                                         date:'yyyy-MM-dd':'GMT+08:00')}}
                                                     </div>
                                                 </div>
                                             </div>
                                             <div
-                                                class="min-w-44 flex flex-col justify-between content-center sm:content-end flex-wrap">
+                                                class="min-w-7 flex flex-col justify-between content-center sm:content-end flex-wrap">
                                                 <mat-icon svgIcon="mat_outline:keyboard_arrow_right"></mat-icon>
                                             </div>
                                         </div>
@@ -416,7 +411,7 @@
                                         <div class="relative mb-6 sm:mr-8 w-full sm:w-56">
                                             <div class="flex flex-wrap justify-center items-center cursor-pointer min-h-24"
                                                 (click)="goToProductDetail(product)">
-                                                <figure class="flex items-center min-w-56 w-56 h-56 bg-slate-100">
+                                                <figure class="flex items-center w-56 h-56 bg-slate-100">
                                                     <img [src]="getImage(product.files[0])" alt="">
                                                 </figure>
                                                 <div class="flex flex-row flex-wrap justify-center sm:justify-start 
