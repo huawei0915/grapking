@@ -1,6 +1,6 @@
 <div id="odm-form">
     <ng-container *transloco="let t" [formGroup]="folderForm">
-        <div class="min-h-max max-h-max w-full">
+        <div class="min-h-max max-h-max w-full select-none">
             <!-- Header -->
             <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20">
                 <mat-icon *ngIf="needArrowLeft" svgIcon="feather:chevron-left" class="ml-3 cursor-pointer"
@@ -51,7 +51,7 @@
                     <div *ngIf="filterData.length !== 0" class="m-8 mt-0 mb-12 bg-white w-[calc(100%-64px)]">
                         <div class="py-2">
                             <ng-container *ngFor="let demmand of filterData;let i=index">
-                                <div class="relative m-2 px-2">
+                                <div class="relative m-2 px-2 cursor-pointer">
                                     <div class="flex flex-wrap justify-center sm:justify-between min-h-32"
                                         [ngClass]="{'cursor-pointer': !clientMultiSelectCheck}"
                                         (click)="openEditModal(demmand,$event)">
@@ -88,7 +88,7 @@
                                                     (click)="openEditModal(demmand,$event)"></mat-icon>
                                             </div>
                                         </div>
-                                        <div *ngIf="clientMultiSelectCheck" class="min-w-[152px]"
+                                        <div *ngIf="clientMultiSelectCheck" class="sm:min-w-[152px]"
                                             (click)="checkboxClick(i,demmand)">
                                         </div>
                                         <div *ngIf="clientMultiSelectCheck">

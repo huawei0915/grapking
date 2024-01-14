@@ -5,9 +5,13 @@
                 <!-- Search filter -->
                 <div class="bg-slate-100 w-full h-12 flex flex-row flex-nowrap items-center justify-start">
                     <mat-icon class="mx-2 text-slate-300" svgIcon="mat_solid:search"></mat-icon>
-                    <input placeholder="{{t('search_hint')}}"
+                    <input #mainSearchView placeholder="{{t('search_hint')}}"
                         class="w-full placeholder:text-slate-300 font-mono text-lg font-semibold"
-                        (input)="setSearchText($event)">
+                        (input)="setSearchText($event)" (focus)="showDeleteButton(mainSearchView,$event)"
+                        (blur)="hideDeleteButton(mainSearchView,$event)">
+                    <mat-icon *ngIf="mainSearchView.hasAttribute('mainSearchView')" svgIcon="heroicons_solid:x-circle"
+                        class="min-w-4 w-4 mr-1 text-slate-300 cursor-pointer"
+                        (mousedown)="clearInputText(mainSearchView,$event)"></mat-icon>
                 </div>
                 <mat-icon class="ml-4" svgIcon="mat_outline:person_add" (click)="openAgreementPage()"></mat-icon>
             </div>

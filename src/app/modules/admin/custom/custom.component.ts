@@ -370,6 +370,28 @@ export class CustomComponent implements OnInit {
         this.openCustomerFormCheck = false;
         this.clientDetailCheck = false;
     }
+
+    //==============================================================
+    //Input Behavior
+    //==============================================================
+    showDeleteButton(inputElement: any, event: any): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this._renderer.setAttribute(inputElement, 'mainSearchView', '');
+    }
+
+    hideDeleteButton(inputElement: any, event: any): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this._renderer.removeAttribute(inputElement, 'mainSearchView');
+    }
+
+    clearInputText(inputElement: any, event: any): void {
+        event.preventDefault();
+        event.stopPropagation();
+        inputElement.value = '';
+        this.searchText = '';
+    }
 }
 
 
