@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { environment as env } from 'environments/environment';
@@ -42,6 +42,7 @@ export class InquireComponent implements OnInit {
         private _route: ActivatedRoute,
         private _router: Router,
         private _translocoService: TranslocoService,
+        private _renderer: Renderer2,
     ) {
     }
 
@@ -194,6 +195,28 @@ export class InquireComponent implements OnInit {
     // 寫入搜尋欄位
     setSearchText(event: any): void {
         this.searchText = event.target.value;
+    }
+
+    //==============================================================
+    //Input Behavior
+    //==============================================================
+    showDeleteButton(inputElement: any, event: any): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this._renderer.setAttribute(inputElement, 'mainSearchView', '');
+    }
+
+    hideDeleteButton(inputElement: any, event: any): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this._renderer.removeAttribute(inputElement, 'mainSearchView');
+    }
+
+    clearInputText(inputElement: any, event: any): void {
+        event.preventDefault();
+        event.stopPropagation();
+        inputElement.value = '';
+        this.searchText = '';
     }
 
 }

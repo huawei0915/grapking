@@ -1,84 +1,86 @@
-.bag {
-    width: 36px;
-    height: 56px;
-    clip-path: polygon(0 0, 100% 0%, 100% 70%, 50% 100%, 0 70%);
-    background-color: #e60030;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.basic_information {
-    position: relative;
-
-    &::before {
+#inquire {
+    .bag {
+        width: 36px;
+        height: 56px;
+        clip-path: polygon(0 0, 100% 0%, 100% 70%, 50% 100%, 0 70%);
+        background-color: #e60030;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
         position: absolute;
-        content: '';
-        left: -10px;
+        left: 0;
         top: 0;
-        width: 2px;
-        height: 100%;
-        background-color: black;
     }
-}
 
-.noSwipe {
-    transform: translateX(196px);
-    transition: 0.5s;
-}
+    .basic_information {
+        position: relative;
 
-.swipeLeft {
-    transform: translateX(-196px);
-    opacity: 1;
-    transition: 0.5s;
-}
-
-.dilute {
-    opacity: 0;
-    transition: .5s;
-}
-
-.main_information {
-    position: relative;
-
-    &::before {
-        position: absolute;
-        content: '';
-        left: -10px;
-        top: 0;
-        width: 2px;
-        height: 100%;
-        background-color: white;
+        &::before {
+            position: absolute;
+            content: '';
+            left: -10px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: black;
+        }
     }
-}
 
-.toast {
-    position: fixed;
-    bottom: 90px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-align: center;
-    animation: fadeIn 1.5s ease-in-out;
+    .noSwipe {
+        transform: translateX(196px);
+        transition: 0.5s;
+    }
 
-    @keyframes fadeIn {
-        0% {
-            opacity: 0;
+    .swipeLeft {
+        transform: translateX(-196px);
+        opacity: 1;
+        transition: 0.5s;
+    }
+
+    .dilute {
+        opacity: 0;
+        transition: .5s;
+    }
+
+    .main_information {
+        position: relative;
+
+        &::before {
+            position: absolute;
+            content: '';
+            left: -10px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: white;
         }
+    }
 
-        50% {
-            opacity: 1;
-        }
+    .toast {
+        position: fixed;
+        bottom: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-align: center;
+        animation: fadeIn 1.5s ease-in-out;
 
-        100% {
-            opacity: 0;
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
         }
     }
 }
