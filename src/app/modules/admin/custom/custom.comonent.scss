@@ -41,4 +41,24 @@
             }
         }
     }
+
+    @media (min-width: 960px){
+        .rwdVersion {
+            display: none!important;
+        }
+
+        .normalVersion {
+            display: block;
+        }
+    }
+
+    @media (max-width: 959px){
+        .rwdVersion {
+            display: block;
+        }
+
+        .normalVersion {
+            display: none!important;;
+        }
+    }   
 }

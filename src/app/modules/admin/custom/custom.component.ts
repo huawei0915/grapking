@@ -187,6 +187,18 @@ export class CustomComponent implements OnInit {
         }
     }
 
+    getDefaultImgForRWD(input: any, clientName: string): void {
+        const nameCheck = (clientName ?? '');
+        input.src = 'assets/images/logo.png';
+        this._renderer.setStyle(input, 'display', 'none');
+        if (nameCheck !== '') {
+            this._renderer.setProperty(input.parentNode, 'innerHTML', '<div class="text-sky-500 font-bold text-4xl">' + nameCheck.substring(0, 1) + '</div>');
+        } else {
+            // eslint-disable-next-line max-len
+            this._renderer.setProperty(input.parentNode, 'innerHTML', '<mat-icon role="img" svgicon="mat_solid:person" class="text-sky-500 mat-icon notranslate mat-icon-no-color" aria-hidden="true" ng-reflect-svg-icon="mat_solid:person" data-mat-icon-type="svg" data-mat-icon-name="person" data-mat-icon-namespace="mat_solid"><svg viewBox="0 0 24 24" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg></mat-icon>');
+        }
+    }
+
     onFileSelected(event: any): void {
         const file = event.target.files[0];
         if (file) {
@@ -248,6 +260,7 @@ export class CustomComponent implements OnInit {
     async confrimDelete(): Promise<void> {
         await this.delClient(this.deleteId);
         this.closeDeleteModal();
+        this.clientDetailCheck = false;
     }
 
     // 關閉刪除視窗

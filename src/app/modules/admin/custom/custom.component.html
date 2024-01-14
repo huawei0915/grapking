@@ -1,4 +1,4 @@
-<div id="custom">
+<div id="custom" class="select-none">
     <ng-container *transloco="let t">
         <div class="min-h-max max-h-max w-full">
             <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20 px-5">
@@ -101,14 +101,16 @@
         </app-shared-customer-form>
 
         <!-- Delete Modal -->
-        <app-shared-common-confirm-modal *ngIf="deleteCheck" [title]="t('button_delete')" [fullCustomContent]="true"
-            [submitText]="t('button_delete')" (cancelEvent)="closeDeleteModal()" (submitEvent)="confrimDelete()">
-            <div customContent class="text-center h-full ">
-                <span class="relative top-[40%] text-xl font-bold">
-                    {{t('dialog_confirm_delete_message')}}
-                </span>
-            </div>
-        </app-shared-common-confirm-modal>
+        <div *ngIf="deleteCheck" class="relative z-[60]">
+            <app-shared-common-confirm-modal [title]="t('button_delete')" [fullCustomContent]="true"
+                [submitText]="t('button_delete')" (cancelEvent)="closeDeleteModal()" (submitEvent)="confrimDelete()">
+                <div customContent class="text-center h-full ">
+                    <span class="relative top-[40%] text-xl font-bold">
+                        {{t('dialog_confirm_delete_message')}}
+                    </span>
+                </div>
+            </app-shared-common-confirm-modal>
+        </div>
 
         <!-- Agreement Page -->
         <div class="fixed inset-0 z-50 bg-black/40 flex flex-col items-center visible opacity-100"
@@ -150,26 +152,66 @@
                         bg-white text-slate-900 mr-6 overflow-hidden text-ellipsis whitespace-nowrap">
                         {{clientDetail.name??''}}
                     </div>
-                    <mat-icon svgIcon="mat_solid:home" class="mr-8 cursor-pointer"
+                    <mat-icon svgIcon="mat_solid:home" class="normalVersion mr-8 cursor-pointer"
                         (click)="closeClientDetail()"></mat-icon>
+                    <mat-icon svgIcon="feather:trash-2" class="rwdVersion mr-4 cursor-pointer"
+                        (click)="openDeleteModal(clientDetail,$event)"></mat-icon>
+                    <mat-icon svgIcon="feather:edit" class="rwdVersion mr-8 cursor-pointer"
+                        (click)="openCustomerForm(clientDetail)"></mat-icon>
                 </div>
+                <!-- background -->
+                <div class="rwdVersion absolute top-0 left-0 w-screen h-[400px] bg-sky-500 z-[-1]"></div>
+                <!-- background^ -->
                 <div class="flex flex-col w-screen overflow-auto mt-16 max-h-[calc(100vh-64px)]">
                     <div class="w-full p-8">
+                        <!-- Img rwd style -->
+                        <div class="rwdVersion min-w-[216px] flex flex-col flex-nowrap items-center">
+                            <div
+                                class="w-28 h-28 bg-white rounded-full flex flex-col flex-nowrap items-center justify-center mb-2 select-none">
+                                <ng-container *ngIf="(selectedFile === '') && !updateCusDetailStatus">
+                                    <figure
+                                        class="relative top-[128px] flex items-center justify-center bg-white rounded-[50%] min-w-28 min-h-28 w-28 h-28">
+                                        <img #imgViewDetail
+                                            [src]="(selectedFile === '')?getImage(clientDetail.avatar):selectedFile"
+                                            class="w-28 h-28 rounded-full object-cover"
+                                            (error)="getDefaultImgForRWD(imgViewDetail,clientDetail.name)" />
+                                    </figure>
+                                </ng-container>
+                                <ng-container *ngIf="(selectedFile !== '')">
+                                    <figure
+                                        class="relative top-[128px] flex items-center justify-center bg-white rounded-[50%] min-w-28 min-h-28 w-28 h-28">
+                                        <img [src]="(selectedFile === '')?getImage(clientDetail.avatar):selectedFile"
+                                            class="w-28 h-28 rounded-full object-cover" />
+                                    </figure>
+                                </ng-container>
+                                <div class="w-8 h-8 bg-orange-400 rounded-full relative mt-24 ml-20">
+                                    <mat-icon svgIcon="heroicons_outline:pencil"
+                                        class="text-white customSvgSize ml-1 mt-1"></mat-icon>
+                                </div>
+                                <input type="file"
+                                    class="relative top-[-129px] opacity-0 w-8 min-h-8 h-8 rounded-full mt-24 ml-20"
+                                    accept="image/png, image/jpeg" required (change)="onFileSelected($event)">
+                            </div>
+                            <div class="mb-4 w-full font-bold text-3xl text-white text-center break-word-legacy">
+                                {{clientDetail.name}}
+                            </div>
+                        </div>
+                        <!-- Img rwd style^ -->
                         <!-- Area 1 -->
-                        <div class="w-full p-8 bg-white min-w-[216px] flex flex-col flex-nowrap items-end">
-                            <div class="mb-5" (click)="openCustomerForm(clientDetail)">
+                        <div class="w-full p-8 bg-white min-w-[216px] flex flex-col flex-wrap items-end">
+                            <div class="normalVersion mb-5" (click)="openCustomerForm(clientDetail)">
                                 <figure class="min-w-12 w-12 h-12">
                                     <img [src]="'assets/icons/edit.png'" />
                                 </figure>
                             </div>
-                            <div class="w-full min-w-[216px] flex flex-row flex-wrap justify-center">
-                                <div class="w-full sm:w-6/12 sm:min-w-100">
+                            <div class="w-full flex flex-row flex-wrap justify-center">
+                                <div class="normalVersion w-full md:w-6/12 md:min-w-100">
                                     <div class="flex flex-row flex-wrap align-start items-center min-w-[216px] mb-4">
                                         <div
                                             class="w-32 h-32 bg-white rounded-full flex flex-col flex-nowrap items-center justify-center mr-4 mb-4 select-none">
                                             <ng-container *ngIf="(selectedFile === '') && !updateCusDetailStatus">
                                                 <figure
-                                                    class="relative top-[131px] flex items-center justify-center bg-zinc-300 rounded-[50%] min-w-32 min-h-32 w-32 h-32">
+                                                    class="relative top-[128px] flex items-center justify-center bg-zinc-300 rounded-[50%] min-w-32 min-h-32 w-32 h-32">
                                                     <img #imgViewDetail
                                                         [src]="(selectedFile === '')?getImage(clientDetail.avatar):selectedFile"
                                                         class="w-32 h-32 rounded-full object-cover"
@@ -178,7 +220,7 @@
                                             </ng-container>
                                             <ng-container *ngIf="(selectedFile !== '')">
                                                 <figure
-                                                    class="relative top-[131px] flex items-center justify-center bg-zinc-300 rounded-[50%] min-w-32 min-h-32 w-32 h-32">
+                                                    class="relative top-[128px] flex items-center justify-center bg-zinc-300 rounded-[50%] min-w-32 min-h-32 w-32 h-32">
                                                     <img [src]="(selectedFile === '')?getImage(clientDetail.avatar):selectedFile"
                                                         class="w-32 h-32 rounded-full object-cover" />
                                                 </figure>
@@ -192,38 +234,55 @@
                                                 accept="image/png, image/jpeg" required
                                                 (change)="onFileSelected($event)">
                                         </div>
-                                        <div class="w-[calc(100%-171px)] font-semibold text-xl">
+                                        <div class="w-[calc(100%-171px)] font-semibold text-xl break-word-legacy">
                                             {{clientDetail.name}}
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg mr-4">
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
                                             {{t('customer_form_phone_number')}}
                                         </div>
                                         <div
                                             class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
-                                            {{clientDetail.phone_number}}
+                                            <a
+                                                [href]="'tel:'+clientDetail.phone_number">{{clientDetail.phone_number}}</a>
                                             <mat-icon *ngIf="clientDetail.phone_number" svgIcon="mat_solid:content_copy"
                                                 class="mr-4 md:mr-16 lg:mr-32"
                                                 (click)="copyContent(clientDetail.phone_number)"></mat-icon>
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg mr-4">
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
                                             {{t('customer_form_email')}}
                                         </div>
                                         <div
                                             class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
-                                            {{clientDetail.email}}
+                                            <a [href]="'mailto:'+clientDetail.email">{{clientDetail.email}}</a>
                                             <mat-icon *ngIf="clientDetail.email" svgIcon="mat_solid:content_copy"
                                                 class="mr-4 md:mr-16 lg:mr-32"
                                                 (click)="copyContent(clientDetail.email)"></mat-icon>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="w-full sm:w-6/12 sm:min-w-100">
+                                <div class="rwdVersion w-full flex flex-row flex-nowrap justify-center">
+                                    <a class="mr-[10%]" [href]="'tel:'+clientDetail.phone_number">
+                                        <div
+                                            class="w-16 h-16 sm:w-20 sm:h-20 bg-orange-400 rounded-full relative mb-10 flex flex-row flex-nowrap items-center justify-center">
+                                            <mat-icon class="scale-150 text-white mt-0.5"
+                                                svgIcon="mat_outline:phone"></mat-icon>
+                                        </div>
+                                    </a>
+                                    <a [href]="'mailto:'+clientDetail.email">
+                                        <div
+                                            class="w-16 h-16 sm:w-20 sm:h-20 bg-orange-400 rounded-full relative mb-10 flex flex-row flex-nowrap items-center justify-center">
+                                            <mat-icon class="scale-150 text-white"
+                                                svgIcon="mat_outline:email"></mat-icon>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="w-full md:w-6/12 md:min-w-100">
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg mr-4">
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
                                             {{t('customer_form_type')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
@@ -236,7 +295,7 @@
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg mr-4">
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
                                             {{t('customer_form_company_name_zh')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
@@ -244,7 +303,7 @@
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg mr-4">
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
                                             {{t('customer_form_company_name_en')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
@@ -252,7 +311,7 @@
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg mr-4">
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
                                             {{t('customer_form_social_media')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
@@ -260,7 +319,7 @@
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg mr-4">
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
                                             {{t('customer_form_description')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
@@ -268,7 +327,7 @@
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg mr-4">
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
                                             {{t('customer_form_recommended_company')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
@@ -276,7 +335,7 @@
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
-                                        <div class="w-36 text-lg mr-4">
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
                                             {{t('customer_form_relationship')}}
                                         </div>
                                         <div class="w-full sm:w-[calc(100%-144px)] break-all text-lg">
