@@ -65,13 +65,16 @@ export class RecommendComponent implements OnInit {
         this._apiService.getProduct(keyword, isRecommand, func, category).then((result) => {
             this.productArr = [...result];
             if ((keyword || func || category) && this.productArr.length > 0) {
+                // 有搜尋條件 有資料
                 this.showDetailPage = true;
                 this.getProductDetail(this.productArr[0].id, 0);
             } else if (this.productArr.length > 0) {
+                // 初始化進入 有資料
                 this.showDetailPage = false;
             } else {
-                this.alertPOPUP = true;
-                this.message = 'product_not_found_message';
+                // 沒資料 顯示提示
+                // this.alertPOPUP = true;
+                // this.message = 'product_not_found_message';
             }
         });
     }
