@@ -72,9 +72,10 @@ export class RecommendComponent implements OnInit {
                 // 初始化進入 有資料
                 this.showDetailPage = false;
             } else {
+                console.log('沒資料');
                 // 沒資料 顯示提示
-                // this.alertPOPUP = true;
-                // this.message = 'product_not_found_message';
+                this.alertPOPUP = true;
+                this.message = 'product_not_found_message';
             }
         });
     }
@@ -153,7 +154,7 @@ export class RecommendComponent implements OnInit {
 
     confrimCancel(): void {
         this.alertPOPUP = false;
-        // this._router.navigate(['/home/question']);
+        this._router.navigate(['/home/question']);
     }
 
     confrimOK(): void {
