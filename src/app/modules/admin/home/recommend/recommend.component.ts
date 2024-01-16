@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ApiService } from '../../api.service';
-import { environment as env } from 'environments/environment';
-import { TranslocoService } from '@ngneat/transloco';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
+import { environment as env } from 'environments/environment';
+import { ApiService } from '../../api.service';
 
 @Component({
     selector: 'recommend',
@@ -65,11 +65,15 @@ export class RecommendComponent implements OnInit {
         this._apiService.getProduct(keyword, isRecommand, func, category).then((result) => {
             this.productArr = [...result];
             if ((keyword || func || category) && this.productArr.length > 0) {
+                // 有搜尋條件 有資料
                 this.showDetailPage = true;
                 this.getProductDetail(this.productArr[0].id, 0);
             } else if (this.productArr.length > 0) {
+                // 初始化進入 有資料
                 this.showDetailPage = false;
             } else {
+                console.log('沒資料');
+                // 沒資料 顯示提示
                 this.alertPOPUP = true;
                 this.message = 'product_not_found_message';
             }

@@ -1,7 +1,7 @@
 <ng-container *ngIf="!showDetailPage">
     <div class="w-full max-h-full overflow-auto absolute">
-        <div class="m-8 bg-white">
-            <div class="p-8">
+        <div class="m-8 mb-0 bg-white min-h-[calc(100vh-112px)]">
+            <div class="p-8 ">
                 <ng-container *ngFor="let product of productArr;let i=index">
                     <div class="relative m-2  cursor-pointer" (click)="getProductDetail(product.id,i)">
                         <div class="bag">
