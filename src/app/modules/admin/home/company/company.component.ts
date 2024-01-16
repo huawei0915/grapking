@@ -1,11 +1,10 @@
-import { filter } from 'rxjs';
-import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen';
+import { TranslocoService } from '@ngneat/transloco';
 import { environment as env } from 'environments/environment';
 import 'hammerjs';
 import { ApiService } from '../../api.service';
-import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
     selector: 'company',
@@ -45,8 +44,14 @@ export class CompanyComponent implements OnInit {
         this.aiUrl = this._domSanitizer.bypassSecurityTrustResourceUrl(env.aiUrl);
         this.slideWidth = window.innerWidth;
         const lang = this._translocoService.getActiveLang();
+        console.log(lang);
         this._apiServer.getComponey().then((result) => {
-            result.filter(item => item.language === lang).forEach((item) => {
+            console.log(result);
+            // result.filter(item => item.language === lang).forEach((item) => {
+            // console.log(item);
+            // this.picArray.push(env.apiServer + '/api/files/' + item.image);
+            // });
+            result.forEach((item) => {
                 this.picArray.push(env.apiServer + '/api/files/' + item.image);
             });
         }).finally(() => { setTimeout(() => { this.picIsLoading = true; this._changeDetectorRef.detectChanges(); }, 800); });
