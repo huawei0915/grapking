@@ -60,10 +60,23 @@
 </div>
 
 <ng-container *ngIf="vr">
-    <iframe class="fixed w-full z-20" style="height: calc(100% - 80px);" [src]="vrUrl" frameborder="0"
+    <div class="fixed bg-white w-full h-16 flex justify-between items-center pr-7 z-50">
+        <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer" (click)="vr=false"></mat-icon>
+        <div class="w-full text-center">
+            <span class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900 select-none">VR
+                Tour</span>
+        </div>
+    </div>
+    <iframe class="fixed w-full z-20 pt-[64px]" style="height: calc(100% - 80px);" [src]="vrUrl" frameborder="0"
         (load)="hideLoader()"></iframe>
 </ng-container>
 <ng-container *ngIf="ai">
-    <iframe class="fixed w-full z-20" style="height: calc(100% - 80px);" [src]="aiUrl" frameborder="0"
+    <div class="fixed bg-white w-full h-16 flex justify-between items-center pr-7 z-50">
+        <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer" (click)="ai=false"></mat-icon>
+        <div class="w-full text-center">
+            <span class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900 select-none">AI-Stage</span>
+        </div>
+    </div>
+    <iframe class="fixed w-full z-20 pt-[64px]" style="height: calc(100% - 80px);" [src]="aiUrl" frameborder="0"
         (load)="hideLoader()"></iframe>
 </ng-container>
