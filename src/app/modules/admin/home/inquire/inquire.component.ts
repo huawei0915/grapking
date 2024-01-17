@@ -33,6 +33,8 @@ export class InquireComponent implements OnInit {
     message = '';
     showToast = false;
 
+    initFinished = false;
+
     searchText = '';
     /**
      * Constructor
@@ -73,9 +75,12 @@ export class InquireComponent implements OnInit {
             } else if (this.productArr.length > 0) {
                 this.showDetailPage = false;
             } else {
-                this.alertPOPUP = true;
-                this.message = 'product_not_found_message';
+                if(!this.initFinished){
+                    this.alertPOPUP = true;
+                    this.message = 'product_not_found_message';
+                }
             }
+            this.initFinished = true;
         });
     }
 
@@ -153,12 +158,13 @@ export class InquireComponent implements OnInit {
 
     confrimCancel(): void {
         this.alertPOPUP = false;
-        this._router.navigate(['/home/question']);
+        // this._router.navigate(['/home/question']);
     }
 
     confrimOK(): void {
         this.alertPOPUP = false;
-        this.getProduct();
+        // this.getProduct();
+        this._router.navigate(['/home/recommend']);
     }
 
     // 取得商品詳細
@@ -194,7 +200,10 @@ export class InquireComponent implements OnInit {
 
     // 寫入搜尋欄位
     setSearchText(event: any): void {
-        this.searchText = event.target.value;
+        // this.searchText = event.target.value;
+        setTimeout(() => {
+            this.getProduct(event.target.value);
+        },1000);
     }
 
     //==============================================================
