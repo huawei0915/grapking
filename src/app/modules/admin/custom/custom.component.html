@@ -13,7 +13,7 @@
                         class="min-w-4 w-4 mr-1 text-slate-300 cursor-pointer"
                         (mousedown)="clearInputText(mainSearchView,$event)"></mat-icon>
                 </div>
-                <mat-icon class="ml-4 cursor-pointer" svgIcon="mat_outline:person_add" (click)="openAgreementPage()"></mat-icon>
+                <mat-icon class="ml-4 cursor-pointer hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10" svgIcon="mat_outline:person_add" (click)="openAgreementPage()"></mat-icon>
             </div>
         </div>
 
@@ -28,7 +28,7 @@
                         <ng-container *ngFor="let client of getFilteredClient(searchText);let i=index">
                             <div class="relative">
                                 <div [id]="client.id"
-                                    class="flex flex-row flex-nowrap items-center cursor-pointer px-5">
+                                    class="flex flex-row flex-nowrap items-center cursor-pointer px-5 sm:px-14">
                                     <div class="flex flex-row flex-nowrap justify-start 
                                             items-center w-full" (click)="openClientDetail(client)">
                                         <figure
@@ -56,7 +56,7 @@
                                         </div>
                                     </div>
                                     <div class="flex flex-row justify-between items-center w-28">
-                                        <mat-icon svgIcon="mat_solid:edit" class="w-4 h-4 mr-2 sm:mr-5 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10"
+                                        <mat-icon svgIcon="mat_solid:edit" class="mr-2 sm:mr-5 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10"
                                             (click)="openCustomerForm(client)"></mat-icon>
                                         <mat-icon class="hover:text-red-600 hover:bg-slate-400/10 rounded-[40px] p-1 w-10 h-10" svgIcon="mat_solid:delete_outline"
                                             (click)="openDeleteModal(client,$event)"></mat-icon>
@@ -214,7 +214,7 @@
                             </div>
                             <div class="w-full flex flex-row flex-wrap justify-center">
                                 <!-- normal text view for tel and email -->
-                                <div class="normalVersion w-full md:w-6/12 md:min-w-100">
+                                <div class="normalVersion w-full md:w-[400px] md:min-w-100">
                                     <div class="flex flex-row flex-wrap align-start items-center min-w-[216px] mb-4">
                                         <div
                                             class="w-32 h-32 bg-white rounded-full flex flex-col flex-nowrap items-center justify-center mr-4 mb-4 select-none">
@@ -256,7 +256,7 @@
                                             <a
                                                 [href]="'tel:'+clientDetail.phone_number">{{clientDetail.phone_number}}</a>
                                             <mat-icon *ngIf="clientDetail.phone_number" svgIcon="mat_solid:content_copy"
-                                                class="mr-4 md:mr-16 lg:mr-32"
+                                                class="mr-4"
                                                 (click)="copyContent(clientDetail.phone_number)"></mat-icon>
                                         </div>
                                     </div>
@@ -268,7 +268,7 @@
                                             class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
                                             <a [href]="'mailto:'+clientDetail.email">{{clientDetail.email}}</a>
                                             <mat-icon *ngIf="clientDetail.email" svgIcon="mat_solid:content_copy"
-                                                class="mr-4 md:mr-16 lg:mr-32"
+                                                class="mr-4"
                                                 (click)="copyContent(clientDetail.email)"></mat-icon>
                                         </div>
                                     </div>
@@ -284,7 +284,7 @@
                                                 svgIcon="mat_outline:email"></mat-icon>
                                     </a>
                                 </div>
-                                <div class="w-full md:w-6/12 md:min-w-100">
+                                <div class="w-full md:w-[420px] md:min-w-100 pl-0 md:pl-14">
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
                                         <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
                                             {{t('customer_form_type')}}

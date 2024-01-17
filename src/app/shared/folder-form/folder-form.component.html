@@ -82,11 +82,11 @@
                                             class="min-w-44 flex flex-col justify-between content-center sm:content-end flex-wrap">
                                             <div>{{product.updatedAt | date:'yyyy-MM-dd HH:mm:ss':'GMT+08:00'}}</div>
                                             <div class="flex flex-row justify-between">
-                                                <mat-icon class="text-slate-400" svgIcon="feather:trash-2"
+                                                <mat-icon class="text-slate-400 hover:text-red-600 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10" svgIcon="feather:trash-2"
                                                     (click)="openDeleteModal(product)"></mat-icon>
-                                                <mat-icon class="text-slate-400" svgIcon="heroicons_outline:user"
+                                                <mat-icon class="text-slate-400 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10" svgIcon="heroicons_outline:user"
                                                     (click)="openClientModal(product)"></mat-icon>
-                                                <mat-icon class="text-slate-400" svgIcon="feather:edit"
+                                                <mat-icon class="text-slate-400 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10" svgIcon="feather:edit"
                                                     (click)="openEditModal(product)"></mat-icon>
                                             </div>
                                         </div>

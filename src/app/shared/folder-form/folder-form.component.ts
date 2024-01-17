@@ -100,7 +100,13 @@ export class FolderFormComponent implements OnInit {
                 this.filterData = this.productArr;
                 this.clientMultiSelectCheck = false;
                 this.clientMultiSelectData = [];
-                this.filterCheckboxOnchange(this.folderForm.get('filterCheckBox').value);
+                if(this._apiService.folderClientStatus !== ''){
+                    this.folderForm.get('filterCheckBox').setValue(this._apiService.folderClientStatus);
+                    this._apiService.folderClientStatus = '';
+
+                } else {
+                    this.filterCheckboxOnchange(this.folderForm.get('filterCheckBox').value);
+                }
             });
         }
     }
@@ -295,6 +301,7 @@ export class FolderFormComponent implements OnInit {
     // 前往商品詳細介紹頁面
     goToProductDetail(data: any): void {
         this._apiService.callFromFolder = true;
+        this._apiService.folderClientStatus = this.folderForm.get('filterCheckBox').value;
         // TODO:詳細邏輯待修正
         if (!(this.clientMultiSelectCheck || this.clientBindingCheck || this.deleteCheck || this.editCheck)) {
             this._router.navigate(['/home/recommend'], {
