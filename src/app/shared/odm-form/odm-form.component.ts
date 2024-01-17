@@ -93,6 +93,7 @@ export class OdmFormComponent implements OnInit {
                 this.clientMultiSelectCheck = false;
                 this.clientMultiSelectData = [];
                 this.folderForm.get('filterCheckBox').setValue('all');
+                console.log('motherfucker');
             });
         } else {
             await this._apiService.getDemand().then((result) => {
