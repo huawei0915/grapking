@@ -28,7 +28,7 @@
                         <ng-container *ngFor="let client of getFilteredClient(searchText);let i=index">
                             <div class="relative">
                                 <div [id]="client.id"
-                                    class="flex flex-row flex-nowrap items-center cursor-pointer px-3">
+                                    class="flex flex-row flex-nowrap items-center cursor-pointer px-5">
                                     <div class="flex flex-row flex-nowrap justify-start 
                                             items-center w-full" (click)="openClientDetail(client)">
                                         <figure
@@ -55,15 +55,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex flex-row justify-between items-center w-14">
-                                        <mat-icon svgIcon="mat_solid:edit" class="w-4 h-4 mr-2.5"
+                                    <div class="flex flex-row justify-between items-center w-28">
+                                        <mat-icon svgIcon="mat_solid:edit" class="w-4 h-4 mr-2 sm:mr-5 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10"
                                             (click)="openCustomerForm(client)"></mat-icon>
-                                        <mat-icon svgIcon="mat_solid:delete_outline"
+                                        <mat-icon class="hover:text-red-600 hover:bg-slate-400/10 rounded-[40px] p-1 w-10 h-10" svgIcon="mat_solid:delete_outline"
                                             (click)="openDeleteModal(client,$event)"></mat-icon>
                                     </div>
                                 </div>
                             </div>
-                            <div class="px-4 pt-1 text-slate-400/60 text-right w-full flex flex-row flex-nowrap justify-end items-center">
+                            <div class="px-5 pt-1 text-slate-400/60 text-right w-full flex flex-row flex-nowrap justify-end items-center">
                                 <span class="mr-2 hidden sm:block">
                                     {{t('customer_last_update')}}: 
                                 </span>
