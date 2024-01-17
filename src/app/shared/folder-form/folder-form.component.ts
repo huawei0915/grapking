@@ -294,6 +294,7 @@ export class FolderFormComponent implements OnInit {
 
     // 前往商品詳細介紹頁面
     goToProductDetail(data: any): void {
+        this._apiService.callFromFolder = true;
         // TODO:詳細邏輯待修正
         if (!(this.clientMultiSelectCheck || this.clientBindingCheck || this.deleteCheck || this.editCheck)) {
             this._router.navigate(['/home/recommend'], {
