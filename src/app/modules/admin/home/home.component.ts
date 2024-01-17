@@ -14,6 +14,9 @@ export class HomeComponent implements OnInit {
     recommandAreaCheck = false;
     demmandAreaCheck = false;
 
+    lang = 'zh';
+    langButtonCheck = false;
+
     /**
      * Constructor
      */
@@ -24,6 +27,15 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
 
+        this._translocoService.langChanges$.subscribe((activeLang) => {
+            // Get the active lang
+            this.lang = activeLang;
+            if (activeLang === 'en') {
+                this.langButtonCheck = true;
+            } else {
+                this.langButtonCheck = false;
+            }
+        });
     }
 
     changeLang(): void {

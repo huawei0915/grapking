@@ -2,13 +2,13 @@
 
     <div class="absolute top-12 left-5">
         <div class="button r" id="button-3">
-            <input type="checkbox" class="checkbox" (click)="changeLang()">
+            <input type="checkbox" class="checkbox" [(ngModel)]="langButtonCheck" (click)="changeLang()">
             <div class="knobs"></div>
             <div class="layer"></div>
         </div>
     </div>
 
-    <!-- Below 960px -->
+    <!-- Below 960px (!!This version has been cancel by PM) -->
     <div
         class="mordernVersion absolute overflow-hidden max-h-[calc(100vh-56px)] sm:max-h-[calc(100vh-80px)] max-w-screen w-full select-none bg-cyan-900">
         <ng-container *transloco="let t">
@@ -28,43 +28,43 @@
             </div>
 
             <div class="flex flex-row justify-center w-full">
-                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#e7002bad] cursor-pointer select-none"
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#e7002bad] cursor-pointer select-none custom-up-card"
                     [ngClass]="{'border-b-2': (!searchAreaCheck && !recommandAreaCheck), 'border-r-2':(!searchAreaCheck && !questionAreaCheck)}"
                     (mouseover)="searchAreaCheck = true" (mouseout)="searchAreaCheck = false" [routerLink]="'inquire'">
-                    <img src="assets/icons/search1.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                    <div class="text-2xl mt-4">{{t('home_search')}}</div>
+                    <img src="assets/icons/search1.png" class="relative text-white font-bold w-[30px] sm:w-[60px] custom-img">
+                    <div class="text-2xl mt-4 custom-card-text">{{t('home_search')}}</div>
                 </div>
-                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#5dafff91] cursor-pointer select-none"
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#5dafff91] cursor-pointer select-none custom-up-card"
                     [ngClass]="{'border-b-2': (!questionAreaCheck && !demmandAreaCheck)}"
                     (mouseover)="questionAreaCheck = true" (mouseout)="questionAreaCheck = false"
                     [routerLink]="'question'">
-                    <img src="assets/icons/chatting.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                    <div class="text-2xl mt-4">{{t('home_questionnaire')}}</div>
+                    <img src="assets/icons/chatting.png" class="relative text-white font-bold w-[30px] sm:w-[60px] custom-img">
+                    <div class="text-2xl mt-4 custom-card-text">{{t('home_questionnaire')}}</div>
                 </div>
             </div>
 
             <div class="flex flex-row justify-center w-full">
-                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#addf1aa1] cursor-pointer select-none"
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#addf1aa1] cursor-pointer select-none custom-down-card"
                     [ngClass]="{'border-r-2': (!recommandAreaCheck && !demmandAreaCheck)}"
                     (mouseover)="recommandAreaCheck = true" (mouseout)="recommandAreaCheck = false"
                     [routerLink]="'recommend'">
-                    <img src="assets/icons/thumbs-up.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                    <div class="text-2xl mt-4 sm:mb-[400px]">{{t('home_recommend_product')}}</div>
+                    <img src="assets/icons/thumbs-up.png" class="relative text-white font-bold w-[30px] sm:w-[60px] custom-img">
+                    <div class="text-2xl mt-4 custom-card-text sm:mb-[400px]">{{t('home_recommend_product')}}</div>
                 </div>
-                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center hover:bg-[#e4891bab] cursor-pointer select-none"
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center hover:bg-[#e4891bab] cursor-pointer select-none custom-down-card"
                     (mouseover)="demmandAreaCheck = true" (mouseout)="demmandAreaCheck = false"
                     [routerLink]="'customized'">
-                    <img src="assets/icons/file.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                    <div class="text-2xl mt-4 sm:mb-[400px]">{{t('customer_detail_demand_form')}}</div>
+                    <img src="assets/icons/file.png" class="relative text-white font-bold w-[30px] sm:w-[60px] custom-img">
+                    <div class="text-2xl mt-4 custom-card-text sm:mb-[400px]">{{t('customer_detail_demand_form')}}</div>
                 </div>
             </div>
         </ng-container>
     </div>
 
 
-    <!-- Above 960px -->
+    <!-- Above 960px (!!PM change idea) -->
     <div
-        class="classicVersion absolute overflow-hidden sm:overflow-auto max-h-[calc(100vh-64px)] sm:max-h-[calc(100vh-80px)] pb-2.5 max-w-screen select-none">
+        class="classicVersion absolute overflow-auto max-h-[calc(100vh-64px)] sm:max-h-[calc(100vh-80px)] pb-2.5 max-w-screen select-none">
         <ng-container *transloco="let t">
             <figure>
                 <img src="assets/images/bg.png" alt="">
@@ -83,7 +83,7 @@
                 </figure>
             </div>
 
-            <div class="justify-center grid grid-cols-5 gap-6 w-full min-w-0 px-10">
+            <div class="justify-center grid grid-cols-1 md:grid-cols-5 gap-6 w-full min-w-0 px-10">
                 <!-- 公司介紹 -->
                 <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
                     [routerLink]="'company'">
@@ -91,7 +91,7 @@
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
                             <img src="assets/icons/desktop.png" alt="">
                         </div>
-                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_about_us')}}</div>
+                        <div class="text-lg font-medium text-gray-700">{{t('home_about_us')}}</div>
                     </div>
                 </div>
 
@@ -102,7 +102,7 @@
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
                             <img src="assets/icons/like.png" alt="">
                         </div>
-                        <div class="text-lg font-medium text-gray-700 hidden md:block">{{t('home_recommend_product')}}
+                        <div class="text-lg font-medium text-gray-700">{{t('home_recommend_product')}}
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
                             <img src="assets/icons/edit.png" alt="">
                         </div>
-                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_questionnaire')}}
+                        <div class="text-lg font-medium text-gray-700">{{t('home_questionnaire')}}
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
                             <img src="assets/icons/document.png" alt="">
                         </div>
-                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_demand')}}</div>
+                        <div class="text-lg font-medium text-gray-700">{{t('home_demand')}}</div>
                     </div>
                 </div>
 
@@ -139,7 +139,7 @@
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
                             <img src="assets/icons/search.png" alt="">
                         </div>
-                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_search')}}</div>
+                        <div class="text-lg font-medium text-gray-700">{{t('home_search')}}</div>
                     </div>
                 </div>
 

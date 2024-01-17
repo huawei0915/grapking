@@ -12,7 +12,7 @@
                         <mat-icon class="mx-2 text-slate-300" svgIcon="mat_solid:search"></mat-icon>
                         <input #mainSearchView placeholder="{{t('search_hint')}}"
                             class="w-full placeholder:text-slate-300 font-mono text-lg font-semibold"
-                            (input)="setSearchText($event)" (focus)="showDeleteButton(mainSearchView,$event)"
+                            (keypress)="setSearchText($event)" (focus)="showDeleteButton(mainSearchView,$event)"
                             (blur)="hideDeleteButton(mainSearchView,$event)">
                         <mat-icon *ngIf="mainSearchView.hasAttribute('mainSearchView')"
                             svgIcon="heroicons_solid:x-circle" class="min-w-4 w-4 mr-1 text-slate-300 cursor-pointer"
@@ -22,9 +22,9 @@
                 </div>
             </div>
             <div class="w-full max-h-[calc(100%-64px)] mt-16 overflow-auto absolute">
-                <div class="m-8 bg-white" *ngIf="getFilteredProduct(searchText).length !== 0 ">
+                <div class="m-8 bg-white" *ngIf="productArr.length !== 0 ">
                     <div class="p-8">
-                        <ng-container *ngFor="let product of getFilteredProduct(searchText);let i=index">
+                        <ng-container *ngFor="let product of productArr;let i=index">
                             <div class="relative m-2  cursor-pointer" (click)="getProductDetail(product.id,i)">
                                 <div class="flex">
                                     <figure class="w-36 h-36 flex items-center">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="m-8 h-[60vh] text-center"
-                    *ngIf="!getFilteredProduct(searchText) ||getFilteredProduct(searchText).length === 0">
+                    *ngIf="productArr.length === 0">
                     <mat-icon role="img"
                         class="mat-icon notranslate mat-icon-no-color icon-size-20 w-20 h-20 text-slate-300 relative top-[30vh]"
                         aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="inbox"
