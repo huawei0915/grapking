@@ -49,10 +49,10 @@ export class InquireComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const keyword = this._route.snapshot.queryParams['keyword'];
-        const category = this._route.snapshot.queryParams['category'];
-        const func = this._route.snapshot.queryParams['function'];
-        this.getProduct(keyword, func, category);
+        // const keyword = this._route.snapshot.queryParams['keyword'];
+        // const category = this._route.snapshot.queryParams['category'];
+        // const func = this._route.snapshot.queryParams['function'];
+        // this.getProduct(keyword, func, category);
         this._translocoService.langChanges$.subscribe((activeLang) => {
             // Get the active lang
             this.lang = activeLang;
@@ -70,17 +70,17 @@ export class InquireComponent implements OnInit {
         this._apiService.getProduct(keyword, isRecommand, func, category).then((result) => {
             this.productArr = [...result];
             if ((keyword || func || category) && this.productArr.length > 0) {
-                this.showDetailPage = true;
-                this.getProductDetail(this.productArr[0].id, 0);
+                // this.showDetailPage = true;
+                // this.getProductDetail(this.productArr[0].id, 0);
             } else if (this.productArr.length > 0) {
                 this.showDetailPage = false;
             } else {
-                if(!this.initFinished){
+                // if (!this.initFinished) {
                     this.alertPOPUP = true;
                     this.message = 'product_not_found_message';
-                }
+                // }
             }
-            this.initFinished = true;
+            // this.initFinished = true;
         });
     }
 
@@ -201,9 +201,9 @@ export class InquireComponent implements OnInit {
     // 寫入搜尋欄位
     setSearchText(event: any): void {
         // this.searchText = event.target.value;
-        setTimeout(() => {
+        if (event.key === 'Enter' &&  (event.target.value !== '')) {
             this.getProduct(event.target.value);
-        },1000);
+        }
     }
 
     //==============================================================
