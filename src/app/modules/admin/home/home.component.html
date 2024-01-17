@@ -2,13 +2,13 @@
 
     <div class="absolute top-12 left-5">
         <div class="button r" id="button-3">
-            <input type="checkbox" class="checkbox" (click)="changeLang()">
+            <input type="checkbox" class="checkbox" [(ngModel)]="langButtonCheck" (click)="changeLang()">
             <div class="knobs"></div>
             <div class="layer"></div>
         </div>
     </div>
 
-    <!-- Below 960px -->
+    <!-- Below 960px (!!This version has been cancel by PM) -->
     <div
         class="mordernVersion absolute overflow-hidden max-h-[calc(100vh-56px)] sm:max-h-[calc(100vh-80px)] max-w-screen w-full select-none bg-cyan-900">
         <ng-container *transloco="let t">
@@ -62,9 +62,9 @@
     </div>
 
 
-    <!-- Above 960px -->
+    <!-- Above 960px (!!PM change idea) -->
     <div
-        class="classicVersion absolute overflow-hidden sm:overflow-auto max-h-[calc(100vh-64px)] sm:max-h-[calc(100vh-80px)] pb-2.5 max-w-screen select-none">
+        class="classicVersion absolute overflow-auto max-h-[calc(100vh-64px)] sm:max-h-[calc(100vh-80px)] pb-2.5 max-w-screen select-none">
         <ng-container *transloco="let t">
             <figure>
                 <img src="assets/images/bg.png" alt="">
@@ -83,7 +83,7 @@
                 </figure>
             </div>
 
-            <div class="justify-center grid grid-cols-5 gap-6 w-full min-w-0 px-10">
+            <div class="justify-center grid grid-cols-1 md:grid-cols-5 gap-6 w-full min-w-0 px-10">
                 <!-- 公司介紹 -->
                 <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
                     [routerLink]="'company'">
@@ -91,7 +91,7 @@
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
                             <img src="assets/icons/desktop.png" alt="">
                         </div>
-                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_about_us')}}</div>
+                        <div class="text-lg font-medium text-gray-700">{{t('home_about_us')}}</div>
                     </div>
                 </div>
 
@@ -102,7 +102,7 @@
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
                             <img src="assets/icons/like.png" alt="">
                         </div>
-                        <div class="text-lg font-medium text-gray-700 hidden md:block">{{t('home_recommend_product')}}
+                        <div class="text-lg font-medium text-gray-700">{{t('home_recommend_product')}}
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
                             <img src="assets/icons/edit.png" alt="">
                         </div>
-                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_questionnaire')}}
+                        <div class="text-lg font-medium text-gray-700">{{t('home_questionnaire')}}
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
                             <img src="assets/icons/document.png" alt="">
                         </div>
-                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_demand')}}</div>
+                        <div class="text-lg font-medium text-gray-700">{{t('home_demand')}}</div>
                     </div>
                 </div>
 
@@ -139,7 +139,7 @@
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
                             <img src="assets/icons/search.png" alt="">
                         </div>
-                        <div class="text-lg font-medium text-gray-700  hidden md:block">{{t('home_search')}}</div>
+                        <div class="text-lg font-medium text-gray-700">{{t('home_search')}}</div>
                     </div>
                 </div>
 
