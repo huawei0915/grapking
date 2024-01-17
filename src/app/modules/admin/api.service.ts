@@ -136,6 +136,26 @@ export class ApiService {
         });
     }
 
+    // C1-3 原料詳細
+    /**
+     * @param id 原料ID
+     * @returns 原料詳細
+     * @description 取得原料詳細
+     */
+    getIngredient(id: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.get(`${env.apiServer}/api/v1/ingredient/${id}`).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    this.isTokenExpired(err);
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
     // C1-4 劑型清單
     /**
      * @returns 劑型清單

@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FuseLoadingService } from '@fuse/services/loading';
 import { TranslocoService } from '@ngneat/transloco';
 import { environment as env } from 'environments/environment';
 import { ApiService } from '../../api.service';
-import { FuseLoadingService } from '@fuse/services/loading';
 
 
 @Component({
@@ -130,6 +130,16 @@ export class RecommendComponent implements OnInit {
         }
     }
 
+    // 顯示主成分
+    showIngredients(id: string): void {
+        this._apiService.getIngredient(id).then((result) => {
+            console.log(result);
+        }).catch(() => {
+
+        }).finally(() => {
+
+        });
+    }
     // 儲存產品
     saveProduct(): void {
         this.popView = true;
