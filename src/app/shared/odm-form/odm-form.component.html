@@ -12,6 +12,25 @@
             <ng-container>
                 <div class="mt-16 fixed w-full overflow-auto"
                     [ngClass]="{'h-[calc(100%-64px)]': needFullHeight, 'h-[calc(100%-120px)] sm:h-[calc(100%-144px)]': !needFullHeight}">
+
+                    <!-- Main List -->
+                    <div class="w-full h-16 flex justify-between items-center z-20 text-2xl"
+                        *ngIf="demandArr.length !== 0">
+                        <mat-form-field *ngIf="!querySpecCientDemand">
+                            <mat-select class="text-base font-semibold bg-white text-slate-900"
+                                formControlName="filterCheckBox">
+                                <mat-option [value]="'all'">{{t('filter_client_all')}}</mat-option>
+                                <mat-option [value]="'hasClient'">{{t('filter_client_has_clientId')}}</mat-option>
+                                <mat-option [value]="'noClient'">{{t('filter_client_no_clientId')}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div class="mr-8 text-red-600 text-base font-bold cursor-pointer select-none w-full text-right"
+                            (click)="clickMultiSelect()">
+                            {{clientMultiSelectCheck?t('button_cancel'):t('button_select')}}
+                        </div>
+                    </div>
+
                     <!-- Warning: There are no Demand Memos to display -->
                     <div class="m-8 h-[60vh] text-center" *ngIf="filterData.length === 0">
                         <mat-icon role="img"
@@ -30,23 +49,6 @@
                             {{t('demand_list_empty_message')}}
                         </div>
                     </div>
-                    <!-- Main List -->
-                    <div class="w-full h-16 flex justify-between items-center z-20 text-2xl"
-                        *ngIf="filterData.length !== 0">
-                        <mat-form-field *ngIf="!querySpecCientDemand">
-                            <mat-select class="text-base font-semibold bg-white text-slate-900"
-                                formControlName="filterCheckBox">
-                                <mat-option [value]="'all'">{{t('filter_client_all')}}</mat-option>
-                                <mat-option [value]="'hasClient'">{{t('filter_client_has_clientId')}}</mat-option>
-                                <mat-option [value]="'noClient'">{{t('filter_client_no_clientId')}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <div class="mr-8 text-red-600 text-base font-bold cursor-pointer select-none w-full text-right"
-                            (click)="clickMultiSelect()">
-                            {{clientMultiSelectCheck?t('button_cancel'):t('button_select')}}
-                        </div>
-                    </div>
 
                     <div *ngIf="filterData.length !== 0" class="m-8 mt-0 mb-12 bg-white w-[calc(100%-64px)]">
                         <div class="py-2">
@@ -56,8 +58,7 @@
                                         [ngClass]="{'cursor-pointer': !clientMultiSelectCheck}"
                                         (click)="openEditModal(demmand,$event)">
                                         <div class="flex flex-row flex-wrap justify-center sm:justify-start 
-                                        items-start w-full sm:w-[calc(100%-176px)]"
-                                            (click)="checkboxClick(i,demmand)">
+                                        items-start w-full sm:w-[calc(100%-176px)]" (click)="checkboxClick(i,demmand)">
                                             <div class="flex items-start min-w-10 w-10 h-10 sm:h-20 mr-0 sm:mr-4">
                                                 <mat-icon svgIcon="mat_solid:feed"
                                                     class="min-w-10 w-10 h-10"></mat-icon>

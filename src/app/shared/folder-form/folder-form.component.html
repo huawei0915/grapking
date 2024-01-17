@@ -12,6 +12,25 @@
             <ng-container>
                 <div class="mt-16 fixed w-full overflow-auto"
                     [ngClass]="{'h-[calc(100%-64px)]': needFullHeight, 'h-[calc(100%-120px)] sm:h-[calc(100%-144px)]': !needFullHeight}">
+
+                    <!-- Folder List -->
+                    <div class="w-full h-16 flex justify-between items-center z-20 text-2xl"
+                        *ngIf="productArr.length !== 0">
+                        <mat-form-field *ngIf="!querySpecCientDemand">
+                            <mat-select class="text-base font-semibold bg-white text-slate-900"
+                                formControlName="filterCheckBox">
+                                <mat-option [value]="'all'">{{t('filter_client_all')}}</mat-option>
+                                <mat-option [value]="'hasClient'">{{t('filter_client_has_clientId')}}</mat-option>
+                                <mat-option [value]="'noClient'">{{t('filter_client_no_clientId')}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div class="mr-8 text-red-600 text-base font-bold cursor-pointer select-none w-full text-right"
+                            (click)="clickMultiSelect()">
+                            {{clientMultiSelectCheck?t('button_cancel'):t('button_select')}}
+                        </div>
+                    </div>
+
                     <!-- Warning: There are no Demand Memos to display -->
                     <div class="m-8 h-[60vh] text-center" *ngIf="filterData.length === 0">
                         <mat-icon role="img"
@@ -28,23 +47,6 @@
                         </mat-icon>
                         <div class="w-ful h-20 text-center text-slate-400 relative top-[30vh]">
                             {{t('product_list_empty_message')}}
-                        </div>
-                    </div>
-                    <!-- Folder List -->
-                    <div class="w-full h-16 flex justify-between items-center z-20 text-2xl"
-                        *ngIf="filterData.length !== 0">
-                        <mat-form-field *ngIf="!querySpecCientDemand">
-                            <mat-select class="text-base font-semibold bg-white text-slate-900"
-                                formControlName="filterCheckBox">
-                                <mat-option [value]="'all'">{{t('filter_client_all')}}</mat-option>
-                                <mat-option [value]="'hasClient'">{{t('filter_client_has_clientId')}}</mat-option>
-                                <mat-option [value]="'noClient'">{{t('filter_client_no_clientId')}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <div class="mr-8 text-red-600 text-base font-bold cursor-pointer select-none w-full text-right"
-                            (click)="clickMultiSelect()">
-                            {{clientMultiSelectCheck?t('button_cancel'):t('button_select')}}
                         </div>
                     </div>
 
@@ -203,8 +205,8 @@
 
         <!-- Edit modal -->
         <app-shared-common-confirm-modal *ngIf="editCheck" #viewEditModal [productImage]="editData.files[0]"
-            [productName]="((lang==='en')?editData.name_en:editData.name_zh)" [memo]="editData.note" [submitText]="t('button_save')"
-            (submitEvent)="confrimEdit(viewEditModal)" (cancelEvent)="closeEditModal()">
+            [productName]="((lang==='en')?editData.name_en:editData.name_zh)" [memo]="editData.note"
+            [submitText]="t('button_save')" (submitEvent)="confrimEdit(viewEditModal)" (cancelEvent)="closeEditModal()">
         </app-shared-common-confirm-modal>
 
         <!-- CLient modal -->
@@ -285,12 +287,10 @@
                                     </path>
                                 </svg>
                             </mat-icon>
-                            <div *ngIf="clientData.length !== 0"
-                                class="w-full text-center text-slate-400 relative">
+                            <div *ngIf="clientData.length !== 0" class="w-full text-center text-slate-400 relative">
                                 {{t('customer_search_empty_message')}}
                             </div>
-                            <div *ngIf="clientData.length === 0"
-                                class="w-ful h-20 text-center text-slate-400 relative">
+                            <div *ngIf="clientData.length === 0" class="w-ful h-20 text-center text-slate-400 relative">
                                 {{t('customer_list_empty_message')}}
                             </div>
                         </div>

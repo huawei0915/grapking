@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { environment as env } from 'environments/environment';
 import { ApiService } from '../../api.service';
+import { FuseLoadingService } from '@fuse/services/loading';
+
 
 @Component({
     selector: 'recommend',
@@ -14,7 +16,7 @@ import { ApiService } from '../../api.service';
 })
 export class RecommendComponent implements OnInit {
     productArr = [];
-    showDetailPage = false;
+    showDetailPage = true;
     showDetailTable = false;
 
     productDetail: any;
@@ -40,6 +42,7 @@ export class RecommendComponent implements OnInit {
         private _route: ActivatedRoute,
         private _router: Router,
         private _translocoService: TranslocoService,
+        private _fuseLoadingService: FuseLoadingService
     ) {
     }
 
@@ -77,6 +80,8 @@ export class RecommendComponent implements OnInit {
                 this.alertPOPUP = true;
                 this.message = 'product_not_found_message';
             }
+        }).finally(() => {
+            this._fuseLoadingService.hide();
         });
     }
 
@@ -168,10 +173,21 @@ export class RecommendComponent implements OnInit {
         this._apiService.getProductDetail(id).then((result) => {
             this.productDetail = result;
             this.showDetailPage = true;
+            this._fuseLoadingService.hide();
         }).catch((err) => {
             this.alertPOPUP = true;
             this.showDetailPage = false;
             this.message = 'an_error_occurred';
+            this._fuseLoadingService.hide();
         });
+    }
+
+    getBack(): void {
+        if (this._apiService.callFromFolder) {
+            this._apiService.callFromFolder = false;
+            history.back();
+        } else {
+            this.showDetailPage = false;
+        }
     }
 }

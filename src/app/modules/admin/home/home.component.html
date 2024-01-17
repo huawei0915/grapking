@@ -64,7 +64,7 @@
 
     <!-- Above 960px (!!PM change idea) -->
     <div
-        class="classicVersion absolute overflow-auto max-h-[calc(100vh-64px)] sm:max-h-[calc(100vh-80px)] pb-2.5 max-w-screen select-none">
+        class="classicVersion absolute overflow-auto max-h-[calc(100vh-64px)] sm:max-h-[calc(100vh-80px)] pb-5 max-w-screen select-none">
         <ng-container *transloco="let t">
             <figure>
                 <img src="assets/images/bg.png" alt="">
@@ -72,7 +72,7 @@
 
             <div class="mb-5 relative">
                 <figure class="w-9/12 m-auto relative">
-                    <img class="mt-[20vh] md:mt-0" src="assets/images/home_logo.png" alt="">
+                    <img class="md:mt-0" src="assets/images/home_logo.png" alt="">
 
                     <img class="absolute top-[-120%] sm:top-[-97%] w-[14%] min-w-[45px] left-[23%]"
                         src="assets/images/bottle.gif" alt="">
@@ -83,9 +83,9 @@
                 </figure>
             </div>
 
-            <div class="justify-center grid grid-cols-1 md:grid-cols-5 gap-6 w-full min-w-0 px-10">
+            <div class="grid justify-items-center md:justify-items-stretch grid-cols-1 md:grid-cols-5 gap-6 w-full min-w-0 px-[calc(10%-20px)] sm:px-[20%] md:px-[calc(15%-120px)] lg:px-[calc(16%-100px)]">
                 <!-- 公司介紹 -->
-                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer max-w-74 md:max-w-[none] w-[80%] md:w-auto"
                     [routerLink]="'company'">
                     <div class="flex flex-col items-center mt-2">
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
@@ -96,7 +96,7 @@
                 </div>
 
                 <!-- 推薦商品 -->
-                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer max-w-74 md:max-w-[none] w-[80%] md:w-auto"
                     [routerLink]="'recommend'">
                     <div class="flex flex-col items-center mt-2">
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">
@@ -108,7 +108,7 @@
                 </div>
 
                 <!-- 問卷 -->
-                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer max-w-74 md:max-w-[none] w-[80%] md:w-auto"
                     [routerLink]="'question'">
 
                     <div class="flex flex-col items-center mt-2">
@@ -121,7 +121,7 @@
                 </div>
 
                 <!-- 客製需求 -->
-                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer max-w-74 md:max-w-[none] w-[80%] md:w-auto"
                     [routerLink]="'customized'">
 
                     <div class="flex flex-col items-center mt-2">
@@ -133,7 +133,7 @@
                 </div>
 
                 <!-- 查詢 -->
-                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer"
+                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden cursor-pointer max-w-74 md:max-w-[none] w-[80%] md:w-auto"
                     [routerLink]="'inquire'">
                     <div class="flex flex-col items-center mt-2">
                         <div class="text-7xl w-14 sm:text-8xl font-bold tracking-tight leading-none ">

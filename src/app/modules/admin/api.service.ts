@@ -12,6 +12,7 @@ import { take } from 'rxjs';
     providedIn: 'root'
 })
 export class ApiService {
+    callFromFolder = false;
 
     expiredPopup = false;
     isOK = false;
