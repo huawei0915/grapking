@@ -28,34 +28,34 @@
             </div>
 
             <div class="flex flex-row justify-center w-full">
-                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#e7002bad] cursor-pointer select-none"
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#e7002bad] cursor-pointer select-none custom-up-card"
                     [ngClass]="{'border-b-2': (!searchAreaCheck && !recommandAreaCheck), 'border-r-2':(!searchAreaCheck && !questionAreaCheck)}"
                     (mouseover)="searchAreaCheck = true" (mouseout)="searchAreaCheck = false" [routerLink]="'inquire'">
-                    <img src="assets/icons/search1.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                    <div class="text-2xl mt-4">{{t('home_search')}}</div>
+                    <img src="assets/icons/search1.png" class="relative text-white font-bold w-[30px] sm:w-[60px] custom-img">
+                    <div class="text-2xl mt-4 custom-card-text">{{t('home_search')}}</div>
                 </div>
-                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#5dafff91] cursor-pointer select-none"
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[31.5vh] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#5dafff91] cursor-pointer select-none custom-up-card"
                     [ngClass]="{'border-b-2': (!questionAreaCheck && !demmandAreaCheck)}"
                     (mouseover)="questionAreaCheck = true" (mouseout)="questionAreaCheck = false"
                     [routerLink]="'question'">
-                    <img src="assets/icons/chatting.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                    <div class="text-2xl mt-4">{{t('home_questionnaire')}}</div>
+                    <img src="assets/icons/chatting.png" class="relative text-white font-bold w-[30px] sm:w-[60px] custom-img">
+                    <div class="text-2xl mt-4 custom-card-text">{{t('home_questionnaire')}}</div>
                 </div>
             </div>
 
             <div class="flex flex-row justify-center w-full">
-                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#addf1aa1] cursor-pointer select-none"
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center border-solid border-gray-500 hover:bg-[#addf1aa1] cursor-pointer select-none custom-down-card"
                     [ngClass]="{'border-r-2': (!recommandAreaCheck && !demmandAreaCheck)}"
                     (mouseover)="recommandAreaCheck = true" (mouseout)="recommandAreaCheck = false"
                     [routerLink]="'recommend'">
-                    <img src="assets/icons/thumbs-up.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                    <div class="text-2xl mt-4 sm:mb-[400px]">{{t('home_recommend_product')}}</div>
+                    <img src="assets/icons/thumbs-up.png" class="relative text-white font-bold w-[30px] sm:w-[60px] custom-img">
+                    <div class="text-2xl mt-4 custom-card-text sm:mb-[400px]">{{t('home_recommend_product')}}</div>
                 </div>
-                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center hover:bg-[#e4891bab] cursor-pointer select-none"
+                <div class="relative text-white font-bold w-1/2 max-w-1/2 h-[32.5vh] sm:h-[calc(31.5vh+400px)] top-[-99.6vh] sm:top-[-100.1vh] flex flex-col flex-nowrap items-center justify-center hover:bg-[#e4891bab] cursor-pointer select-none custom-down-card"
                     (mouseover)="demmandAreaCheck = true" (mouseout)="demmandAreaCheck = false"
                     [routerLink]="'customized'">
-                    <img src="assets/icons/file.png" class="relative text-white font-bold w-[30px] sm:w-[60px]">
-                    <div class="text-2xl mt-4 sm:mb-[400px]">{{t('customer_detail_demand_form')}}</div>
+                    <img src="assets/icons/file.png" class="relative text-white font-bold w-[30px] sm:w-[60px] custom-img">
+                    <div class="text-2xl mt-4 custom-card-text sm:mb-[400px]">{{t('customer_detail_demand_form')}}</div>
                 </div>
             </div>
         </ng-container>

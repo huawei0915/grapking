@@ -1,5 +1,5 @@
 #home {
-    @media (min-width: 960px){
+    @media (min-width: 960px) {
         .mordernVersion {
             display: none;
         }
@@ -9,7 +9,7 @@
         }
     }
 
-    @media (max-width: 959px){
+    @media (max-width: 959px) {
         .mordernVersion {
             display: block;
         }
@@ -17,5 +17,44 @@
         .classicVersion {
             display: none;
         }
-    }   
+    }
+
+    /* Maximum height */
+    @media (max-height: 550px) {
+        .custom-img {
+            width: 30px !important;
+        }
+
+        .custom-up-card {
+            height: 28.5vh !important;
+            top: -101.5vh !important;
+        }
+
+        .custom-down-card {
+            top: -102.5vh !important;
+        }
+
+        .custom-card-text{
+            margin-top: 0px !important;
+        }
+    }
+
+    @media (max-height: 380px) {
+        .custom-img {
+            width: 30px !important;
+        }
+
+        .custom-up-card {
+            height: 23.5vh !important;
+            top: -102.5vh !important;
+        }
+
+        .custom-down-card {
+            top: -102.5vh !important;
+        }
+
+        .custom-card-text{
+            margin-top: 0px !important;
+        }
+    }
 }
