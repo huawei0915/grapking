@@ -1,6 +1,7 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
-import { ApiService } from '../../api.service';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
+import { ApiService } from '../../api.service';
 
 @Component({
     selector: 'question',
@@ -34,39 +35,49 @@ export class QuestionComponent implements OnInit, OnDestroy {
     puoductArr8 = [];
     puoductArr9 = [];
 
+    packageArr = [];
     closeTag = true;
     nowLevel = this.level1;
-
+    lang = 'zh';
     /**
      * Constructor
      */
     constructor(
+        private _translocoService: TranslocoService,
         private _apiService: ApiService,
         private _router: Router,
     ) {
-
+        this._translocoService.langChanges$.subscribe((activeLang) => {
+            // Get the active lang
+            this.lang = activeLang;
+        });
     }
 
     ngOnInit(): void {
         this._apiService.getCategory().then((result) => {
             result.filter((item: any) => item.level === 2 && item.is_visible === 1).forEach((data) => {
-                if (data.path.includes('function')) {
+                if (data.parent.includes('F000')) {
                     this.level1.push(data);
-                } else if (data.path.includes('organ')) {
+                } else if (data.parent.includes('O000')) {
                     this.level2.push(data);
-                } else if (data.path.includes('age')) {
+                } else if (data.parent.includes('AG000')) {
                     this.level3.push(data);
-                } else if (data.path.includes('group')) {
+                } else if (data.parent.includes('GR000')) {
                     this.level4.push(data);
-                } else if (data.path.includes('country')) {
+                } else if (data.parent.includes('CY000')) {
                     this.level5.push(data);
-                } else if (data.path.includes('form')) {
+                } else if (data.parent.includes('FM000')) {
                     this.level6.push(data);
-                } else if (data.path.includes('package')) {
-                    this.level7.push(data);
-                } else if (data.path.includes('certification')) {
+                } else if (data.parent.includes('PK000')) {
+                    // packageArr 中的 name_zh == data.name_zh 要塞回去this.level7
+                    const slicedString = this.packageArr.filter(str => str.name_zh.includes(data.name_zh));
+                    // console.log(slicedString);
+                    this.level7.push(slicedString[0]);
+                    console.log(this.level7);
+                    // this.level7.push(data);
+                } else if (data.parent.includes('CE000')) {
                     this.level8.push(data);
-                } else if (data.path.includes('meatvegan')) {
+                } else if (data.parent.includes('MV000')) {
                     this.level9.push(data);
                 } else {
                 }
@@ -75,6 +86,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
         }).catch((err) => {
         }).finally(() => {
         });
+        this.getPackage();
     }
 
     ngOnDestroy(): void {
@@ -137,6 +149,16 @@ export class QuestionComponent implements OnInit, OnDestroy {
             queryParams: {
                 category: categoryArr.toString()
             }
+        });
+    }
+
+    getPackage(): void {
+        this._apiService.getPackage().then((result) => {
+            this.packageArr = result;
+        }).catch((err) => {
+
+        }).finally(() => {
+
         });
     }
 

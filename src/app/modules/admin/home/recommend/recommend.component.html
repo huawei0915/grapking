@@ -13,10 +13,10 @@
                             </figure>
                             <div class="flex flex-col justify-center ml-4" style="width: calc(100% - 96px);">
                                 <div class="font-bold text-2xl">
-                                    {{product.name_zh}}
+                                    {{lang==='zh'?product.name_zh:product.name_en}}
                                 </div>
                                 <div class="text-slate-400">
-                                    {{product.spec_zh}}
+                                    {{lang==='zh'?product.spec_zh:product.spec_en}}
                                 </div>
                             </div>
                         </div>
@@ -180,10 +180,10 @@
                             <div class="flex flex-col justify-center ml-4 w-full h-full p-3"
                                 [ngClass]="{'bg-pink-500/30':selectIdx===i}">
                                 <div class="text-lg">
-                                    {{product.name_zh}}
+                                    {{lang==='zh'?product.name_zh:product.name_en}}
                                 </div>
                                 <div class="text-slate-400">
-                                    {{product.spec_zh}}
+                                    {{lang==='zh'?product.spec_zh:product.spec_en}}
                                 </div>
                             </div>
                         </div>

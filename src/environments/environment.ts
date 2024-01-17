@@ -4,14 +4,14 @@
 
 export const environment = {
     production: false,
-    apiServer: 'http://139.162.99.150:3435',
+    apiServer: 'https://gkskrvapit.grapeking.com.tw',
     aiUrl: 'https://livetour.istaging.com/d71bc842-36ae-43ab-8781-c5f8a4f8589c',
     vrUrl: 'https://taiwantrade.istaging.com/0d53c3b4-d326-47b8-98ea-f603266c3a4e',
     devAcnt: 'testacct',
     devPwn: 'abcd1234',
     defImg: 'products/0960d5c3-9e90-474e-841d-b381c87b08db.jpeg',
     defProcName: '免疫-益生菌',
-    ver:'v0.1.4'
+    ver: 'v0.1.4'
 };
 
 /*
