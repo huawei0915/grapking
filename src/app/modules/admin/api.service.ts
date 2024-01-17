@@ -13,6 +13,7 @@ import { take } from 'rxjs';
 })
 export class ApiService {
     callFromFolder = false;
+    folderClientStatus = '';
 
     expiredPopup = false;
     isOK = false;

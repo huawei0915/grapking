@@ -31,10 +31,11 @@
     <ng-container *ngIf="showDetailPage">
         <!-- Header -->
         <div class="fixed bg-slate-900 w-full h-16 flex justify-between items-center pr-7 z-[100]">
-            <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer text-white" (click)="getBack()"></mat-icon>
+            <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer text-white"
+                (click)="getBack()"></mat-icon>
         </div>
         <!-- Main Content -->
-        <div class="w-full h-full flex fixed z-50 md:flex pt-16" *transloco="let t">
+        <div class="w-full h-full flex fixed z-50 md:flex pt-16 hidden md:flex" *transloco="let t">
             <div class="flex justify-between w-3/5 h-full bg-red-700 p-10 ">
                 <div class=" ">
                     <h2 class="font-bold text-5xl text-white">
@@ -275,7 +276,7 @@
     </ng-container>
 
     <ng-container *ngIf="showDetailPage">
-        <div class="w-full h-full flex flex-col md:hidden" *transloco="let t">
+        <div class="absolute z-50 overflow-auto mt-16 h-[calc(100vh-64px)] w-full flex flex-col md:hidden" *transloco="let t">
             <div class="bg-white pb-2">
                 <!-- 產品圖 -->
                 <div class="flex items-center justify-center mt-10 z-20">
