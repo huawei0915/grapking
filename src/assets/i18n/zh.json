@@ -129,6 +129,7 @@
     "customer_list_empty_message": "尚未建立客戶資料",
     "customer_search_hint": "輸入關鍵字",
     "customer_search": "搜尋",
+    "customer_last_update": "最後更新",
     "customer_form_add": "新增客戶",
     "customer_form_edit": "編輯客戶",
     "customer_form_upload_avatar": "上傳照片",

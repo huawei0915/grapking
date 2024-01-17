@@ -129,6 +129,7 @@
     "customer_list_empty_message": "There are no Clients to display",
     "customer_search_hint": "Please enter keywords",
     "customer_search": "Search",
+    "customer_last_update": "Last updated",
     "customer_form_add": "Add client",
     "customer_form_edit": "Edit client",
     "customer_form_upload_avatar": "Upload picture",
