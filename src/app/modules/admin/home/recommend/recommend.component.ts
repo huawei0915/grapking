@@ -39,8 +39,11 @@ export class RecommendComponent implements OnInit {
     materiarDetail: any;
 
     awardsArr = [];
+    selectAward = false;
     papersArr = [];
+    selectPaper = false;
     patentsArr = [];
+    selectPatent = false;
     /**
      * Constructor
      */
@@ -107,6 +110,12 @@ export class RecommendComponent implements OnInit {
         this.showDetailTable = true;
         if (type === 'form') {
             this.packageArr = [];
+            this.awardsArr = [];
+            this.papersArr = [];
+            this.patentsArr = [];
+            this.selectPatent = false;
+            this.selectAward = false;
+            this.selectPaper = false;
             this._apiService.getForm().then((result) => {
                 this.formArr = [...result];
                 this.formArr.sort((a, b) => {
@@ -121,6 +130,12 @@ export class RecommendComponent implements OnInit {
             });
         } else if (type === 'package') {
             this.formArr = [];
+            this.awardsArr = [];
+            this.papersArr = [];
+            this.patentsArr = [];
+            this.selectPatent = false;
+            this.selectAward = false;
+            this.selectPaper = false;
             this._apiService.getPackage().then((result) => {
                 this.packageArr = [...result];
                 this.packageArr.sort((a, b) => {
@@ -134,10 +149,31 @@ export class RecommendComponent implements OnInit {
                 });
             });
         } else if (type === 'patent') {
+            this.selectPatent = true;
+            this.selectAward = false;
+            this.selectPaper = false;
+            this.packageArr = [];
+            this.formArr = [];
+            this.awardsArr = [];
+            this.papersArr = [];
             this.patentsArr = [...this.materiarDetail.patents];
         } else if (type === 'award') {
+            this.selectPatent = false;
+            this.selectAward = true;
+            this.selectPaper = false;
+            this.packageArr = [];
+            this.formArr = [];
+            this.patentsArr = [];
+            this.papersArr = [];
             this.awardsArr = [...this.materiarDetail.awards];
         } else if (type === 'paper') {
+            this.selectPatent = false;
+            this.selectAward = false;
+            this.selectPaper = true;
+            this.packageArr = [];
+            this.formArr = [];
+            this.patentsArr = [];
+            this.awardsArr = [];
             this.papersArr = [...this.materiarDetail.papers];
         } else {
         }
@@ -148,8 +184,6 @@ export class RecommendComponent implements OnInit {
         this.showMaterialPage = true;
         this._apiService.getIngredient(id).then((result) => {
             this.materiarDetail = result;
-            console.log(result);
-
         }).catch(() => {
 
         }).finally(() => {
@@ -213,7 +247,7 @@ export class RecommendComponent implements OnInit {
             this._apiService.callFromFolder = false;
             history.back();
         } else {
-            if(this.showMaterialPage){
+            if (this.showMaterialPage) {
                 this.showMaterialPage = false;
                 return;
             }
