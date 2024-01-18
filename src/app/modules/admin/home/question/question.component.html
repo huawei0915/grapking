@@ -15,7 +15,7 @@
                         style="transform: rotate(-90deg);">
                         <div *ngFor="let item of puoductArr1; let i=index" class="even:text-red-600">
                             <span *ngIf="i!==0&&puoductArr1.length>0">、</span>
-                            <span>{{item.name_zh}}</span>
+                            <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
@@ -26,7 +26,7 @@
                         style="transform: rotate(-90deg);">
                         <div *ngFor="let item of puoductArr2;let i=index" class="even:text-red-600">
                             <span *ngIf="i!==0&&puoductArr2.length>0">、</span>
-                            <span>{{item.name_zh}}</span>
+                            <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
@@ -37,7 +37,7 @@
                         style="transform: rotate(-90deg);">
                         <div *ngFor="let item of puoductArr3;let i=index" class="even:text-red-600">
                             <span *ngIf="i!==0&&puoductArr3.length>0">、</span>
-                            <span>{{item.name_zh}}</span>
+                            <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
@@ -48,7 +48,7 @@
                         style="transform: rotate(-90deg);">
                         <div *ngFor="let item of puoductArr4;let i=index" class="even:text-red-600">
                             <span *ngIf="i!==0&&puoductArr4.length>0">、</span>
-                            <span>{{item.name_zh}}</span>
+                            <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
@@ -59,7 +59,7 @@
                         style="transform: rotate(-90deg);">
                         <div *ngFor="let item of puoductArr5;let i=index" class="even:text-red-600">
                             <span *ngIf="i!==0&&puoductArr5.length>0">、</span>
-                            <span>{{item.name_zh}}</span>
+                            <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
@@ -70,7 +70,7 @@
                         style="transform: rotate(-90deg);">
                         <div *ngFor="let item of puoductArr6;let i=index" class="even:text-red-600">
                             <span *ngIf="i!==0&&puoductArr6.length>0">、</span>
-                            <span>{{item.name_zh}}</span>
+                            <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
@@ -81,7 +81,7 @@
                         style="transform: rotate(-90deg);">
                         <div *ngFor="let item of puoductArr7;let i=index" class="even:text-red-600">
                             <span *ngIf="i!==0&&puoductArr7.length>0">、</span>
-                            <span>{{item.name_zh}}</span>
+                            <span>{{lang==='zh'?item.box_zh:item.box_en}}</span>
                         </div>
                     </div>
                 </ng-container>
@@ -92,7 +92,7 @@
                         style="transform: rotate(-90deg);">
                         <div *ngFor="let item of puoductArr8;let i=index" class="even:text-red-600">
                             <span *ngIf="i!==0&&puoductArr8.length>0">、</span>
-                            <span>{{item.name_zh}}</span>
+                            <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
@@ -103,7 +103,7 @@
                         style="transform: rotate(-90deg);">
                         <div *ngFor="let item of puoductArr9;let i=index" class="even:text-red-600">
                             <span *ngIf="i!==0&&puoductArr9.length>0">、</span>
-                            <span>{{item.name_zh}}</span>
+                            <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
@@ -120,7 +120,12 @@
                             <img class="w-4 h-4" [src]="item.active?'assets/icons/tick.png':'assets/icons/add.png'"
                                 alt="">
                             &nbsp;&nbsp;&nbsp;
-                            <p>{{item.name_zh}}</p>
+                            <ng-container *ngIf="nowLevel!==level7;else packageText">
+                                <p>{{lang==='zh'?item.name_zh:item.name_en}}</p>
+                            </ng-container>
+                            <ng-template #packageText>
+                                <p>{{lang==='zh'?item.box_zh:item.box_en}}</p>
+                            </ng-template>
                         </button>
                     </div>
                 </div>

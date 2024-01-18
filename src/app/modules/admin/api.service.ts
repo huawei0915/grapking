@@ -33,7 +33,7 @@ export class ApiService {
     }
 
     // Reset parameter
-    init(): void{
+    init(): void {
         this.expiredPopup = false;
         this.isOK = false;
     }
@@ -64,7 +64,7 @@ export class ApiService {
      */
     getCategory(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._httpClient.get(`${env.apiServer}/api/v1/category`).subscribe({
+            this._httpClient.get(`${env.apiServer}/api/v1/category?offset=0&limit=10000`).subscribe({
                 next: (result: any) => {
                     resolve(result.result.data);
                 },
@@ -125,6 +125,26 @@ export class ApiService {
     getProductDetail(id: string): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient.get(`${env.apiServer}/api/v1/product/${id}`).subscribe({
+                next: (result: any) => {
+                    resolve(result.result);
+                },
+                error: (err: any) => {
+                    this.isTokenExpired(err);
+                    reject(err.error);
+                }
+            });
+        });
+    }
+
+    // C1-3 原料詳細
+    /**
+     * @param id 原料ID
+     * @returns 原料詳細
+     * @description 取得原料詳細
+     */
+    getIngredient(id: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient.get(`${env.apiServer}/api/v1/ingredient/${id}`).subscribe({
                 next: (result: any) => {
                     resolve(result.result);
                 },
@@ -538,7 +558,7 @@ export class ApiService {
         });
         // Handle auto logout if nothing is done after 6 seconds
         setTimeout(() => {
-            if(!this.isOK){
+            if (!this.isOK) {
                 overlayRef.detach();
                 this._authService.signOut();
             }
@@ -548,7 +568,7 @@ export class ApiService {
     isTokenExpired(err: any): void {
         if (err.status === 401) {
             // Prevent multiple popup because of multiple 401 response
-            if(!this.expiredPopup){
+            if (!this.expiredPopup) {
                 this.createConfirmModal();
             }
             // This can't be used because it doesn't detach the overlay
