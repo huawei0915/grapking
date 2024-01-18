@@ -34,6 +34,13 @@ export class RecommendComponent implements OnInit {
     alertPOPUP = false;
     message = '';
     showToast = false;
+
+    showMaterialPage = false;
+    materiarDetail: any;
+
+    awardsArr = [];
+    papersArr = [];
+    patentsArr = [];
     /**
      * Constructor
      */
@@ -126,14 +133,23 @@ export class RecommendComponent implements OnInit {
                     }
                 });
             });
+        } else if (type === 'patent') {
+            this.patentsArr = [...this.materiarDetail.patents];
+        } else if (type === 'award') {
+            this.awardsArr = [...this.materiarDetail.awards];
+        } else if (type === 'paper') {
+            this.papersArr = [...this.materiarDetail.papers];
         } else {
         }
     }
 
     // 顯示主成分
     showIngredients(id: string): void {
+        this.showMaterialPage = true;
         this._apiService.getIngredient(id).then((result) => {
+            this.materiarDetail = result;
             console.log(result);
+
         }).catch(() => {
 
         }).finally(() => {
