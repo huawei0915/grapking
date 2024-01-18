@@ -211,9 +211,9 @@
                 <div class="absolute top-5 right-7 cursor-pointer" (click)="showDetailTable=false">
                     X
                 </div>
+                <!-- 劑型 -->
                 <ng-container *ngIf="formArr.length>0">
                     <div class="flex justify-center p-6 flex-col ">
-                        <!-- 劑型 -->
                         <p class="text-center text-2xl">{{t('product_info_form')}}</p>
                         <table class="w-full mt-2">
                             <thead>
@@ -247,9 +247,9 @@
                         </table>
                     </div>
                 </ng-container>
+                <!-- 包裝 -->
                 <ng-container *ngIf="packageArr.length>0">
                     <div class="flex justify-center p-6 flex-col ">
-                        <!-- 包裝 -->
                         <p class="text-center text-2xl">{{t('product_info_package')}}</p>
                         <table class="w-full mt-2">
                             <thead>
@@ -269,6 +269,91 @@
                                     <td class="pl-4 py-4 w-1/4">{{lang==='zh'?package.box_zh:package.box_en}}</td>
                                     <td class="py-4 w-1/4">{{lang==='zh'?package.carton_zh:package.carton_en}}</td>
                                     <td class="py-4 w-2/4">{{lang==='zh'?package.name_zh:package.name_en}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-container>
+
+                <!-- 獲獎 -->
+                <ng-container *ngIf="awardsArr.length>0">
+                    <div class="flex justify-center p-6 flex-col ">
+                        <p class="text-center text-2xl">{{t('product_info_package')}}</p>
+                        <table class="w-full mt-2">
+                            <thead>
+                                <tr class="bg-neutral-100 text-left">
+                                    <!-- 獎項 -->
+                                    <th class="pl-4 py-3">{{t('ingredient_award_award')}}</th>
+                                    <!-- 獎牌 -->
+                                    <th class="py-3">{{t('ingredient_award_medal')}}</th>
+                                    <!-- 說明 -->
+                                    <th class="py-3">{{t('ingredient_award_description')}}</th>
+                                    <!-- 圖片 -->
+                                    <th class="py-3">{{t('ingredient_award_image')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-left  border-b  border-zinc-200/70" *ngFor="let award of awardsArr;">
+                                    <td class="pl-4 py-4 w-1/4">{{lang==='zh'?award.award_zh:award.award_en}}</td>
+                                    <td class="py-4 w-1/4">{{lang==='zh'?award.medal_zh:award.medal_en}}</td>
+                                    <td class="py-4 w-2/4">{{lang==='zh'?award.description_zh:award.description_en}}
+                                    </td>
+                                    <figure class="w-16">
+                                        <img [src]="getImage(award.file)" alt="">
+                                    </figure>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-container>
+                <!-- 文獻 -->
+                <ng-container *ngIf="papersArr.length>0">
+                    <div class="flex justify-center p-6 flex-col ">
+                        <p class="text-center text-2xl">{{t('product_info_package')}}</p>
+                        <table class="w-full mt-2">
+                            <thead>
+                                <tr class="bg-neutral-100 text-left">
+                                    <!-- 說明 -->
+                                    <th class="py-3">{{t('ingredient_paper_description')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-left  border-b  border-zinc-200/70" *ngFor="let paper of papersArr;">
+                                    <td class="pl-4 py-4 w-1/4">
+                                        {{lang==='zh'?paper.description_zh:paper.description_en}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-container>
+                <!-- 專利 -->
+                <ng-container *ngIf="patentsArr.length>0">
+                    <div class="flex justify-center p-6 flex-col ">
+                        <p class="text-center text-2xl">{{t('product_info_package')}}</p>
+                        <table class="w-full mt-2">
+                            <thead>
+                                <tr class="bg-neutral-100 text-left">
+                                    <!-- 編號 -->
+                                    <th class="pl-4 py-3">{{t('ingredient_patent_id')}}</th>
+                                    <!-- 說明 -->
+                                    <th class="py-3">{{t('ingredient_patent_description')}}</th>
+                                    <!-- 期限 -->
+                                    <th class="py-3">{{t('ingredient_patent_duration')}}</th>
+                                    <!-- 圖片 -->
+                                    <th class="py-3">{{t('ingredient_patent_image')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-left  border-b  border-zinc-200/70" *ngFor="let patent of patentsArr;">
+                                    <td class="pl-4 py-4 w-1/4">{{patent.id}}</td>
+                                    <td class="py-4 w-1/4">{{lang==='zh'?patent.description_zh:patent.description_en}}
+                                    </td>
+                                    <td class="py-4 w-2/4"></td>
+                                    <td class="py-3 flex justify-center items-center">
+                                        <figure class="w-16">
+                                            <img [src]="getImage(patent.file)" alt="">
+                                        </figure>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -394,6 +479,94 @@
                     <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
                         {{t('product_info_meatvegan')}}</p>
                     <p class="w-4/5 text-zinc-500  flex items-center pl-3">{{getFilteredCategories('MV000')}}</p>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="showMaterialPage">
+        <!-- Header -->
+        <div class="fixed bg-slate-900 w-full h-16 flex justify-between items-center pr-7 z-[100]">
+            <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer text-white"
+                (click)="getBack()"></mat-icon>
+        </div>
+        <!-- 主原料 Content -->
+        <div class="w-full h-full flex fixed z-50 md:flex pt-16 hidden md:flex" *transloco="let t">
+            <div class="flex justify-between w-3/5 h-full bg-red-700 p-10 ">
+                <div class=" ">
+                    <h2 class="font-bold text-5xl text-white">
+                        {{lang==='zh'?materiarDetail.name_zh:materiarDetail.name_en}}
+                    </h2>
+                    <br>
+                    <br>
+                    <!-- 優勢 -->
+                    <h5 class="font-bold text-3xl text-white main_information ml-4">
+                        {{t('ingredient_advantage')}}
+                    </h5>
+                    <div class="absolute w-1/3 flex flex-wrap pt-4 max-h-72 overflow-auto z-20 container">
+                        <!-- 專利 -->
+                        <div class="px-4 py-2 rounded-3xl bg-white ml-2 mt-2 cursor-pointer"
+                            (click)="showDetail('patent')">
+                            {{t('ingredient_advantage_patent')}}
+                        </div>
+                        <!-- 獲獎 -->
+                        <div class="px-4 py-2 rounded-3xl bg-white ml-2 mt-2 cursor-pointer"
+                            (click)="showDetail('award')">
+                            {{t('ingredient_advantage_award')}}
+                        </div>
+                        <!-- 文獻 -->
+                        <div class="px-4 py-2 rounded-3xl bg-white ml-2 mt-2 cursor-pointer"
+                            (click)="showDetail('paper')">
+                            {{t('ingredient_advantage_paper')}}
+                        </div>
+                    </div>
+                </div>
+                <!-- 產品圖 -->
+                <div class="flex items-center -mr-24 z-20">
+                    <figure class="w-72 bg-white rounded-3xl p-4">
+                        <img [src]="getImage(materiarDetail.files[0])" alt="">
+                    </figure>
+                </div>
+            </div>
+
+            <div class="w-2/5 h-full bg-zinc-100 py-10 px-20 overflow-auto text-zinc-700"
+                style="max-height: calc(100vh);">
+                <p class="basic_information">{{t('product_basic_information')}}</p>
+                <br>
+                <!-- 指標性成分 -->
+                <div class="flex pb-2 border-dashed border-slate-400 border-b-2">
+                    <p class="w-2/5">{{t('ingredient_info_indicative')}}</p>
+                    <p class="w-3/5 text-zinc-500">
+                        {{lang==='zh'?materiarDetail.indicative_zh:materiarDetail.indicative_en}}</p>
+                </div>
+                <!-- 指標性成分含量 -->
+                <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
+                    <p class="w-2/5">{{t('ingredient_info_indicative_content')}}</p>
+                    <p class="w-3/5 text-zinc-500">
+                        {{lang==='zh'?materiarDetail.indicative_content_zh:materiarDetail.indicative_content_en}}</p>
+                </div>
+                <!-- 優勢 -->
+                <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
+                    <p class="w-2/5">{{t('ingredient_info_advantage')}}</p>
+                    <p class="w-3/5 text-zinc-500">
+                        {{lang==='zh'?materiarDetail.advantage_zh:materiarDetail.advantage_en}}</p>
+                </div>
+                <!-- 清真核備原料 -->
+                <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
+                    <p class="w-2/5">{{t('ingredient_info_halal')}}</p>
+                    <p class="w-3/5 text-zinc-500"></p>
+                </div>
+                <!-- 注意事項 -->
+                <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
+                    <p class="w-2/5">{{t('ingredient_info_notice')}}</p>
+                    <p class="w-3/5 text-zinc-500">
+                        {{lang==='zh'?materiarDetail.advantage_zh:materiarDetail.advantage_en}}</p>
+                </div>
+
+                <!-- 劑量 -->
+                <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b-2">
+                    <p class="w-2/5">{{t('ingredient_info_dose')}}</p>
+                    <p class="w-3/5 text-zinc-500"> </p>
                 </div>
             </div>
         </div>
