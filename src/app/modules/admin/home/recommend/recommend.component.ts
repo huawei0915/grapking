@@ -254,4 +254,12 @@ export class RecommendComponent implements OnInit {
             this.showDetailPage = false;
         }
     }
+
+    getBackLastLayers(): void {
+        if (this.showMaterialPage) {
+            this.showMaterialPage = false;
+            return;
+        }
+        this.showDetailPage = false;
+    }
 }

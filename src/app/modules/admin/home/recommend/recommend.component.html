@@ -5,10 +5,7 @@
                 <div class="p-8 ">
                     <ng-container *ngFor="let product of productArr;let i=index">
                         <div class="relative m-2  cursor-pointer" (click)="getProductDetail(product.id,i)">
-                            <div *ngIf="i < 3" class="bag">
-                                <div>{{i+1}}</div>
-                            </div>
-                            <div *ngIf="i >= 3" class="bag bg-sky-500">
+                            <div class="bag">
                                 <div>{{i+1}}</div>
                             </div>
                             <div class="flex">
@@ -32,7 +29,7 @@
     </ng-container>
 
     <!-- 單一商品 -->
-    <ng-container *ngIf="showDetailPage && !showMaterialPage">
+    <ng-container *ngIf="showDetailPage && !showMaterialPage && productDetail">
         <!-- Header -->
         <div class="fixed bg-slate-900 w-full h-16 flex justify-between items-center pr-7 z-[100]">
             <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer text-white"
@@ -169,14 +166,14 @@
             </div>
         </div>
 
-        <div class="fixed top-60 right-0 z-40 cursor-pointer" [ngClass]="{'hidden':!closeTag}" (click)="closeTag=false">
+        <div class="fixed top-60 right-0 z-[60] cursor-pointer" [ngClass]="{'hidden':!closeTag}" (click)="closeTag=false">
             <figure class="w-12 h-12 ">
                 <img src="assets/icons/tag.png">
             </figure>
         </div>
 
-        <div class="absolute min-h-max h-full bg-black/50 z-10"
-            [ngClass]="{'dilute':closeTag,'w-full':!closeTag,'z-30':!closeTag}">
+        <div class="absolute min-h-max h-screen bg-black/50 z-10"
+            [ngClass]="{'dilute':closeTag,'w-full':!closeTag,'z-[65]':!closeTag}">
             <div [ngClass]="{'noSwipe':closeTag}">
                 <div class="absolute top-60 right-60  cursor-pointer" (click)="closeTag=true">
                     <figure class="w-12 h-12">
@@ -210,8 +207,8 @@
         </div>
     </ng-container>
     <!-- 單一商品手機版 -->
-    <ng-container *ngIf="showDetailPage&& !showMaterialPage">
-        <div class="absolute z-50 overflow-auto mt-16 h-[calc(100vh-64px)] w-full flex flex-col md:hidden"
+    <ng-container *ngIf="showDetailPage&& !showMaterialPage && productDetail">
+        <div class="absolute z-50 overflow-auto mt-16 h-[calc(100vh-64px)] w-full flex flex-col md:hidden" style="background-color: #f1f5f9;"
             *transloco="let t">
             <div class="bg-white pb-2">
                 <!-- 產品圖 -->
@@ -345,11 +342,11 @@
     </ng-container>
 
     <!-- 主原料頁面 -->
-    <ng-container *ngIf="showDetailPage && showMaterialPage">
+    <ng-container *ngIf="showDetailPage && showMaterialPage && materiarDetail">
         <!-- Header -->
         <div class="fixed bg-slate-900 w-full h-16 flex justify-between items-center pr-7 z-[100]">
             <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer text-white"
-                (click)="getBack()"></mat-icon>
+                (click)="getBackLastLayers()"></mat-icon>
             <mat-icon svgIcon="mat_solid:home" class="text-white cursor-pointer" [routerLink]="'/home'"></mat-icon>
         </div>
         <!-- 主原料 Content -->
@@ -434,14 +431,14 @@
         </div>
     </ng-container>
     <!-- 主原料頁面手機版 -->
-    <ng-container *ngIf="showDetailPage && showMaterialPage">
-        <div class="absolute z-50 overflow-auto mt-16 h-[calc(100vh-64px)] w-full flex flex-col md:hidden"
+    <ng-container *ngIf="showDetailPage && showMaterialPage && materiarDetail">
+        <div class="absolute z-50 overflow-auto mt-16 h-[calc(100vh-64px)] w-full flex flex-col md:hidden" style="background-color: #f1f5f9;"
             *transloco="let t">
             <div class="bg-white pb-2">
                 <!-- 產品圖 -->
                 <div class="flex items-center justify-center mt-10 z-20">
                     <figure class="w-72 p-4">
-                        <img [src]="getImage(materiarDetail.files[0])" alt="">
+                        <img [src]="getImage((materiarDetail?.files)?(product?.files[0]):'')" alt="">
                     </figure>
                 </div>
                 <hr class="my-4">
