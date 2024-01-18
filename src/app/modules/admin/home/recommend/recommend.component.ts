@@ -44,6 +44,8 @@ export class RecommendComponent implements OnInit {
     selectPaper = false;
     patentsArr = [];
     selectPatent = false;
+    doseData: any;
+    selectDoseText = '';
     /**
      * Constructor
      */
@@ -180,10 +182,11 @@ export class RecommendComponent implements OnInit {
     }
 
     // 顯示主成分
-    showIngredients(id: string): void {
+    showIngredients(id: string, idx: number): void {
         this.showMaterialPage = true;
         this._apiService.getIngredient(id).then((result) => {
             this.materiarDetail = result;
+            this.selectDoseText = this.doseData[idx];
         }).catch(() => {
 
         }).finally(() => {
@@ -233,6 +236,7 @@ export class RecommendComponent implements OnInit {
         this._apiService.getProductDetail(id).then((result) => {
             this.productDetail = result;
             this.showDetailPage = true;
+            this.doseData = result.ingredients;;
             this._fuseLoadingService.hide();
         }).catch((err) => {
             this.alertPOPUP = true;
