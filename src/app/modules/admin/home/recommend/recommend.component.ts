@@ -213,6 +213,10 @@ export class RecommendComponent implements OnInit {
             this._apiService.callFromFolder = false;
             history.back();
         } else {
+            if(this.showMaterialPage){
+                this.showMaterialPage = false;
+                return;
+            }
             this.showDetailPage = false;
         }
     }

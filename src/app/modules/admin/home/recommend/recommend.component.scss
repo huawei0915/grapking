@@ -1,7 +1,9 @@
 #recommand {
     .bag {
-        width: 36px;
-        height: 56px;
+        font-weight: 600;
+        font-size: 18px;
+        width: 33px;
+        height: 42px;
         clip-path: polygon(0 0, 100% 0%, 100% 70%, 50% 100%, 0 70%);
         background-color: #e60030;
         display: flex;
@@ -11,6 +13,10 @@
         position: absolute;
         left: 0;
         top: 0;
+
+        div {
+            margin-bottom: 6px;
+        }
     }
 
     .basic_information {
