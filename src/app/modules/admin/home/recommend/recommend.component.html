@@ -13,7 +13,7 @@
                             </div>
                             <div class="flex">
                                 <figure class="w-[96px] h-[96px] flex items-center">
-                                    <img [src]="getImage(product.files[0])" alt="">
+                                    <img [src]="getImage((product?.files)?(product?.files[0]):'')" alt="">
                                 </figure>
                                 <div class="flex flex-col justify-center ml-4" style="width: calc(100% - 96px);">
                                     <div class="font-bold text-2xl">
@@ -31,7 +31,7 @@
         </div>
     </ng-container>
 
-    <ng-container *ngIf="showDetailPage">
+    <ng-container *ngIf="showDetailPage && productDetail">
         <!-- Header -->
         <div class="fixed bg-slate-900 w-full h-16 flex justify-between items-center pr-7 z-[100]">
             <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer text-white"
@@ -189,7 +189,7 @@
                             <div class="flex items-center  cursor-pointer">
                                 <div class="w-12 ">
                                     <figure class="w-12">
-                                        <img class="w-full" [src]="getImage(product.files[0])" alt="">
+                                        <img class="w-full" [src]="getImage((product?.files)?(product?.files[0]):'')" alt="">
                                     </figure>
                                 </div>
                                 <div class="flex flex-col justify-center ml-4 w-full h-full p-3"
@@ -368,7 +368,7 @@
         </div>
     </ng-container>
 
-    <ng-container *ngIf="showDetailPage">
+    <ng-container *ngIf="showDetailPage && productDetail">
         <div class="absolute z-50 overflow-auto mt-16 h-[calc(100vh-64px)] w-full flex flex-col md:hidden"
             style="background-color: #f1f5f9;" *transloco="let t">
             <div class="bg-white pb-2">

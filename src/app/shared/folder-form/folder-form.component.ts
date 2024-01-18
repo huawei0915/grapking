@@ -326,7 +326,7 @@ export class FolderFormComponent implements OnInit {
         if (this.clientMultiSelectCheck) {
             this.normalVerCheckboxView.toArray()[index].checked = !this.normalVerCheckboxView.toArray()[index].checked;
             this.gridVerCheckboxView.toArray()[index].checked = !this.gridVerCheckboxView.toArray()[index].checked;
+            this.mutliSelect(this.normalVerCheckboxView.toArray()[index], selectData, index);
         }
-        this.mutliSelect(this.normalVerCheckboxView.toArray()[index], selectData, index);
     }
 }
