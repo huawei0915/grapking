@@ -37,6 +37,7 @@ export class RecommendComponent implements OnInit {
 
     showMaterialPage = false;
     materiarDetail: any;
+    // listOrGridChange = 'list';
 
     awardsArr = [];
     selectAward = false;
@@ -46,6 +47,7 @@ export class RecommendComponent implements OnInit {
     selectPatent = false;
     doseData: any;
     selectDoseText = '';
+
     /**
      * Constructor
      */
@@ -56,6 +58,14 @@ export class RecommendComponent implements OnInit {
         private _translocoService: TranslocoService,
         private _fuseLoadingService: FuseLoadingService
     ) {
+    }
+
+    get listOrGridChange(): string{
+        return this._apiService.recommandListOrGirdChange;
+    }
+
+    set listOrGridChange(value: string){
+        this._apiService.recommandListOrGirdChange = value;
     }
 
     ngOnInit(): void {

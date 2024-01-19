@@ -139,18 +139,18 @@
                                                         </div>
                                                     </div>
                                                     <div
-                                                        class="mt-2 w-full flex flex-row flex-wrap justify-between items-end content-center sm:content-end text-base">
+                                                        class="mt-2 w-full flex flex-row flex-wrap justify-between items-center content-center sm:content-end text-base">
                                                         <div class="text-slate-900/70">{{product.updatedAt |
                                                             date:'yyyy-MM-dd HH:mm':'GMT+08:00'}}</div>
                                                         <div *ngIf="!clientMultiSelectCheck"
                                                             class="flex flex-row justify-between min-w-24">
-                                                            <mat-icon class="text-slate-900/30 scale-90"
+                                                            <mat-icon class="text-slate-900/30 scale-90 hover:text-red-600 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-8 h-8"
                                                                 svgIcon="feather:trash-2"
                                                                 (click)="openDeleteModal(product)"></mat-icon>
-                                                            <mat-icon class="text-slate-900/30 scale-90"
+                                                            <mat-icon class="text-slate-900/30 scale-90 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-8 h-8"
                                                                 svgIcon="heroicons_outline:user"
                                                                 (click)="openClientModal(product)"></mat-icon>
-                                                            <mat-icon class="text-slate-900/30 scale-90"
+                                                            <mat-icon class="text-slate-900/30 scale-90 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-8 h-8"
                                                                 svgIcon="feather:edit"
                                                                 (click)="openEditModal(product)"></mat-icon>
                                                         </div>

@@ -15,6 +15,8 @@ export class ApiService {
     callFromFolder = false;
     folderClientStatus = '';
 
+    recommandListOrGirdChange = 'list';
+
     expiredPopup = false;
     isOK = false;
     i18nText: any;
