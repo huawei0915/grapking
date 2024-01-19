@@ -300,14 +300,14 @@
                 <!-- End -->
                 <div #viewButton class="w-full bg-white flex flex-row flex-wrap justify-center pt-2">
                     <!-- Cancel button -->
-                    <button class="w-48 min-w-48 m-[2%] min-h-16 bg-white border-solid border-2 border-red-600"
+                    <button class="w-[46%] max-w-48 m-[2%] min-h-16 bg-white border-solid border-2 border-red-600"
                         (click)="closeClientModal()">
                         <span class="text-red-600 font-semibold text-lg break-word-legacy">
                             {{t('button_cancel')}}
                         </span>
                     </button>
                     <!-- Submit button -->
-                    <button class="w-48 min-w-48 m-[2%] min-h-16 bg-red-600" (click)="confrimClientModal()">
+                    <button class="w-[46%] max-w-48 m-[2%] min-h-16 bg-red-600" (click)="confrimClientModal()">
                         <span class="text-white font-semibold text-lg break-word-legacy">
                             {{t('demand_form_bind_customer')}}
                         </span>
