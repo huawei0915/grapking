@@ -15,13 +15,13 @@
         <div class="w-full h-[calc(100%-64px)] mt-16 overflow-auto absolute">
             <div class="m-8 mb-0 bg-white min-h-[calc(100vh-112px)]">
                 <!-- List Version -->
-                <div *ngIf="listOrGridChange === 'list'" class="px-8 pt-8 pb-2 mb-8">
+                <div *ngIf="listOrGridChange === 'list'" class="pt-8 pb-2 mb-8">
                     <ng-container *ngFor="let product of productArr;let i=index">
-                        <div class="relative m-2  cursor-pointer" (click)="getProductDetail(product.id,i)">
-                            <div class="bag">
+                        <div class="relative m-2 px-8 cursor-pointer" (click)="getProductDetail(product.id,i)">
+                            <div class="bag ml-8">
                                 <div>{{i+1}}</div>
                             </div>
-                            <div class="flex items-center h-[140px] mb-10">
+                            <div class="flex items-center h-[140px]">
                                 <figure class="w-[160px] h-[96px] flex items-center">
                                     <img [src]="getImage((product?.files)?(product?.files[0]):'')" alt="">
                                 </figure>
@@ -35,6 +35,7 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
                     </ng-container>
                 </div>
                 <!-- Grid Version -->
