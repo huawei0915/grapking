@@ -70,6 +70,7 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children: [
+            { path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule) },
             // {path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
             { path: 'home', loadChildren: () => import('app/modules/admin/home/home.module').then(m => m.HomeModule) },
             { path: 'folder', loadChildren: () => import('app/modules/admin/folder/folder.module').then(m => m.FolderModule) },

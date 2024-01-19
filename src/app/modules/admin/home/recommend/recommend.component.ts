@@ -109,8 +109,9 @@ export class RecommendComponent implements OnInit {
 
     // 顯示包裝/劑量詳細
     showDetail(type: string): void {
-        this.showDetailTable = true;
+
         if (type === 'form') {
+            this.showDetailTable = true;
             this.packageArr = [];
             this.awardsArr = [];
             this.papersArr = [];
@@ -131,6 +132,7 @@ export class RecommendComponent implements OnInit {
                 });
             });
         } else if (type === 'package') {
+            this.showDetailTable = true;
             this.formArr = [];
             this.awardsArr = [];
             this.papersArr = [];
@@ -156,28 +158,38 @@ export class RecommendComponent implements OnInit {
             this.selectPaper = false;
             this.packageArr = [];
             this.formArr = [];
-            this.awardsArr = [];
-            this.papersArr = [];
             this.patentsArr = [...this.materiarDetail.patents];
+            if (this.patentsArr.length > 0) {
+                this.showDetailTable = true;
+            } else {
+                this.showDetailTable = false;
+            }
         } else if (type === 'award') {
             this.selectPatent = false;
             this.selectAward = true;
             this.selectPaper = false;
             this.packageArr = [];
             this.formArr = [];
-            this.patentsArr = [];
-            this.papersArr = [];
             this.awardsArr = [...this.materiarDetail.awards];
+            if (this.awardsArr.length > 0) {
+                this.showDetailTable = true;
+            } else {
+                this.showDetailTable = false;
+            }
         } else if (type === 'paper') {
             this.selectPatent = false;
             this.selectAward = false;
             this.selectPaper = true;
             this.packageArr = [];
             this.formArr = [];
-            this.patentsArr = [];
-            this.awardsArr = [];
             this.papersArr = [...this.materiarDetail.papers];
+            if (this.papersArr.length > 0) {
+                this.showDetailTable = true;
+            } else {
+                this.showDetailTable = false;
+            }
         } else {
+            this.showDetailTable = false;
         }
     }
 
@@ -187,6 +199,9 @@ export class RecommendComponent implements OnInit {
         this._apiService.getIngredient(id).then((result) => {
             this.materiarDetail = result;
             this.selectDoseText = this.doseData[idx];
+            this.patentsArr = [...result.patents];
+            this.awardsArr = [...result.awards];
+            this.papersArr = [...result.papers];
         }).catch(() => {
 
         }).finally(() => {
@@ -208,11 +223,9 @@ export class RecommendComponent implements OnInit {
             "note": this.productDetail.note
         };
         this._apiService.addClientProduct(data).then((result) => {
-            console.log('success', result);
             this.showToast = true;
             setTimeout(() => this.showToast = false, 1500);
         }).catch((err) => {
-            console.log('fail', err);
             this.alertPOPUP = true;
             this.message = 'an_error_occurred';
         }).finally(() => {

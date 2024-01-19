@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
     selector: 'home',
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
     demmandAreaCheck = false;
 
     lang = 'zh';
-    langButtonCheck = false;
+    langButtonCheck = true;
 
     /**
      * Constructor
@@ -31,9 +31,9 @@ export class HomeComponent implements OnInit {
             // Get the active lang
             this.lang = activeLang;
             if (activeLang === 'en') {
-                this.langButtonCheck = true;
-            } else {
                 this.langButtonCheck = false;
+            } else {
+                this.langButtonCheck = true;
             }
         });
     }
