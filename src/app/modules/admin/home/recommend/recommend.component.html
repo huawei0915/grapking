@@ -6,9 +6,11 @@
                 [routerLink]="'/home'"></mat-icon>
             <span
                 class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900">{{'home_recommend_product'|transloco}}</span>
-            <mat-icon *ngIf="listOrGridChange === 'grid'" svgIcon="feather:list" class="text-slate-900 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10 cursor-pointer"
+            <mat-icon *ngIf="listOrGridChange === 'grid'" svgIcon="feather:list"
+                class="text-slate-900 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10 cursor-pointer"
                 (click)="listOrGridChange='list'"></mat-icon>
-            <mat-icon *ngIf="listOrGridChange === 'list'" svgIcon="feather:grid" class="text-slate-900 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10 cursor-pointer"
+            <mat-icon *ngIf="listOrGridChange === 'list'" svgIcon="feather:grid"
+                class="text-slate-900 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10 cursor-pointer"
                 (click)="listOrGridChange='grid'"></mat-icon>
         </div>
         <!-- Main Content -->
@@ -17,11 +19,11 @@
                 <!-- List Version -->
                 <div *ngIf="listOrGridChange === 'list'" class="px-8 pt-8 pb-2 mb-8">
                     <ng-container *ngFor="let product of productArr;let i=index">
-                        <div class="relative m-2  cursor-pointer" (click)="getProductDetail(product.id,i)">
+                        <div class="relative m-2  cursor-pointer border-b" (click)="getProductDetail(product.id,i)">
                             <div class="bag">
                                 <div>{{i+1}}</div>
                             </div>
-                            <div class="flex items-center h-[140px] mb-10">
+                            <div class="flex items-center h-[140px] my-5">
                                 <figure class="w-[160px] h-[96px] flex items-center">
                                     <img [src]="getImage((product?.files)?(product?.files[0]):'')" alt="">
                                 </figure>
@@ -38,7 +40,8 @@
                     </ng-container>
                 </div>
                 <!-- Grid Version -->
-                <div *ngIf="listOrGridChange === 'grid'" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-9 px-4 py-8 mb-8">
+                <div *ngIf="listOrGridChange === 'grid'"
+                    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-9 px-4 py-8 mb-8">
                     <ng-container *ngFor="let product of productArr;let i=index">
                         <div class="min-h-[250px] relative m-2 cursor-pointer" (click)="getProductDetail(product.id,i)">
                             <div class="bag">
@@ -46,7 +49,8 @@
                             </div>
                             <div class="flex flex-col flex-nowrap items-center h-[170px] mb-10 mt-2.5">
                                 <figure class="h-[170px] flex items-center">
-                                    <img class="h-[170px]" [src]="getImage((product?.files)?(product?.files[0]):'')" alt="">
+                                    <img class="h-[170px]" [src]="getImage((product?.files)?(product?.files[0]):'')"
+                                        alt="">
                                 </figure>
                                 <div class="flex flex-col justify-center w-full mt-6">
                                     <div class="font-bold text-2xl overflow-hidden text-ellipsis whitespace-nowrap">
@@ -593,15 +597,15 @@
                             <thead>
                                 <tr class="bg-neutral-100 text-center">
                                     <!-- 名稱 -->
-                                    <th class="py-3 w-1/5">{{t('product_form_name')}}</th>
+                                    <th class="py-3 w-1/4">{{t('product_form_name')}}</th>
                                     <!-- 最小單位 -->
-                                    <th class="py-3">{{t('product_form_unit_min')}}</th>
+                                    <th class="py-3 w-30">{{t('product_form_unit_min')}}</th>
                                     <!-- 最大單位 -->
-                                    <th class="py-3">{{t('product_form_unit_max')}}</th>
+                                    <th class="py-3 w-30">{{t('product_form_unit_max')}}</th>
                                     <!-- 單位 -->
-                                    <th class="py-3">{{t('product_form_unit')}}</th>
+                                    <th class="py-3 w-30">{{t('product_form_unit')}}</th>
                                     <!-- 圖片 -->
-                                    <th class="py-3">{{t('product_form_image')}}</th>
+                                    <th class="py-3 ">{{t('product_form_image')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
