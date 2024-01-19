@@ -85,3 +85,7 @@
 #button-3 .checkbox:checked~.layer {
     background-color: #4d4e4e;
 }
+  
+div::-webkit-scrollbar {
+    width: 0em;
+}
