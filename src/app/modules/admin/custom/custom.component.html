@@ -13,7 +13,8 @@
                         class="min-w-4 w-4 mr-1 text-slate-300 cursor-pointer"
                         (mousedown)="clearInputText(mainSearchView,$event)"></mat-icon>
                 </div>
-                <mat-icon class="ml-4 cursor-pointer hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10" svgIcon="mat_outline:person_add" (click)="openAgreementPage()"></mat-icon>
+                <mat-icon class="ml-4 cursor-pointer hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10"
+                    svgIcon="mat_outline:person_add" (click)="openAgreementPage()"></mat-icon>
             </div>
         </div>
 
@@ -56,16 +57,20 @@
                                         </div>
                                     </div>
                                     <div class="flex flex-row justify-between items-center w-28">
-                                        <mat-icon svgIcon="mat_solid:edit" class="mr-2 sm:mr-5 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10"
+                                        <mat-icon svgIcon="mat_solid:edit"
+                                            class="mr-2 sm:mr-5 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10"
                                             (click)="openCustomerForm(client)"></mat-icon>
-                                        <mat-icon class="hover:text-red-600 hover:bg-slate-400/10 rounded-[40px] p-1 w-10 h-10" svgIcon="mat_solid:delete_outline"
+                                        <mat-icon
+                                            class="hover:text-red-600 hover:bg-slate-400/10 rounded-[40px] p-1 w-10 h-10"
+                                            svgIcon="mat_solid:delete_outline"
                                             (click)="openDeleteModal(client,$event)"></mat-icon>
                                     </div>
                                 </div>
                             </div>
-                            <div class="px-5 pt-1 text-slate-400/60 text-right w-full flex flex-row flex-nowrap justify-end items-center">
+                            <div
+                                class="px-5 pt-1 text-slate-400/60 text-right w-full flex flex-row flex-nowrap justify-end items-center">
                                 <span class="mr-2 hidden sm:block">
-                                    {{t('customer_last_update')}}: 
+                                    {{t('customer_last_update')}}:
                                 </span>
                                 <span>
                                     {{client.updatedAt | date:'yyyy-MM-dd HH:mm:ss':'GMT+08:00'}}
@@ -133,7 +138,7 @@
                     <div class="w-full px-4 pt-4">
                         <div class="flex flex-col items-center min-w-[216px]">
                             <div class="bg-white overflow-auto max-w-screen">
-                                <img [src]="'assets/images/consent_form.png'" alt="" class="h-[80vh] min-w-[92vh]" />
+                                <img [src]="'assets/images/consent_form.png'" alt="" class="h-[70vh] min-w-[78vh]" />
                             </div>
                         </div>
                     </div>
@@ -198,7 +203,7 @@
                                 </div>
                                 <input type="file"
                                     class="relative top-[-129px] opacity-0 w-8 min-h-8 h-8 rounded-full mt-24 ml-20"
-                                    accept="image/png, image/jpeg" required (change)="onFileSelected($event)">
+                                    accept="image/png, image/jpeg" required (change)="onFileSelected($event,'avatar')">
                             </div>
                             <div class="mb-4 w-full font-bold text-3xl text-white text-center break-word-legacy">
                                 {{clientDetail.name}}
@@ -241,7 +246,7 @@
                                             <input type="file"
                                                 class="relative top-[-129px] opacity-0 w-8 min-h-8 h-8 rounded-full mt-24 ml-20"
                                                 accept="image/png, image/jpeg" required
-                                                (change)="onFileSelected($event)">
+                                                (change)="onFileSelected($event,'avatar')">
                                         </div>
                                         <div class="w-[calc(100%-171px)] font-semibold text-xl break-word-legacy">
                                             {{clientDetail.name}}
@@ -268,21 +273,70 @@
                                             class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
                                             <a [href]="'mailto:'+clientDetail.email">{{clientDetail.email}}</a>
                                             <mat-icon *ngIf="clientDetail.email" svgIcon="mat_solid:content_copy"
-                                                class="mr-4"
-                                                (click)="copyContent(clientDetail.email)"></mat-icon>
+                                                class="mr-4" (click)="copyContent(clientDetail.email)"></mat-icon>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
+                                            {{t('customer_form_namecard')}}
+                                        </div>
+                                        <div
+                                            class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
+                                            <div *ngIf="!selectedNameCard" class="w-32 h-20 cursor-pointer">
+                                                <img *ngIf="clientDetail.namecard" [src]="getImage(clientDetail.namecard)" (click)="openZoom(clientDetail)"
+                                                class="w-32 h-20" />
+                                            </div>
+                                            <div *ngIf="selectedNameCard" class="w-32 h-20 cursor-pointer">
+                                                <img *ngIf="clientDetail.namecard" [src]="selectedNameCard"
+                                                class="w-32 h-20" (click)="openZoom(clientDetail.namecard)"/>
+                                            </div>
+                                            <!-- <a [href]="'mailto:'+clientDetail.email">{{clientDetail.email}}</a> -->
+                                            <div class="min-w-6 w-6 h-6 mr-4">
+                                                <img class="relative z-50" [src]="'assets/icons/edit.png'" />
+                                                <input type="file" class="relative opacity-0 w-6 min-h-6 h-6  z-50 top-[-23px]"
+                                                accept="image/png, image/jpeg" required (change)="onFileSelected($event,'namecard')">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- mat-icon for tel and email -->
                                 <div class="rwdVersion mb-10 w-full flex flex-row flex-nowrap justify-center">
-                                    <a class="mr-[10%] w-16 h-16 sm:w-20 sm:h-20 bg-orange-400 rounded-full relative flex flex-row flex-nowrap items-center justify-center" [href]="'tel:'+clientDetail.phone_number">
-                                            <mat-icon class="scale-150 text-white mt-0.5"
-                                                svgIcon="mat_outline:phone"></mat-icon>
+                                    <a class="mr-[10%] w-16 h-16 sm:w-20 sm:h-20 bg-orange-400 rounded-full relative flex flex-row flex-nowrap items-center justify-center"
+                                        [href]="'tel:'+clientDetail.phone_number">
+                                        <mat-icon class="scale-150 text-white mt-0.5"
+                                            svgIcon="mat_outline:phone"></mat-icon>
                                     </a>
-                                    <a class="w-16 h-16 sm:w-20 sm:h-20 bg-orange-400 rounded-full relative flex flex-row flex-nowrap items-center justify-center" [href]="'mailto:'+clientDetail.email">
-                                            <mat-icon class="scale-150 text-white"
-                                                svgIcon="mat_outline:email"></mat-icon>
+                                    <a class="w-16 h-16 sm:w-20 sm:h-20 bg-orange-400 rounded-full relative flex flex-row flex-nowrap items-center justify-center"
+                                        [href]="'mailto:'+clientDetail.email">
+                                        <mat-icon class="scale-150 text-white" svgIcon="mat_outline:email"></mat-icon>
                                     </a>
+                                </div>
+                                <div class="rwdVersion w-full md:w-[420px] md:min-w-100 pl-0 md:pl-14">
+                                    <div class="flex flex-wrap sm:flex-nowrap mb-5">
+                                        <!-- <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
+                                            {{t('customer_form_namecard')}}
+                                        </div> -->
+                                        <div class="w-36 text-lg mr-4 font-medium text-slate-800/80">
+                                            {{t('customer_form_namecard')}}
+                                        </div>
+                                        <div
+                                            class="w-full sm:w-[calc(100%-144px)] break-all text-lg flex justify-between">
+                                            <div *ngIf="!selectedNameCard" class="w-32 h-20 cursor-pointer">
+                                                <img *ngIf="clientDetail.namecard" [src]="getImage(clientDetail.namecard)" (click)="openZoom(clientDetail)"
+                                                class="w-32 h-20" />
+                                            </div>
+                                            <div *ngIf="selectedNameCard" class="w-32 h-20 cursor-pointer">
+                                                <img *ngIf="clientDetail.namecard" [src]="selectedNameCard"
+                                                class="w-32 h-20" (click)="openZoom(clientDetail.namecard)"/>
+                                            </div>
+                                            <!-- <a [href]="'mailto:'+clientDetail.email">{{clientDetail.email}}</a> -->
+                                            <div class="min-w-6 w-6 h-6 mr-4">
+                                                <img class="relative z-50" [src]="'assets/icons/edit.png'" />
+                                                <input type="file" class="relative opacity-0 w-6 min-h-6 h-6  z-50 top-[-23px]"
+                                                accept="image/png, image/jpeg" required (change)="onFileSelected($event,'namecard')">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="w-full md:w-[420px] md:min-w-100 pl-0 md:pl-14">
                                     <div class="flex flex-wrap sm:flex-nowrap mb-5">
@@ -375,15 +429,13 @@
                                                             {{demmand.title}}
                                                         </div>
                                                     </div>
-                                                    <div
-                                                        class="text-base text-left break-all text-slate-600">
+                                                    <div class="text-base text-left break-all text-slate-600">
                                                         <span class="mr-3">
                                                             {{t('product_dialog_title')}}:
                                                         </span>
                                                         {{demmand.note??''}}
                                                     </div>
-                                                    <div
-                                                        class="text-sm text-slate-300 text-left break-all">
+                                                    <div class="text-sm text-slate-300 text-left break-all">
                                                         {{t('customer_detail_create_at') + ' ' + (demmand.createdAt |
                                                         date:'yyyy-MM-dd':'GMT+08:00')}}
                                                     </div>
@@ -489,5 +541,15 @@
     <div class="relative z-50 light">
         <folder-form [needFullHeight]="true" [needArrowLeft]="true" [specCientId]="clientDetail.id"
             [querySpecCientDemand]="true" (cancelEvent)="closeFolderPage()"></folder-form>
+    </div>
+</div>
+
+<!-- folder page -->
+<div *ngIf="needToZoom" class="fixed overflow-auto inset-0 z-50 bg-black/40 flex flex-col items-center visible opacity-100">
+    <div class="relative top-[50px] z-[101] bg-white">
+        <img [src]="zoomPhoto" class="w-[90vw] object-cover" />
+        <button class="absolute top-[-23px] right-[-23px] h-8 w-8 sm:h-12 sm:w-12 flex flex-row justify-center items-center m-2 bg-white rounded-full p-2" (click)="needToZoom = false">
+            <mat-icon>close</mat-icon>
+        </button>
     </div>
 </div>

@@ -35,7 +35,8 @@ export class CustomComponent implements OnInit {
     openCustomerFormCheck = false;
     editData: any;
 
-    uploadImgformData: any;
+    uploadImgformAvatar: any;
+    uploadImgformNameCard: any;
 
     addClientCheck = false;
     agreementPageCheck = false;
@@ -47,6 +48,9 @@ export class CustomComponent implements OnInit {
     clientDetailCheck = false;
 
     selectedFile = '';
+    selectedNameCard = '';
+    needToZoom = false;
+    zoomPhoto: any;
 
     demandArr = [];
     productArr = [];
@@ -106,7 +110,10 @@ export class CustomComponent implements OnInit {
     // 上傳客戶資料
     async addClient(customerFormData: any): Promise<void> {
         await this._apiService.addClient(customerFormData).then((result) => {
-            this.uploadClientImage(this.uploadImgformData, result.id).finally(() => {
+            this.uploadClientImage(this.uploadImgformAvatar, result.id).finally(() => {
+                this.getClient();
+            });
+            this.uploadClientImage(this.uploadImgformNameCard, result.id).finally(() => {
                 this.getClient();
             });
         }).finally(() => {
@@ -118,7 +125,10 @@ export class CustomComponent implements OnInit {
     async editClient(customerFormData: any, clientId: string): Promise<void> {
         this.updateCusDetailStatus = true;
         await this._apiService.updateClient(customerFormData, clientId).then((result) => {
-            this.uploadClientImage(this.uploadImgformData, result.id).finally(() => {
+            this.uploadClientImage(this.uploadImgformAvatar, result.id).finally(() => {
+                this.getClient();
+            });
+            this.uploadClientImage(this.uploadImgformNameCard, result.id).finally(() => {
                 this.getClient();
             });
         }).finally(async () => {
@@ -199,27 +209,50 @@ export class CustomComponent implements OnInit {
         }
     }
 
-    onFileSelected(event: any): void {
+    onFileSelected(event: any, type: string): void {
         const file = event.target.files[0];
         if (file) {
-            this.readImage(file);
+            this.readImage(file, type);
         }
-        this.uploadClientImage(this.uploadImgformData, this.clientDetail.id).then(() => {
-            this.showToast = true;
-            setTimeout(() => {
-                this.showToast = false;
-            }, 1500);
-        });
+        if (type === 'avatar') {
+            this.uploadClientImage(this.uploadImgformAvatar, this.clientDetail.id).then(() => {
+                this.showToast = true;
+                setTimeout(() => {
+                    this.showToast = false;
+                }, 1500);
+            });
+        }
+        if (type === 'namecard') {
+            this.uploadClientImage(this.uploadImgformNameCard, this.clientDetail.id).then(() => {
+                this.showToast = true;
+                setTimeout(() => {
+                    this.showToast = false;
+                }, 1500);
+            });
+        }
     }
 
-    readImage(file: File): void {
-        this.uploadImgformData = new FormData();
-        this.uploadImgformData.append('file', file, file.name);
-        const reader = new FileReader();
-        reader.onload = (e: any): void => {
-            this.selectedFile = e.target.result;
-        };
-        reader.readAsDataURL(file);
+    readImage(file: File, type: string): void {
+        if (type === 'avatar') {
+            this.uploadImgformAvatar = new FormData();
+            this.uploadImgformAvatar.append('file', file, file.name);
+            this.uploadImgformAvatar.append('column', 'avatar');
+            const reader = new FileReader();
+            reader.onload = (e: any): void => {
+                this.selectedFile = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        if (type === 'namecard') {
+            this.uploadImgformNameCard = new FormData();
+            this.uploadImgformNameCard.append('file', file, file.name);
+            this.uploadImgformNameCard.append('column', 'namecard');
+            const reader = new FileReader();
+            reader.onload = (e: any): void => {
+                this.selectedNameCard = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
     async copyContent(input: string): Promise<void> {
@@ -275,12 +308,24 @@ export class CustomComponent implements OnInit {
         this.clientDetail = client;
         this.clientDetailCheck = true;
         this.selectedFile = '';
+        this.selectedNameCard = '';
     }
 
     // 關閉客戶詳情頁面
     closeClientDetail(): void {
         this.clientDetailCheck = false;
         this.getClient();
+    }
+
+    // 放大照片
+    openZoom(clientDetail: any): void {
+        this.needToZoom = true;
+        if(this.selectedNameCard){
+            this.zoomPhoto = this.selectedNameCard;
+        }else{
+            this.zoomPhoto = this.getImage(clientDetail.namecard);
+        }
+
     }
 
     // 觸發編輯需求單
@@ -367,7 +412,8 @@ export class CustomComponent implements OnInit {
     }
 
     addCustomer(ViewElement: any): void {
-        this.uploadImgformData = ViewElement.uploadImgformData;
+        this.uploadImgformAvatar = ViewElement.uploadImgformAvatar;
+        this.uploadImgformNameCard = ViewElement.uploadImgformNameCard;
         this.addClient(ViewElement.customerForm.getRawValue());
         this.closeCustomerForm();
     }

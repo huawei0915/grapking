@@ -20,30 +20,45 @@
 
                     </div>
                     <mat-icon svgIcon="mat_solid:home" class="mr-8 cursor-pointer"
-                    (click)="homeEvent.emit()"></mat-icon>
+                        (click)="homeEvent.emit()"></mat-icon>
                 </div>
                 <div class="flex flex-col w-screen overflow-auto mt-16 max-h-[calc(100vh-64px)]">
                     <div class="w-full p-8">
                         <div *ngIf="addClientCheck" class="flex flex-col items-center min-w-[216px]">
                             <div
                                 class="w-32 h-32 bg-white rounded-full flex flex-col flex-nowrap items-center justify-center mb-4">
-                                <ng-container *ngIf="!selectedFile">
-                                    <mat-icon svgIcon="mat_solid:add_a_photo"></mat-icon>
-                                    <div class="text-center">{{t('customer_form_upload_avatar')}}</div>
-                                </ng-container>
-                                <ng-container *ngIf="selectedFile">
-                                    <img [src]="selectedFile" class="w-32 h-32 rounded-full object-cover" alt="" />
-                                </ng-container>
-                                <input type="file" class="absolute opacity-0 w-32 h-32 rounded-full"
-                                    accept="image/png, image/jpeg" required (change)="onFileSelected($event)">
+                                <div>
+                                    <ng-container *ngIf="!selectedFile">
+                                        <mat-icon class="relative top-[62px] left-[50px] "
+                                            svgIcon="mat_solid:add_a_photo"></mat-icon>
+                                        <div class="text-center relative top-[60px] break-word-legacy">
+                                            {{t('customer_form_upload_avatar')}}</div>
+                                        <input type="file"
+                                            class="relative opacity-0 w-32 h-32 rounded-full top-[-25px] z-[100] cursor-pointer"
+                                            accept="image/png, image/jpeg" required
+                                            (change)="onFileSelected($event,'avatar')">
+                                    </ng-container>
+                                    <ng-container *ngIf="selectedFile">
+                                        <img [src]="selectedFile"
+                                            class="relative top-[63px] z-[90] w-32 h-32 rounded-full object-cover"
+                                            alt="" />
+                                        <input type="file"
+                                            class="relative opacity-0 w-32 h-32 rounded-full top-[-65px] z-[100] cursor-pointer"
+                                            accept="image/png, image/jpeg" required
+                                            (change)="onFileSelected($event,'avatar')">
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
-                        <div class="w-full md:p-8 md:bg-white text-xl min-w-[216px]" [formGroup]="customerForm">
+                        <div class="w-full md:bg-white text-xl min-w-[216px]" [formGroup]="customerForm"
+                            [ngClass]="{'md:px-8 md:pt-8 md:pb-4': addClientCheck, 'md:p-8':!addClientCheck}">
                             <!-- 類型 -->
                             <div class="flex w-full md:border-2 bg-white pr-4 md:pr-0 py-5 md:py-0">
-                                <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
+                                <div
+                                    class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                     {{t('customer_form_type')}}</div>
-                                <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex flex-row items-center border-2 md:border-0">
+                                <div
+                                    class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex flex-row items-center border-2 md:border-0">
                                     <mat-form-field class="w-full sm:ml-4">
                                         <mat-select class="text-base font-semibold bg-white text-slate-900"
                                             formControlName="type">
@@ -59,10 +74,12 @@
                                 <div class="flex flex-wrap w-full">
                                     <!-- 中文公司名稱 -->
                                     <div class="flex w-full md:w-1/2 md:border-b-0 pr-4 md:pr-0 pb-5 md:pb-0">
-                                        <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
+                                        <div
+                                            class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                             {{t('customer_form_company_name_zh')}}
                                         </div>
-                                        <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
+                                        <div
+                                            class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                             <input #company_name_zh class="w-full h-full pl-4" type="text"
                                                 formControlName="company_name_zh"
                                                 (focus)="showDeleteButton(company_name_zh,$event)"
@@ -75,10 +92,12 @@
                                     </div>
                                     <!-- 英文公司名稱 -->
                                     <div class="flex w-full md:w-1/2 pr-4 md:pr-0 pb-5 md:pb-0">
-                                        <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
+                                        <div
+                                            class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                             {{t('customer_form_company_name_en')}}
                                         </div>
-                                        <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
+                                        <div
+                                            class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                             <input #company_name_en class="w-full h-full pl-4" type="text"
                                                 formControlName="company_name_en"
                                                 (focus)="showDeleteButton(company_name_en,$event)"
@@ -96,10 +115,12 @@
                                 <div class="flex flex-wrap md:border-b-2">
                                     <!-- 姓名 -->
                                     <div class="flex w-full md:w-1/2 border-b-0 pr-4 md:pr-0 pb-5 md:pb-0">
-                                        <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
+                                        <div
+                                            class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                             {{t('customer_form_name')}}
                                         </div>
-                                        <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
+                                        <div
+                                            class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                             <input #name class="w-full h-full pl-4" type="text" formControlName="name"
                                                 (focus)="showDeleteButton(name,$event)"
                                                 (blur)="hideDeleteButton(name,$event)">
@@ -111,10 +132,12 @@
                                     </div>
                                     <!-- 電話 -->
                                     <div class="flex w-full md:w-1/2 pr-4 md:pr-0 pb-5 md:pb-0">
-                                        <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
+                                        <div
+                                            class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                             {{t('customer_form_phone_number')}}
                                         </div>
-                                        <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
+                                        <div
+                                            class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                             <input #phone_number class="w-full h-full pl-4" type="text"
                                                 formControlName="phone_number"
                                                 (focus)="showDeleteButton(phone_number,$event)"
@@ -128,9 +151,11 @@
                                 </div>
                                 <!-- 社群媒體 -->
                                 <div class="flex md:border-b-2 pr-4 md:pr-0 pb-5 md:pb-0">
-                                    <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
+                                    <div
+                                        class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                         {{t('customer_form_social_media')}}</div>
-                                    <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
+                                    <div
+                                        class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                         <input #social_media class="w-full h-full pl-4" type="text"
                                             formControlName="social_media"
                                             (focus)="showDeleteButton(social_media,$event)"
@@ -143,10 +168,12 @@
                                 </div>
                                 <!-- E-mail -->
                                 <div class="flex pr-4 md:pr-0 pb-5 md:pb-0">
-                                    <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
+                                    <div
+                                        class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                         {{t('customer_form_email')}}
                                     </div>
-                                    <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
+                                    <div
+                                        class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                         <input #email class="w-full h-full pl-4" type="text" formControlName="email"
                                             (focus)="showDeleteButton(email,$event)"
                                             (blur)="hideDeleteButton(email,$event)">
@@ -161,9 +188,11 @@
                             <div class="flex flex-col md:border-2 mt-3 bg-white pt-5 md:pt-0">
                                 <!-- 其他說明 -->
                                 <div class="flex md:border-b-2 pr-4 md:pr-0 pb-5 md:pb-0">
-                                    <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
+                                    <div
+                                        class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                         {{t('customer_form_description')}}</div>
-                                    <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
+                                    <div
+                                        class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                         <input #description class="w-full h-full pl-4" type="text"
                                             formControlName="description" (focus)="showDeleteButton(description,$event)"
                                             (blur)="hideDeleteButton(description,$event)">
@@ -175,10 +204,12 @@
                                 </div>
                                 <!-- 推薦企業 -->
                                 <div class="flex md:border-b-2 pr-4 md:pr-0 pb-5 md:pb-0">
-                                    <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
+                                    <div
+                                        class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                         {{t('customer_form_recommended_company')}}
                                     </div>
-                                    <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
+                                    <div
+                                        class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                         <input #recommended_company class="w-full h-full pl-4" type="text"
                                             formControlName="recommended_company"
                                             (focus)="showDeleteButton(recommended_company,$event)"
@@ -191,10 +222,12 @@
                                 </div>
                                 <!-- 關係 -->
                                 <div class="flex pr-4 md:pr-0 pb-5 md:pb-0">
-                                    <div class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
+                                    <div
+                                        class="text-base sm:text-lg w-24 sm:w-40 md:bg-neutral-300/30 text-neutral-600/70 py-3 pl-3 mr-2 md:mr-0">
                                         {{t('customer_form_relationship')}}
                                     </div>
-                                    <div class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
+                                    <div
+                                        class="w-[calc(100%-6rem)] sm:w-[calc(100%-10rem)] flex items-center border-2 md:border-0">
                                         <input #relationship class="w-full h-full pl-4" type="text"
                                             formControlName="relationship"
                                             (focus)="showDeleteButton(relationship,$event)"
@@ -206,6 +239,32 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- 名片 -->
+                            <div *ngIf="addClientCheck" class="bg-white flex flex-col items-center min-w-[216px]">
+                                <div
+                                    class="w-52 h-32 bg-white border-dashed border-2 flex flex-col flex-nowrap items-center justify-center mb-4 md:mb-0 md:mt-4">
+                                    <div>
+                                        <ng-container *ngIf="!selectedNameCard">
+                                            <mat-icon class="relative top-[65px] left-[93px] "
+                                                svgIcon="mat_solid:add_a_photo"></mat-icon>
+                                            <div class="text-center relative top-[60px] text-base break-word-legacy">
+                                                {{t('customer_form_upload_namecard')}}</div>
+                                            <input type="file"
+                                                class="relative opacity-0 w-52 h-32 top-[-26px] z-[100] cursor-pointer"
+                                                accept="image/png, image/jpeg" required
+                                                (change)="onFileSelected($event,'namecard')">
+                                        </ng-container>
+                                        <ng-container *ngIf="selectedNameCard">
+                                            <img [src]="selectedNameCard"
+                                                class="relative top-[63px] z-[90] w-52 h-32 object-cover" alt="" />
+                                            <input type="file"
+                                                class="relative opacity-0 w-52 h-32 top-[-65px] z-[100] cursor-pointer"
+                                                accept="image/png, image/jpeg" required
+                                                (change)="onFileSelected($event,'namecard')">
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -213,7 +272,7 @@
                         <button class="border-rose-600 bg-white border-2  text-rose-600 w-36 px-8 py-3"
                             (click)="handleCancel()">{{t('button_cancel')}}</button>
                         <button class="bg-rose-600  text-white w-36 px-8 py-3 ml-4" (click)="handleSave()">
-                                {{addClientCheck?t('button_add'):t('button_save')}}
+                            {{addClientCheck?t('button_add'):t('button_save')}}
                         </button>
                     </div>
                 </div>
