@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { AuthService } from 'app/core/auth/auth.service';
 
 @Component({
     selector: 'home',
@@ -15,25 +17,30 @@ export class HomeComponent implements OnInit {
     demmandAreaCheck = false;
 
     lang = 'zh';
-    langButtonCheck = true;
+    langButtonCheck = false;
 
     /**
      * Constructor
      */
     constructor(
         private _translocoService: TranslocoService,
+        private _authService: AuthService,
+        private _router: Router
     ) {
     }
 
     ngOnInit(): void {
-
+        // 沒有accessToken就跳轉到登入頁面
+        if ((this._authService.accessToken ?? '').trim() === '') {
+            this._authService.signOut();
+        }
         this._translocoService.langChanges$.subscribe((activeLang) => {
             // Get the active lang
             this.lang = activeLang;
             if (activeLang === 'en') {
-                this.langButtonCheck = false;
-            } else {
                 this.langButtonCheck = true;
+            } else {
+                this.langButtonCheck = false;
             }
         });
     }

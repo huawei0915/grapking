@@ -44,16 +44,13 @@ export class CompanyComponent implements OnInit {
         this.aiUrl = this._domSanitizer.bypassSecurityTrustResourceUrl(env.aiUrl);
         this.slideWidth = window.innerWidth;
         const lang = this._translocoService.getActiveLang();
-        console.log(lang);
         this._apiServer.getComponey().then((result) => {
-            console.log(result);
-            // result.filter(item => item.language === lang).forEach((item) => {
-            // console.log(item);
-            // this.picArray.push(env.apiServer + '/api/files/' + item.image);
+            const filterCondition = lang === 'zh' ? 'company' : '!company';
+            result.filter(item => (filterCondition === 'company' ? item.category === 'company' : item.category !== 'company'))
+                .forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
+            // result.forEach((item) => {
+            //     this.picArray.push(env.apiServer + '/api/files/' + item.image);
             // });
-            result.forEach((item) => {
-                this.picArray.push(env.apiServer + '/api/files/' + item.image);
-            });
         }).finally(() => { setTimeout(() => { this.picIsLoading = true; this._changeDetectorRef.detectChanges(); }, 800); });
     }
 
