@@ -1,7 +1,0 @@
-127.0.0.1 {
-    tls pksos30066@gmail.com
-    root * /app
-    encode gzip
-}
-
-
