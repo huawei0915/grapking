@@ -1,20 +1,30 @@
 <div class="min-h-max max-h-max">
     <div class="fixed bg-white w-full h-16 flex justify-between items-center pr-24 z-20">
-        <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer" [routerLink]="'/home'"></mat-icon>
-        <div>
-            <button class=" rounded-lg text-sm font-semibold py-3 px-4 bg-white text-slate-900 ring-1 ring-slate-900/10"
-                (click)="handleBtn('vr')">
-                <span>VR
-                    Tour</span>
-            </button>
-
-            <button
-                class="ml-4 rounded-lg text-sm font-semibold py-3 px-4 bg-white text-slate-900 ring-1 ring-slate-900/10 "
-                (click)="handleBtn('ai')">
-                <span>AI-Stage</span>
-            </button>
+        <div class="flex items-center">
+            <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer" [routerLink]="'/home'"></mat-icon>
+            <mat-select [(ngModel)]="selectCategory" class="text-base font-semibold bg-white text-slate-900 w-36"
+                (selectionChange)="handleCategoryChange($event)">
+                <mat-option [value]="'company'">公司介紹</mat-option>
+                <mat-option [value]="'ingredient'">原料介紹</mat-option>
+            </mat-select>
         </div>
 
+        <ng-container *ngIf="selectCategory==='company'">
+            <div>
+                <button
+                    class=" rounded-lg text-sm font-semibold py-3 px-4 bg-white text-slate-900 ring-1 ring-slate-900/10"
+                    (click)="handleBtn('vr')">
+                    <span>VR
+                        Tour</span>
+                </button>
+
+                <button
+                    class="ml-4 rounded-lg text-sm font-semibold py-3 px-4 bg-white text-slate-900 ring-1 ring-slate-900/10 "
+                    (click)="handleBtn('ai')">
+                    <span>AI-Stage</span>
+                </button>
+            </div>
+        </ng-container>
     </div>
 
     <div class="image-slider">
@@ -74,7 +84,8 @@
     <div class="fixed bg-white w-full h-16 flex justify-between items-center pr-7 z-50">
         <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer" (click)="ai=false"></mat-icon>
         <div class="w-full text-center">
-            <span class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900 select-none">AI-Stage</span>
+            <span
+                class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900 select-none">AI-Stage</span>
         </div>
     </div>
     <iframe class="fixed w-full z-20 pt-[64px]" style="height: calc(100% - 80px);" [src]="aiUrl" frameborder="0"
