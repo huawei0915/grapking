@@ -1,0 +1,18 @@
+# Stage 1: Compile and Build angular codebase
+FROM --platform=linux/amd64 node:16.13-bullseye-slim as build
+WORKDIR /app
+COPY ./ /app
+RUN ls -alF /app ; \
+    npm config set strict-ssl false ; \
+    npm config set audit false ; \
+    npm install --force --verbose ; \
+    npm run cust ; \
+    ls -alF /app
+
+# Stage 2: Serve app with nginx server
+FROM --platform=linux/amd64 bitnami/nginx:1.24
+USER root
+ENV TZ=Asia/Taipei
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+WORKDIR /app
+COPY --from=build /app/dist/grapKing  /app
