@@ -2,7 +2,7 @@
     <ng-container *transloco="let t" [formGroup]="folderForm">
         <div class="min-h-max max-h-max w-full select-none">
             <!-- Header -->
-            <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20">
+            <div class="fixed bg-white w-full h-16 flex justify-center items-center z-20 shadow-md">
                 <mat-icon *ngIf="needArrowLeft" svgIcon="feather:chevron-left" class="ml-3 cursor-pointer"
                     (click)="cancelEvent.emit()"></mat-icon>
                 <span class="w-full text-center text-lg sm:text-2xl font-semibold bg-white text-slate-900"
