@@ -15,9 +15,9 @@
         </div>
         <!-- Main Content -->
         <div class="w-full h-[calc(100%-64px)] mt-16 overflow-auto absolute">
-            <div class="m-8 mb-0 bg-white min-h-[calc(100vh-112px)]">
+            <div class="m-8 mb-0 bg-white">
                 <!-- List Version -->
-                <div *ngIf="listOrGridChange === 'list'" class="pt-8 pb-2 mb-8">
+                <div *ngIf="listOrGridChange === 'list'" class="pt-6 pb-2 mb-8">
                     <ng-container *ngFor="let product of productArr;let i=index">
                         <div class="relative m-2 px-8 cursor-pointer" (click)="getProductDetail(product.id,i)">
                             <div class="bag ml-8">
@@ -25,7 +25,8 @@
                             </div>
                             <div class="flex items-center h-[140px]">
                                 <figure class="w-[160px] h-[96px] flex items-center">
-                                    <img [src]="getImage((product?.files)?(product?.files[0]):'')" alt="">
+                                    <img class="object-contain"
+                                        [src]="getImage((product?.files)?(product?.files[0]):'')" alt="">
                                 </figure>
                                 <div class="flex flex-col justify-center ml-4" style="width: calc(100% - 96px);">
                                     <div class="font-bold text-2xl">
@@ -37,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
+                        <hr *ngIf="(i+1)!==productArr.length">
                     </ng-container>
                 </div>
                 <!-- Grid Version -->
@@ -50,8 +51,8 @@
                             </div>
                             <div class="flex flex-col flex-nowrap items-center h-[170px] mb-10 mt-2.5">
                                 <figure class="h-[170px] flex items-center">
-                                    <img class="h-[170px]" [src]="getImage((product?.files)?(product?.files[0]):'')"
-                                        alt="">
+                                    <img class="h-[170px] object-contain"
+                                        [src]="getImage((product?.files)?(product?.files[0]):'')" alt="">
                                 </figure>
                                 <div class="flex flex-col justify-center w-full mt-6">
                                     <div class="font-bold text-2xl overflow-hidden text-ellipsis whitespace-nowrap">
@@ -215,7 +216,7 @@
         </div>
 
         <div class="absolute min-h-max h-screen bg-black/50 z-10"
-            [ngClass]="{'dilute':closeTag,'w-full':!closeTag,'z-[101]':!closeTag}">
+            [ngClass]="{'dilute':closeTag,'w-full':!closeTag,'z-[102]':!closeTag}">
             <div [ngClass]="{'noSwipe':closeTag}">
                 <div class="absolute top-60 right-60  cursor-pointer" (click)="closeTag=true">
                     <figure class="w-12 h-12">

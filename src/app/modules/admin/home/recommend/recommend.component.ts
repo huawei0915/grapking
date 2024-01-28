@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuseLoadingService } from '@fuse/services/loading';
 import { TranslocoService } from '@ngneat/transloco';
@@ -15,6 +15,11 @@ import { ApiService } from '../../api.service';
     encapsulation: ViewEncapsulation.None
 })
 export class RecommendComponent implements OnInit {
+    @Input() keywordFromInquirePage = '';
+    @Input() comeFromInquirePage = false;
+
+    @Output() backEvent = new EventEmitter();  //取消事件
+
     productArr = [];
     showDetailPage = true;
     showDetailTable = false;
@@ -48,6 +53,7 @@ export class RecommendComponent implements OnInit {
     doseData: any;
     selectDoseText = '';
 
+
     /**
      * Constructor
      */
@@ -60,18 +66,22 @@ export class RecommendComponent implements OnInit {
     ) {
     }
 
-    get listOrGridChange(): string{
+    get listOrGridChange(): string {
         return this._apiService.recommandListOrGirdChange;
     }
 
-    set listOrGridChange(value: string){
+    set listOrGridChange(value: string) {
         this._apiService.recommandListOrGirdChange = value;
     }
 
     ngOnInit(): void {
-        const keyword = this._route.snapshot.queryParams['keyword'];
+        let keyword = this._route.snapshot.queryParams['keyword'];
         const category = this._route.snapshot.queryParams['category'];
         const func = this._route.snapshot.queryParams['function'];
+        if (this.keywordFromInquirePage !== '') {
+            keyword = this.keywordFromInquirePage;
+
+        }
         this.getProduct(keyword, func, category);
         this._translocoService.langChanges$.subscribe((activeLang) => {
             // Get the active lang
@@ -273,6 +283,9 @@ export class RecommendComponent implements OnInit {
         if (this._apiService.callFromFolder) {
             this._apiService.callFromFolder = false;
             history.back();
+        } else if(this.comeFromInquirePage){
+            this.backEvent.emit();
+            return;
         } else {
             if (this.showMaterialPage) {
                 this.showMaterialPage = false;

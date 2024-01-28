@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
@@ -15,7 +16,6 @@ import { ApiService } from '../../api.service';
 export class InquireComponent implements OnInit {
     productArr = [];
     showDetailPage = false;
-    showDetailTable = false;
 
     productDetail: any;
     category = '';
@@ -36,6 +36,22 @@ export class InquireComponent implements OnInit {
     initFinished = false;
 
     searchText = '';
+
+    level1 = [];
+    level2 = [];
+    level3 = [];
+    level4 = [];
+    level5 = [];
+    level6 = [];
+    level7 = [];
+    level8 = [];
+    level9 = [];
+
+    searchFilterRecommandList = false;
+
+    categoryData = [];
+
+    productDetailKeyword = '';
     /**
      * Constructor
      */
@@ -49,13 +65,12 @@ export class InquireComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // const keyword = this._route.snapshot.queryParams['keyword'];
-        // const category = this._route.snapshot.queryParams['category'];
-        // const func = this._route.snapshot.queryParams['function'];
-        // this.getProduct(keyword, func, category);
         this._translocoService.langChanges$.subscribe((activeLang) => {
             // Get the active lang
             this.lang = activeLang;
+        });
+        this._apiService.getCategory().then((result) => {
+            this.categoryData = result;
         });
     }
 
@@ -76,12 +91,13 @@ export class InquireComponent implements OnInit {
                 this.showDetailPage = false;
             } else {
                 // if (!this.initFinished) {
-                    this.alertPOPUP = true;
-                    this.message = 'product_not_found_message';
+                this.alertPOPUP = true;
+                this.message = 'product_not_found_message';
                 // }
             }
             // this.initFinished = true;
         });
+        (document.activeElement as HTMLElement).blur();
     }
 
     // 取得圖片
@@ -92,41 +108,6 @@ export class InquireComponent implements OnInit {
     getFilteredCategories(cateString: string): void {
         // eslint-disable-next-line max-len
         return this.productDetail.categories.filter(category => category.parent === cateString && category.level === 2).map(category => this.lang === 'zh' ? category.name_zh : category.name_en);
-    }
-
-    // 顯示包裝/劑量詳細
-    showDetail(type: string): void {
-        this.showDetailTable = true;
-        if (type === 'form') {
-            this.packageArr = [];
-            this._apiService.getForm().then((result) => {
-                this.formArr = [...result];
-                this.formArr.sort((a, b) => {
-                    if ((this.lang === 'zh' ? a.name_zh : a.name_en) === this.getFilteredCategories('FM000')[0]) {
-                        return -1; // 將滿足條件的元素排在前面
-                    } else if ((this.lang === 'zh' ? b.name_zh : b.name_en) === this.getFilteredCategories('FM000')[0]) {
-                        return 1; // 將滿足條件的元素排在后面
-                    } else {
-                        return 0; // 保持原有顺序
-                    }
-                });
-            });
-        } else if (type === 'package') {
-            this.formArr = [];
-            this._apiService.getPackage().then((result) => {
-                this.packageArr = [...result];
-                this.packageArr.sort((a, b) => {
-                    if ((this.lang === 'zh' ? a.name_zh : a.name_en) === this.getFilteredCategories('PK000')[0]) {
-                        return -1; // 將滿足條件的元素排在前面
-                    } else if ((this.lang === 'zh' ? b.name_zh : b.name_en) === this.getFilteredCategories('PK000')[0]) {
-                        return 1; // 將滿足條件的元素排在后面
-                    } else {
-                        return 0; // 保持原有顺序
-                    }
-                });
-            });
-        } else {
-        }
     }
 
     // 儲存產品
@@ -168,16 +149,9 @@ export class InquireComponent implements OnInit {
     }
 
     // 取得商品詳細
-    getProductDetail(id: string, idx: number): void {
-        this.selectIdx = idx;
-        this._apiService.getProductDetail(id).then((result) => {
-            this.productDetail = result;
-            this.showDetailPage = true;
-        }).catch((err) => {
-            this.alertPOPUP = true;
-            this.showDetailPage = false;
-            this.message = 'an_error_occurred';
-        });
+    getProductDetail(product: any): void {
+        this.productDetailKeyword = product.name_en;
+        this.showDetailPage = true;
     }
 
     //==============================================================
@@ -201,7 +175,7 @@ export class InquireComponent implements OnInit {
     // 寫入搜尋欄位
     setSearchText(event: any): void {
         // this.searchText = event.target.value;
-        if (event.key === 'Enter' &&  (event.target.value !== '')) {
+        if (event.key === 'Enter' && (event.target.value !== '')) {
             this.getProduct(event.target.value);
         }
     }
@@ -209,16 +183,18 @@ export class InquireComponent implements OnInit {
     //==============================================================
     //Input Behavior
     //==============================================================
-    showDeleteButton(inputElement: any, event: any): void {
+    focusOnSearch(inputElement: any, event: any): void {
         event.preventDefault();
         event.stopPropagation();
         this._renderer.setAttribute(inputElement, 'mainSearchView', '');
+        this.searchFilterRecommandList = true;
     }
 
-    hideDeleteButton(inputElement: any, event: any): void {
+    blurOutSearch(inputElement: any, event: any): void {
         event.preventDefault();
         event.stopPropagation();
         this._renderer.removeAttribute(inputElement, 'mainSearchView');
+        this.searchFilterRecommandList = false;
     }
 
     clearInputText(inputElement: any, event: any): void {
@@ -226,6 +202,50 @@ export class InquireComponent implements OnInit {
         event.stopPropagation();
         inputElement.value = '';
         this.searchText = '';
+        [this.level1, this.level2, this.level3, this.level4, this.level5, this.level6, this.level7, this.level8, this.level9] = [[], [], [], [], [], [], [], [], []];
+    }
+
+    searchList(event: any): void {
+        this.searchText = event.target.value;
+        [this.level1, this.level2, this.level3, this.level4, this.level5, this.level6, this.level7, this.level8, this.level9] = [[], [], [], [], [], [], [], [], []];
+
+        if (event.target.value.trim() !== '') {
+            this.categoryData.filter((item: any) => item.level === 2 && item.is_visible === 1 && (item.name_zh.includes(event.target.value) || item.name_en.includes(event.target.value))).forEach((data) => {
+                if (data.parent.includes('F000')) {
+                    this.level1.push(data);
+                } else if (data.parent.includes('O000')) {
+                    this.level2.push(data);
+                } else if (data.parent.includes('AG000')) {
+                    this.level3.push(data);
+                } else if (data.parent.includes('GR000')) {
+                    this.level4.push(data);
+                } else if (data.parent.includes('CY000')) {
+                    this.level5.push(data);
+                } else if (data.parent.includes('FM000')) {
+                    this.level6.push(data);
+                } else if (data.parent.includes('PK000')) {
+                    // // packageArr 中的 name_zh == data.name_zh 要塞回去this.level7
+                    // const slicedString = this.packageArr.filter(str => str.name_zh.includes(data.name_zh));
+                    // // console.log(slicedString);
+                    // this.level7.push(slicedString[0]);
+                    // console.log(this.level7);
+                    this.level7.push(data);
+                } else if (data.parent.includes('CE000')) {
+                    this.level8.push(data);
+                } else if (data.parent.includes('MV000')) {
+                    this.level9.push(data);
+                } else {
+                }
+            });
+        }
+        console.log(JSON.stringify(this.level1));
+        // console.log(event.target.value);
+
+    }
+
+    //點擊符合條件
+    searchForSpecFunction(level: any): void {
+        this.getProduct('','',level[0].id);
     }
 
 }
