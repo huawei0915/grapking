@@ -25,15 +25,15 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
     currentLevel = 1; // 初始化當前等級為1
 
-    puoductArr1 = [];
-    puoductArr2 = [];
-    puoductArr3 = [];
-    puoductArr4 = [];
-    puoductArr5 = [];
-    puoductArr6 = [];
-    puoductArr7 = [];
-    puoductArr8 = [];
-    puoductArr9 = [];
+    productArr1 = [];
+    productArr2 = [];
+    productArr3 = [];
+    productArr4 = [];
+    productArr5 = [];
+    productArr6 = [];
+    productArr7 = [];
+    productArr8 = [];
+    productArr9 = [];
 
     packageArr = [];
     closeTag = true;
@@ -90,25 +90,25 @@ export class QuestionComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.puoductArr1 = [];
-        this.puoductArr2 = [];
-        this.puoductArr3 = [];
-        this.puoductArr4 = [];
-        this.puoductArr5 = [];
-        this.puoductArr6 = [];
-        this.puoductArr7 = [];
-        this.puoductArr8 = [];
-        this.puoductArr9 = [];
+        this.productArr1 = [];
+        this.productArr2 = [];
+        this.productArr3 = [];
+        this.productArr4 = [];
+        this.productArr5 = [];
+        this.productArr6 = [];
+        this.productArr7 = [];
+        this.productArr8 = [];
+        this.productArr9 = [];
     }
 
 
     selectProduct(item, idx: number): void {
         item.active = !item.active;
         if (item.active) {
-            this['puoductArr' + this.currentLevel].push(item);
+            this['productArr' + this.currentLevel].push(item);
         } else {
-            const slicedString = this['puoductArr' + this.currentLevel].filter(str => str.name_zh.includes(item.name_zh));
-            this['puoductArr' + this.currentLevel] = this['puoductArr' + this.currentLevel].filter((product: any) => product.name_zh !== slicedString[0].name_zh);
+            const slicedString = this['productArr' + this.currentLevel].filter(str => str.name_zh.includes(item.name_zh));
+            this['productArr' + this.currentLevel] = this['productArr' + this.currentLevel].filter((product: any) => product.name_zh !== slicedString[0].name_zh);
         }
 
     }
@@ -142,7 +142,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
         let categoryArr = [];
 
         for (let i = 1; i <= 9; i++) {
-            categoryArr = categoryArr.concat(this['puoductArr' + i].map((product: any) => product.id));
+            categoryArr = categoryArr.concat(this['productArr' + i].map((product: any) => product.id));
         }
 
         this._router.navigate(['/home/recommend'], {

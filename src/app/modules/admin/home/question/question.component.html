@@ -9,100 +9,100 @@
         <div class="w-1/5 hidden md:block">
             <figure class="w-60 -mt-40 relative">
                 <ng-container *ngIf="currentLevel===1">
-                    <img *ngIf="!puoductArr1.length" src="assets/images/question.png" alt="">
-                    <img *ngIf="puoductArr1.length" src="assets/images/empty.png" alt="">
+                    <img *ngIf="!productArr1.length" src="assets/images/question.png" alt="">
+                    <img *ngIf="productArr1.length" src="assets/images/empty.png" alt="">
                     <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
                         style="transform: rotate(-90deg);">
-                        <div *ngFor="let item of puoductArr1; let i=index" class="even:text-red-600">
-                            <span *ngIf="i!==0&&puoductArr1.length>0">、</span>
+                        <div *ngFor="let item of productArr1; let i=index" class="even:text-red-600">
+                            <span *ngIf="i!==0&&productArr1.length>0">、</span>
                             <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="currentLevel===2">
-                    <img *ngIf="!puoductArr2.length " src="assets/images/question.png" alt="">
-                    <img *ngIf="puoductArr2.length" src="assets/images/empty.png" alt="">
+                    <img *ngIf="!productArr2.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="productArr2.length" src="assets/images/empty.png" alt="">
                     <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
                         style="transform: rotate(-90deg);">
-                        <div *ngFor="let item of puoductArr2;let i=index" class="even:text-red-600">
-                            <span *ngIf="i!==0&&puoductArr2.length>0">、</span>
+                        <div *ngFor="let item of productArr2;let i=index" class="even:text-red-600">
+                            <span *ngIf="i!==0&&productArr2.length>0">、</span>
                             <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="currentLevel===3">
-                    <img *ngIf="!puoductArr3.length " src="assets/images/question.png" alt="">
-                    <img *ngIf="puoductArr3.length" src="assets/images/empty.png" alt="">
+                    <img *ngIf="!productArr3.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="productArr3.length" src="assets/images/empty.png" alt="">
                     <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
                         style="transform: rotate(-90deg);">
-                        <div *ngFor="let item of puoductArr3;let i=index" class="even:text-red-600">
-                            <span *ngIf="i!==0&&puoductArr3.length>0">、</span>
+                        <div *ngFor="let item of productArr3;let i=index" class="even:text-red-600">
+                            <span *ngIf="i!==0&&productArr3.length>0">、</span>
                             <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="currentLevel===4">
-                    <img *ngIf="!puoductArr4.length " src="assets/images/question.png" alt="">
-                    <img *ngIf="puoductArr4.length" src="assets/images/empty.png" alt="">
+                    <img *ngIf="!productArr4.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="productArr4.length" src="assets/images/empty.png" alt="">
                     <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
                         style="transform: rotate(-90deg);">
-                        <div *ngFor="let item of puoductArr4;let i=index" class="even:text-red-600">
-                            <span *ngIf="i!==0&&puoductArr4.length>0">、</span>
+                        <div *ngFor="let item of productArr4;let i=index" class="even:text-red-600">
+                            <span *ngIf="i!==0&&productArr4.length>0">、</span>
                             <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="currentLevel===5">
-                    <img *ngIf="!puoductArr5.length " src="assets/images/question.png" alt="">
-                    <img *ngIf="puoductArr5.length" src="assets/images/empty.png" alt="">
+                    <img *ngIf="!productArr5.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="productArr5.length" src="assets/images/empty.png" alt="">
                     <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
                         style="transform: rotate(-90deg);">
-                        <div *ngFor="let item of puoductArr5;let i=index" class="even:text-red-600">
-                            <span *ngIf="i!==0&&puoductArr5.length>0">、</span>
+                        <div *ngFor="let item of productArr5;let i=index" class="even:text-red-600">
+                            <span *ngIf="i!==0&&productArr5.length>0">、</span>
                             <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="currentLevel===6">
-                    <img *ngIf="!puoductArr6.length " src="assets/images/question.png" alt="">
-                    <img *ngIf="puoductArr6.length" src="assets/images/empty.png" alt="">
+                    <img *ngIf="!productArr6.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="productArr6.length" src="assets/images/empty.png" alt="">
                     <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
                         style="transform: rotate(-90deg);">
-                        <div *ngFor="let item of puoductArr6;let i=index" class="even:text-red-600">
-                            <span *ngIf="i!==0&&puoductArr6.length>0">、</span>
+                        <div *ngFor="let item of productArr6;let i=index" class="even:text-red-600">
+                            <span *ngIf="i!==0&&productArr6.length>0">、</span>
                             <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="currentLevel===7">
-                    <img *ngIf="!puoductArr7.length " src="assets/images/question.png" alt="">
-                    <img *ngIf="puoductArr7.length" src="assets/images/empty.png" alt="">
+                    <img *ngIf="!productArr7.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="productArr7.length" src="assets/images/empty.png" alt="">
                     <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
                         style="transform: rotate(-90deg);">
-                        <div *ngFor="let item of puoductArr7;let i=index" class="even:text-red-600">
-                            <span *ngIf="i!==0&&puoductArr7.length>0">、</span>
+                        <div *ngFor="let item of productArr7;let i=index" class="even:text-red-600">
+                            <span *ngIf="i!==0&&productArr7.length>0">、</span>
                             <span>{{lang==='zh'?item.box_zh:item.box_en}}</span>
                         </div>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="currentLevel===8">
-                    <img *ngIf="!puoductArr8.length " src="assets/images/question.png" alt="">
-                    <img *ngIf="puoductArr8.length" src="assets/images/empty.png" alt="">
+                    <img *ngIf="!productArr8.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="productArr8.length" src="assets/images/empty.png" alt="">
                     <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
                         style="transform: rotate(-90deg);">
-                        <div *ngFor="let item of puoductArr8;let i=index" class="even:text-red-600">
-                            <span *ngIf="i!==0&&puoductArr8.length>0">、</span>
+                        <div *ngFor="let item of productArr8;let i=index" class="even:text-red-600">
+                            <span *ngIf="i!==0&&productArr8.length>0">、</span>
                             <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="currentLevel===9">
-                    <img *ngIf="!puoductArr9.length " src="assets/images/question.png" alt="">
-                    <img *ngIf="puoductArr9.length" src="assets/images/empty.png" alt="">
+                    <img *ngIf="!productArr9.length " src="assets/images/question.png" alt="">
+                    <img *ngIf="productArr9.length" src="assets/images/empty.png" alt="">
                     <div class="absolute bottom-32 flex flex-wrap overflow-hidden w-full h-28 left-4 text-2xl font-bold"
                         style="transform: rotate(-90deg);">
-                        <div *ngFor="let item of puoductArr9;let i=index" class="even:text-red-600">
-                            <span *ngIf="i!==0&&puoductArr9.length>0">、</span>
+                        <div *ngFor="let item of productArr9;let i=index" class="even:text-red-600">
+                            <span *ngIf="i!==0&&productArr9.length>0">、</span>
                             <span>{{lang==='zh'?item.name_zh:item.name_en}}</span>
                         </div>
                     </div>
