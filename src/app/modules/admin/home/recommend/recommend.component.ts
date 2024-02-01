@@ -128,7 +128,7 @@ export class RecommendComponent implements OnInit {
     }
 
     openLink(url: string): void {
-        window.open(url, '_blank');
+        window.open(`${env.apiServer2}/api/files/${url}`, '_blank');
     }
 
     // 顯示包裝/劑量詳細
