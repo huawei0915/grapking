@@ -732,9 +732,11 @@
                                         {{patent.duration}}
                                     </td>
                                     <td class="py-4 w-12 flex justify-center items-center">
-                                        <figure class="w-4 cursor-pointer mt-auto" (click)="openLink(patent.file)">
-                                            <img class="w-4 cursor-pointer" src="assets/icons/export.png" alt="">
-                                        </figure>
+                                        <ng-container *ngIf="patent.file">
+                                            <figure class="w-4 cursor-pointer mt-auto" (click)="openLink(patent.file)">
+                                                <img class="w-4 cursor-pointer" src="assets/icons/export.png" alt="">
+                                            </figure>
+                                        </ng-container>
                                     </td>
                                 </tr>
                             </tbody>
