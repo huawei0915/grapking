@@ -475,7 +475,7 @@
                 <div class="flex mt-2 pb-2 border-dashed border-slate-400 border-b">
                     <p class="w-2/5">{{t('ingredient_info_dose')}}</p>
                     <p class="w-3/5 text-zinc-500">
-                        {{lang==='zh'?selectDoseText.content_zh:selectDoseText.content_en}}
+                        {{lang==='zh'?selectDoseText&&selectDoseText.content_zh??'':selectDoseText&&selectDoseText.content_en??''}}
                     </p>
                 </div>
             </div>
@@ -576,7 +576,7 @@
                     <p class="w-1/5 bg-neutral-300/30 text-neutral-600/70 py-3 pl-3">
                         {{t('ingredient_info_dose')}}</p>
                     <p class="w-4/5 text-zinc-500 flex items-center pl-3">
-                        {{lang==='zh'?selectDoseText.content_zh:selectDoseText.content_en}}
+                        {{lang==='zh'?selectDoseText&&selectDoseText.content_zh??'':selectDoseText&&selectDoseText.content_en??''}}
                     </p>
                 </div>
             </div>
@@ -719,22 +719,24 @@
                                     <th class="py-3">{{t('ingredient_patent_description')}}</th>
                                     <!-- 期限 -->
                                     <th class="py-3">{{t('ingredient_patent_duration')}}</th>
-                                    <!-- 圖片 -->
-                                    <th class="py-3">{{t('ingredient_patent_image')}}</th>
+                                    <!-- 檔案 -->
+                                    <th class="py-3">{{t('ingredient_patent_file')}}</th>
                                 </tr>
                             </thead>
                             <tbody *ngIf="patentsArr.length>0">
                                 <tr class="text-left  border-b  border-zinc-200/70" *ngFor="let patent of patentsArr;">
-                                    <td class="pl-4 py-4 w-1/4">{{patent.id}}</td>
-                                    <td class="py-4 w-1/4">{{lang==='zh'?patent.description_zh:patent.description_en}}
+                                    <td class="pl-4 py-4 w-28">{{patent.id}}</td>
+                                    <td class="py-4 w-1/2">{{lang==='zh'?patent.description_zh:patent.description_en}}
                                     </td>
-                                    <td class="py-4 w-2/4">
+                                    <td class="py-4">
                                         {{patent.duration}}
                                     </td>
-                                    <td class="py-3 flex justify-center items-center">
-                                        <figure class="w-16">
-                                            <img [src]="getImage(patent.file)" alt="">
-                                        </figure>
+                                    <td class="py-4 w-12 flex justify-center items-center">
+                                        <ng-container *ngIf="patent.file">
+                                            <figure class="w-4 cursor-pointer mt-auto" (click)="openLink(patent.file)">
+                                                <img class="w-4 cursor-pointer" src="assets/icons/export.png" alt="">
+                                            </figure>
+                                        </ng-container>
                                     </td>
                                 </tr>
                             </tbody>

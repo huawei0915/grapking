@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen';
 import { TranslocoService } from '@ngneat/transloco';
@@ -12,11 +12,16 @@ import { ApiService } from '../../api.service';
     styleUrls: ['./company.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class CompanyComponent implements OnInit {
+export class CompanyComponent implements OnInit, OnDestroy {
     currentIndex = 0;
 
     slidePosition = 0;
     slideWidth = 300;
+
+    selectCategory = 'company';
+    picArray = [];
+    companyPicArray = [];
+    ingredientPicArray = [];
 
     closeMenu = true;
 
@@ -26,7 +31,6 @@ export class CompanyComponent implements OnInit {
     aiUrl: SafeUrl;
 
     picIsLoading = false;
-    picArray = [];
     /**
      * Constructor
      */
@@ -43,15 +47,11 @@ export class CompanyComponent implements OnInit {
         this.vrUrl = this._domSanitizer.bypassSecurityTrustResourceUrl(env.vrUrl);
         this.aiUrl = this._domSanitizer.bypassSecurityTrustResourceUrl(env.aiUrl);
         this.slideWidth = window.innerWidth;
-        const lang = this._translocoService.getActiveLang();
-        this._apiServer.getComponey().then((result) => {
-            const filterCondition = lang === 'zh' ? 'company' : '!company';
-            result.filter(item => (filterCondition === 'company' ? item.category === 'company' : item.category !== 'company'))
-                .forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
-            // result.forEach((item) => {
-            //     this.picArray.push(env.apiServer + '/api/files/' + item.image);
-            // });
-        }).finally(() => { setTimeout(() => { this.picIsLoading = true; this._changeDetectorRef.detectChanges(); }, 800); });
+        this.getCompanyPic();
+    }
+
+    ngOnDestroy(): void {
+        this.selectCategory = 'company';
     }
 
     handleBtn(selectedItem: any): void {
@@ -71,6 +71,11 @@ export class CompanyComponent implements OnInit {
             default:
                 break;
         }
+    }
+
+    handleCategoryChange(event: any): void {
+        this.selectCategory = event.value;
+        this.getCompanyPic();
     }
 
     hideLoader(): void {
@@ -102,5 +107,30 @@ export class CompanyComponent implements OnInit {
     handleRightPanel(idx: number): void {
         this.currentIndex = idx;
         this.slidePosition = -(this.slideWidth * idx);
+    }
+
+    getCompanyPic(): void {
+        this._apiServer.getComponey().then((result) => {
+            this.picArray = [];
+            this.companyPicArray = result.filter(item => item.category === 'company-zh' || item.category === 'company-en');
+            this.ingredientPicArray = result.filter(item => item.category === 'ingredient');
+            const lang = this._translocoService.getActiveLang();
+            if (this.selectCategory === 'company') {
+                // 如果lang == 'zh' 就把companyPicArray 中item.category === 'company-zh'的圖片放到picArray 如果lang == 'en' 就把companyPicArray 中item.category === 'company-en'的圖片放到picArray
+                if (lang === 'zh') {
+                    this.companyPicArray = this.companyPicArray.filter(item => item.category === 'company-zh');
+                } else {
+                    this.companyPicArray = this.companyPicArray.filter(item => item.category === 'company-en');
+                }
+                this.companyPicArray.forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
+            } else {
+                this.ingredientPicArray.forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
+            }
+        }).finally(() => {
+            setTimeout(() => {
+                this.picIsLoading = true; this.currentIndex = 0;
+                this.checkBoundaries(); this._changeDetectorRef.detectChanges();
+            }, 300);
+        });
     }
 }

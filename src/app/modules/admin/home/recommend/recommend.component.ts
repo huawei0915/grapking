@@ -127,6 +127,10 @@ export class RecommendComponent implements OnInit {
         return this.productDetail.categories.filter(category => category.parent === cateString && category.level === 2).map(category => this.lang === 'zh' ? category.name_zh : category.name_en);
     }
 
+    openLink(url: string): void {
+        window.open(`${env.apiServer}/api/files/${url}`, '_blank');
+    }
+
     // 顯示包裝/劑量詳細
     showDetail(type: string): void {
 
@@ -283,7 +287,7 @@ export class RecommendComponent implements OnInit {
         if (this._apiService.callFromFolder) {
             this._apiService.callFromFolder = false;
             history.back();
-        } else if(this.comeFromInquirePage){
+        } else if (this.comeFromInquirePage) {
             this.backEvent.emit();
             return;
         } else {
