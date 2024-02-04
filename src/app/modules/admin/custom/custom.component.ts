@@ -209,7 +209,10 @@ export class CustomComponent implements OnInit {
         }
     }
 
-    onFileSelected(event: any, type: string): void {
+    onFileSelected(event: any, type: string, test?: string): void {
+        setTimeout(() => {
+            this.showToast = false;
+        });
         const file = event.target.files[0];
         if (file) {
             this.readImage(file, type);
@@ -217,17 +220,17 @@ export class CustomComponent implements OnInit {
         if (type === 'avatar') {
             this.uploadClientImage(this.uploadImgformAvatar, this.clientDetail.id).then(() => {
                 this.showToast = true;
-                setTimeout(() => {
-                    this.showToast = false;
-                }, 1500);
+                // setTimeout(() => {
+                //     this.showToast = false;
+                // }, 1500);
             });
         }
         if (type === 'namecard') {
             this.uploadClientImage(this.uploadImgformNameCard, this.clientDetail.id).then(() => {
                 this.showToast = true;
-                setTimeout(() => {
-                    this.showToast = false;
-                }, 1500);
+                // setTimeout(() => {
+                //     this.showToast = false;
+                // }, 1500);
             });
         }
     }
@@ -256,12 +259,12 @@ export class CustomComponent implements OnInit {
     }
 
     async copyContent(input: string): Promise<void> {
+        setTimeout(() => this.showToast2 = false);
         try {
             // 将内容复制到剪贴板
             await navigator.clipboard.writeText(input);
             console.log('複製成功');
             this.showToast2 = true;
-            setTimeout(() => this.showToast2 = false, 1500);
         } catch (error) {
             console.error('複製失敗', error);
         }
@@ -309,6 +312,8 @@ export class CustomComponent implements OnInit {
         this.clientDetailCheck = true;
         this.selectedFile = '';
         this.selectedNameCard = '';
+        this.showToast = false;
+        this.showToast2 = false;
     }
 
     // 關閉客戶詳情頁面
@@ -320,9 +325,9 @@ export class CustomComponent implements OnInit {
     // 放大照片
     openZoom(clientDetail: any): void {
         this.needToZoom = true;
-        if(this.selectedNameCard){
+        if (this.selectedNameCard) {
             this.zoomPhoto = this.selectedNameCard;
-        }else{
+        } else {
             this.zoomPhoto = this.getImage(clientDetail.namecard);
         }
 

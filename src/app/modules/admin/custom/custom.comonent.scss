@@ -1,4 +1,25 @@
 #custom {
+    input#file-upload-button {
+        display: none !important;
+        opacity: 0 !important;
+    }
+
+    ::-webkit-file-upload-button {
+        display: none;
+    }
+
+    ::file-selector-button {
+        display: none;
+    }
+
+    input {
+        cursor: pointer!important;
+    }
+
+    mat-icon {
+        cursor: pointer!important;
+    }
+
     .customSvgSize svg {
         width: 70%;
     }
@@ -25,26 +46,17 @@
         padding: 10px 20px;
         border-radius: 5px;
         text-align: center;
-        animation: fadeIn 1.5s ease-in-out;
+        animation: fadeIn 1.5s ease-in-out forwards;
 
         @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-            }
+            0%,100% { opacity: 0; }
+            50% { opacity: 1; }
         }
     }
 
-    @media (min-width: 960px){
+    @media (min-width: 960px) {
         .rwdVersion {
-            display: none!important;
+            display: none !important;
         }
 
         .normalVersion {
@@ -52,13 +64,14 @@
         }
     }
 
-    @media (max-width: 959px){
+    @media (max-width: 959px) {
         .rwdVersion {
             display: block;
         }
 
         .normalVersion {
-            display: none!important;;
+            display: none !important;
+            ;
         }
-    }   
+    }
 }
