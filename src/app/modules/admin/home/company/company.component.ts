@@ -18,10 +18,8 @@ export class CompanyComponent implements OnInit, OnDestroy {
     slidePosition = 0;
     slideWidth = 300;
 
-    selectCategory = 'company';
+    selectCategory = '1';
     picArray = [];
-    companyPicArray = [];
-    ingredientPicArray = [];
 
     closeMenu = true;
 
@@ -112,20 +110,18 @@ export class CompanyComponent implements OnInit, OnDestroy {
     getCompanyPic(): void {
         this._apiServer.getComponey().then((result) => {
             this.picArray = [];
-            this.companyPicArray = result.filter(item => item.category === 'company-zh' || item.category === 'company-en');
-            this.ingredientPicArray = result.filter(item => item.category === 'ingredient');
-            const lang = this._translocoService.getActiveLang();
-            if (this.selectCategory === 'company') {
-                // 如果lang == 'zh' 就把companyPicArray 中item.category === 'company-zh'的圖片放到picArray 如果lang == 'en' 就把companyPicArray 中item.category === 'company-en'的圖片放到picArray
-                if (lang === 'zh') {
-                    this.companyPicArray = this.companyPicArray.filter(item => item.category === 'company-zh');
-                } else {
-                    this.companyPicArray = this.companyPicArray.filter(item => item.category === 'company-en');
-                }
-                this.companyPicArray.forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
-            } else {
-                this.ingredientPicArray.forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
+            const companyZHPicArray = result.filter(item => item.category === 'company-zh');
+            const companyENPicArray = result.filter(item => item.category === 'company-en');
+            const ingredientPicArray = result.filter(item => item.category === 'ingredient');
+
+            if (this.selectCategory === '1') {
+                companyZHPicArray.forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
+            } else if (this.selectCategory === '2') {
+                companyENPicArray.forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
+            } else if (this.selectCategory === '3') {
+                ingredientPicArray.forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
             }
+
         }).finally(() => {
             setTimeout(() => {
                 this.picIsLoading = true; this.currentIndex = 0;
