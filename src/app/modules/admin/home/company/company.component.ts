@@ -18,7 +18,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
     slidePosition = 0;
     slideWidth = 300;
 
-    selectCategory = '1';
+    selectCategory = 'company-zh';
     picArray = [];
 
     closeMenu = true;
@@ -49,7 +49,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.selectCategory = 'company';
+        this.selectCategory = 'company-zh';
     }
 
     handleBtn(selectedItem: any): void {
@@ -109,19 +109,9 @@ export class CompanyComponent implements OnInit, OnDestroy {
 
     getCompanyPic(): void {
         this._apiServer.getComponey().then((result) => {
-            this.picArray = [];
-            const companyZHPicArray = result.filter(item => item.category === 'company-zh');
-            const companyENPicArray = result.filter(item => item.category === 'company-en');
-            const ingredientPicArray = result.filter(item => item.category === 'ingredient');
-
-            if (this.selectCategory === '1') {
-                companyZHPicArray.forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
-            } else if (this.selectCategory === '2') {
-                companyENPicArray.forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
-            } else if (this.selectCategory === '3') {
-                ingredientPicArray.forEach(item => this.picArray.push(`${env.apiServer}/api/files/${item.image}`));
-            }
-
+            this.picArray = result
+                .filter(item => item.category === this.selectCategory)
+                .map(item => `${env.apiServer}/api/files/${item.image}`);
         }).finally(() => {
             setTimeout(() => {
                 this.picIsLoading = true; this.currentIndex = 0;
