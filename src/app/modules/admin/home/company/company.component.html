@@ -2,14 +2,15 @@
     <div class="fixed bg-white w-full h-16 flex justify-between items-center pr-24 z-20">
         <div class="flex items-center">
             <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer" [routerLink]="'/home'"></mat-icon>
-            <mat-select [(ngModel)]="selectCategory" class="text-base font-semibold bg-white text-slate-900 w-36"
+            <mat-select [(ngModel)]="selectCategory" class="text-base font-semibold bg-white text-slate-900 w-40"
                 (selectionChange)="handleCategoryChange($event)">
-                <mat-option [value]="'company'">公司介紹</mat-option>
-                <mat-option [value]="'ingredient'">原料介紹</mat-option>
+                <mat-option [value]="'company-zh'">{{'home_about_us_zh'|transloco}}</mat-option>
+                <mat-option [value]="'company-en'">{{'home_about_us_en'|transloco}}</mat-option>
+                <mat-option [value]="'ingredient'">{{'home_ingredient'|transloco}}</mat-option>
             </mat-select>
         </div>
 
-        <ng-container *ngIf="selectCategory==='company'">
+        <ng-container *ngIf="selectCategory==='company-zh'||selectCategory==='company-en'">
             <div>
                 <button
                     class=" rounded-lg text-sm font-semibold py-3 px-4 bg-white text-slate-900 ring-1 ring-slate-900/10"
