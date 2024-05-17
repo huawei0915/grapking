@@ -7,5 +7,5 @@ export const environment = {
     devPwn: '',
     defImg: '',
     defProcName: '',
-    ver: 'v1.0.0205-03'
+    ver: 'v1.0.0517'
 };

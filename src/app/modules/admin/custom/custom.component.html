@@ -30,7 +30,7 @@
                             <div class="relative">
                                 <div [id]="client.id"
                                     class="flex flex-row flex-nowrap items-center cursor-pointer px-5 pt-2.5 sm:px-14">
-                                    <div class="flex flex-row flex-nowrap justify-start 
+                                    <div class="flex flex-row flex-nowrap justify-start
                                             items-center w-full" (click)="openClientDetail(client)">
                                         <figure
                                             class="flex items-center justify-center mx-4 bg-zinc-300 rounded-[50%] min-w-14 w-14 h-14">
@@ -161,7 +161,7 @@
                     <!-- put emit event!!!!! -->
                     <mat-icon svgIcon="feather:chevron-left" class="ml-3 cursor-pointer"
                         (click)="closeClientDetail()"></mat-icon>
-                    <div class="w-full text-center text-lg sm:text-2xl font-semibold 
+                    <div class="w-full text-center text-lg sm:text-2xl font-semibold
                         bg-white text-slate-900 mr-6 overflow-hidden text-ellipsis whitespace-nowrap">
                         {{clientDetail.name??''}}
                     </div>
@@ -302,8 +302,8 @@
                                             </div>
                                             <div *ngIf="selectedNameCard" class="w-32 h-20 cursor-pointer border-dashed"
                                                 [ngClass]="{'border-2':!clientDetail.namecard}">
-                                                <img [src]="selectedNameCard"
-                                                    class="w-32 h-20" (click)="openZoom(clientDetail.namecard)" />
+                                                <img [src]="selectedNameCard" class="w-32 h-20"
+                                                    (click)="openZoom(clientDetail.namecard)" />
                                                 <ng-container *ngIf="!selectedNameCard">
                                                     <mat-icon class="relative top-[15px] left-[47px] "
                                                         svgIcon="mat_solid:add_a_photo"></mat-icon>
@@ -317,7 +317,8 @@
                                                 </ng-container>
                                             </div>
                                             <!-- <a [href]="'mailto:'+clientDetail.email">{{clientDetail.email}}</a> -->
-                                            <div *ngIf="(clientDetail.namecard || selectedNameCard)" class="min-w-6 w-6 h-6 mr-4">
+                                            <div *ngIf="(clientDetail.namecard || selectedNameCard)"
+                                                class="min-w-6 w-6 h-6 mr-4">
                                                 <img class="relative z-50" [src]="'assets/icons/edit.png'" />
                                                 <input type="file"
                                                     class="relative opacity-0 w-6 min-h-6 h-6  z-50 top-[-23px]"
@@ -355,36 +356,37 @@
                                                 <img *ngIf="clientDetail.namecard"
                                                     [src]="getImage(clientDetail.namecard)"
                                                     (click)="openZoom(clientDetail)" class="w-32 h-20" />
-                                                    <ng-container *ngIf="!clientDetail.namecard">
-                                                        <mat-icon class="relative top-[15px] left-[47px] "
-                                                            svgIcon="mat_solid:add_a_photo"></mat-icon>
-                                                        <div
-                                                            class="text-center relative top-[10px] text-base break-word-legacy">
-                                                            {{t('customer_form_upload_namecard')}}</div>
-                                                        <input type="file"
-                                                            class="relative opacity-0 w-32 h-20 top-[-53px] left-[-2px] z-[100] cursor-pointer"
-                                                            accept="image/png, image/jpeg" required
-                                                            (change)="onFileSelected($event,'namecard','1')">
-                                                    </ng-container>
+                                                <ng-container *ngIf="!clientDetail.namecard">
+                                                    <mat-icon class="relative top-[15px] left-[47px] "
+                                                        svgIcon="mat_solid:add_a_photo"></mat-icon>
+                                                    <div
+                                                        class="text-center relative top-[10px] text-base break-word-legacy">
+                                                        {{t('customer_form_upload_namecard')}}</div>
+                                                    <input type="file"
+                                                        class="relative opacity-0 w-32 h-20 top-[-53px] left-[-2px] z-[100] cursor-pointer"
+                                                        accept="image/png, image/jpeg" required
+                                                        (change)="onFileSelected($event,'namecard','1')">
+                                                </ng-container>
                                             </div>
                                             <div *ngIf="selectedNameCard" class="w-32 h-20 cursor-pointer border-dashed"
                                                 [ngClass]="{'border-2':!clientDetail.namecard}">
-                                                <img [src]="selectedNameCard"
-                                                    class="w-32 h-20" (click)="openZoom(clientDetail.namecard)" />
-                                                    <ng-container *ngIf="!selectedNameCard">
-                                                        <mat-icon class="relative top-[15px] left-[47px] "
-                                                            svgIcon="mat_solid:add_a_photo"></mat-icon>
-                                                        <div
-                                                            class="text-center relative top-[10px] text-base break-word-legacy">
-                                                            {{t('customer_form_upload_namecard')}}</div>
-                                                        <input type="file"
-                                                            class="relative opacity-0 w-32 h-20 top-[-53px] left-[-2px] z-[100] cursor-pointer"
-                                                            accept="image/png, image/jpeg" required
-                                                            (change)="onFileSelected($event,'namecard','1')">
-                                                    </ng-container>
+                                                <img [src]="selectedNameCard" class="w-32 h-20"
+                                                    (click)="openZoom(clientDetail.namecard)" />
+                                                <ng-container *ngIf="!selectedNameCard">
+                                                    <mat-icon class="relative top-[15px] left-[47px] "
+                                                        svgIcon="mat_solid:add_a_photo"></mat-icon>
+                                                    <div
+                                                        class="text-center relative top-[10px] text-base break-word-legacy">
+                                                        {{t('customer_form_upload_namecard')}}</div>
+                                                    <input type="file"
+                                                        class="relative opacity-0 w-32 h-20 top-[-53px] left-[-2px] z-[100] cursor-pointer"
+                                                        accept="image/png, image/jpeg" required
+                                                        (change)="onFileSelected($event,'namecard','1')">
+                                                </ng-container>
                                             </div>
                                             <!-- <a [href]="'mailto:'+clientDetail.email">{{clientDetail.email}}</a> -->
-                                            <div *ngIf="(clientDetail.namecard || selectedNameCard)" class="min-w-6 w-6 h-6 mr-4">
+                                            <div *ngIf="(clientDetail.namecard || selectedNameCard)"
+                                                class="min-w-6 w-6 h-6 mr-4">
                                                 <img class="relative z-50" [src]="'assets/icons/edit.png'" />
                                                 <input type="file"
                                                     class="relative opacity-0 w-6 min-h-6 h-6  z-50 top-[-23px]"
@@ -530,7 +532,7 @@
                                                 <figure class="flex items-center w-56 h-56 bg-slate-100">
                                                     <img [src]="getImage(product.files[0])" alt="">
                                                 </figure>
-                                                <div class="flex flex-row flex-wrap justify-center sm:justify-start 
+                                                <div class="flex flex-row flex-wrap justify-center sm:justify-start
                                                 items-start w-full">
                                                     <div class="flex flex-col justify-center w-full">
                                                         <div
@@ -603,8 +605,8 @@
 <!-- folder page -->
 <div *ngIf="needToZoom"
     class="fixed overflow-auto inset-0 z-50 bg-black/40 flex flex-col items-center visible opacity-100">
-    <div class="relative top-[50px] z-[101] bg-white">
-        <img [src]="zoomPhoto" class="w-[90vw] object-cover" />
+    <div class="relative top-[150px] z-[101] bg-white">
+        <img [src]="zoomPhoto" class="w-[400px] object-cover" />
         <button
             class="absolute top-[-23px] right-[-23px] h-8 w-8 sm:h-12 sm:w-12 flex flex-row justify-center items-center m-2 bg-white rounded-full p-2"
             (click)="needToZoom = false">
