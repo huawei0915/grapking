@@ -1,17 +1,6 @@
-import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
-import { HomeComponent } from 'app/modules/admin/home/home.component';
-import { CompanyComponent } from './company/company.component';
-import { InquireComponent } from './inquire/inquire.component';
-import { QuestionComponent } from './question/question.component';
-import { RecommendComponent } from './recommend/recommend.component';
-import { CustomizedComponent } from './customized/customized.component';
 import { CommonModule } from '@angular/common';
-import { NgxHmCarouselModule } from 'ngx-hm-carousel';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslocoModule } from '@ngneat/transloco';
-import { CommonConfirmModalComponent } from 'app/shared/common-confirm-modal/common-confirm-modal.component';
-import { SharedModule } from 'app/shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,6 +9,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Route, RouterModule } from '@angular/router';
+import { TranslocoModule } from '@ngneat/transloco';
+import { HomeComponent } from 'app/modules/admin/home/home.component';
+import { SharedModule } from 'app/shared/shared.module';
+import { NgxHmCarouselModule } from 'ngx-hm-carousel';
+import { CompanyComponent } from './company/company.component';
+import { CustomizedComponent } from './customized/customized.component';
+import { InquireComponent } from './inquire/inquire.component';
+import { QuestionComponent } from './question/question.component';
+import { NumberToAlphabetPipe } from './recommend/numToAlph.pipe';
+import { RecommendComponent } from './recommend/recommend.component';
 const homeRoutes: Route[] = [
     {
         path: '',
@@ -54,7 +54,8 @@ const homeRoutes: Route[] = [
         RecommendComponent,
         QuestionComponent,
         CustomizedComponent,
-        InquireComponent
+        InquireComponent,
+        NumberToAlphabetPipe
     ],
     imports: [
         CommonModule,
