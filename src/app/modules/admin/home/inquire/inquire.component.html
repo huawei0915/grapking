@@ -27,9 +27,11 @@
                         <ng-container *ngFor="let product of productArr;let i=index">
                             <div class="relative m-2  cursor-pointer" (click)="getProductDetail(product)">
                                 <div class="flex">
-                                    <figure class="w-36 h-36 flex items-center">
-                                        <img [src]="getImage(product.files[0])" alt="">
-                                    </figure>
+                                    <ng-container *ngIf="product&&product.files">
+                                        <figure class="w-36 h-36 flex items-center">
+                                            <img [src]="getImage(product.files[0])" alt="">
+                                        </figure>
+                                    </ng-container>
                                     <div class="flex flex-col justify-center ml-4">
                                         <div class="font-bold text-2xl">
                                             {{lang==='zh'?product.name_zh:product.name_en}}
@@ -62,7 +64,8 @@
             </div>
         </ng-container>
         <ng-container *ngIf="showDetailPage">
-            <recommend [keywordFromInquirePage]="productDetailKeyword" [comeFromInquirePage]="true" (backEvent)="showDetailPage = false"></recommend>
+            <recommend [keywordFromInquirePage]="productDetailKeyword" [comeFromInquirePage]="true"
+                (backEvent)="showDetailPage = false"></recommend>
         </ng-container>
 
         <!-- Modal -->
@@ -84,59 +87,69 @@
         </app-shared-common-confirm-modal>
 
         <!-- search filter recommand -->
-        <div *ngIf="searchFilterRecommandList" class="fixed inset-0 z-50 bg-black/40 flex flex-col flex-nowrap justify-start visible opacity-100 mt-16">
+        <div *ngIf="searchFilterRecommandList"
+            class="fixed inset-0 z-50 bg-black/40 flex flex-col flex-nowrap justify-start visible opacity-100 mt-16">
             <div class="relative z-50 bg-white h-fit max-h-[70vh] w-full overflow-auto">
                 <ng-container *ngIf="lang !== 'en'">
                     <ng-container *ngIf="level1.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level1)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level1)">
                             符合 「{{searchText}}」 的功效
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level2.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level2)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level2)">
                             符合 「{{searchText}}」 的器官
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level3.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level3)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level3)">
                             符合 「{{searchText}}」 的年齡
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level4.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level4)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level4)">
                             符合 「{{searchText}}」 的族群
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level5.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level5)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level5)">
                             符合 「{{searchText}}」 的國家
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level6.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level6)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level6)">
                             符合 「{{searchText}}」 的劑型
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level7.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level7)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level7)">
                             符合 「{{searchText}}」 的包裝
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level8.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level8)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level8)">
                             符合 「{{searchText}}」 的認證
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level9.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level9)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level9)">
                             符合 「{{searchText}}」 的葷素
                         </div>
                         <hr class="mt-2 mb-6 mx-8">
@@ -144,55 +157,64 @@
                 </ng-container>
                 <ng-container *ngIf="lang === 'en'">
                     <ng-container *ngIf="level1.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level1)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level1)">
                             Function matches 「{{searchText}}」
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level2.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level2)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level2)">
                             Organ matches 「{{searchText}}」
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level3.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level3)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level3)">
                             Age matches 「{{searchText}}」
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level4.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level4)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level4)">
                             Groups match 「{{searchText}}」
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level5.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level5)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level5)">
                             Countries match 「{{searchText}}」
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level6.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level6)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level6)">
                             Dosage matches 「{{searchText}}」
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level7.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level7)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level7)">
                             Packaging matches 「{{searchText}}」
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level8.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level8)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level8)">
                             Certificates match 「{{searchText}}」
                         </div>
                         <hr class="my-2 mx-8">
                     </ng-container>
                     <ng-container *ngIf="level9.length !== 0">
-                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer" (mousedown)="searchForSpecFunction(level9)">
+                        <div class="text-2xl text-sky-400 my-4 px-8 cursor-pointer"
+                            (mousedown)="searchForSpecFunction(level9)">
                             Vegan matches 「{{searchText}}」
                         </div>
                         <hr class="mt-2 mb-6 mx-8">

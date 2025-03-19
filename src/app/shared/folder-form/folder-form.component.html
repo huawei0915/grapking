@@ -58,12 +58,14 @@
                                 <div class="relative m-2 px-2">
                                     <div class="flex flex-wrap justify-center sm:justify-between cursor-pointer"
                                         (click)="goToProductDetail(product)">
-                                        <div class="flex flex-row flex-wrap justify-center sm:justify-start 
+                                        <div class="flex flex-row flex-wrap justify-center sm:justify-start
                                         items-start w-full sm:w-[calc(100%-176px)]" (click)="checkboxClick(i,product)">
-                                            <figure
-                                                class="flex items-center min-w-36 w-36 h-36 mr-0 sm:mr-4 bg-slate-100">
-                                                <img [src]="getImage(product.files[0])" alt="">
-                                            </figure>
+                                            <ng-container *ngIf="product&&product.files">
+                                                <figure
+                                                    class="flex items-center min-w-36 w-36 h-36 mr-0 sm:mr-4 bg-slate-100">
+                                                    <img [src]="getImage(product.files[0])" alt="">
+                                                </figure>
+                                            </ng-container>
                                             <div class="flex flex-col justify-center w-full sm:w-[calc(100%-160px)]">
                                                 <div
                                                     class="flex flex-row flex-wrap justify-center sm:justify-start font-bold text-2xl text-center sm:text-left">
@@ -82,12 +84,17 @@
                                             class="min-w-44 flex flex-col justify-between content-center sm:content-end flex-wrap">
                                             <div>{{product.updatedAt | date:'yyyy-MM-dd HH:mm:ss':'GMT+08:00'}}</div>
                                             <div class="flex flex-row justify-between">
-                                                <mat-icon class="text-slate-400 hover:text-red-600 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10" svgIcon="feather:trash-2"
+                                                <mat-icon
+                                                    class="text-slate-400 hover:text-red-600 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10"
+                                                    svgIcon="feather:trash-2"
                                                     (click)="openDeleteModal(product)"></mat-icon>
-                                                <mat-icon class="text-slate-400 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10" svgIcon="heroicons_outline:user"
+                                                <mat-icon
+                                                    class="text-slate-400 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10"
+                                                    svgIcon="heroicons_outline:user"
                                                     (click)="openClientModal(product)"></mat-icon>
-                                                <mat-icon class="text-slate-400 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10" svgIcon="feather:edit"
-                                                    (click)="openEditModal(product)"></mat-icon>
+                                                <mat-icon
+                                                    class="text-slate-400 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-10 h-10"
+                                                    svgIcon="feather:edit" (click)="openEditModal(product)"></mat-icon>
                                             </div>
                                         </div>
                                         <div *ngIf="clientMultiSelectCheck" class="min-w-[152px]"
@@ -120,9 +127,12 @@
                                         <div class="flex flex-wrap justify-center sm:justify-between cursor-pointer h-full"
                                             (click)="goToProductDetail(product)">
                                             <div class="flex flex-row flex-wrap justify-center items-start w-full">
-                                                <figure class="flex items-center max-w-44 h-44 max-h-44 bg-slate-100">
-                                                    <img class="max-h-44" [src]="getImage(product.files[0])" alt="">
-                                                </figure>
+                                                <ng-container *ngIf="product&&product.files">
+                                                    <figure
+                                                        class="flex items-center max-w-44 h-44 max-h-44 bg-slate-100">
+                                                        <img class="max-h-44" [src]="getImage(product.files[0])" alt="">
+                                                    </figure>
+                                                </ng-container>
                                                 <div
                                                     class="w-full min-h-[calc(100%-176px)] flex flex-col flex-nowrap justify-between">
                                                     <div class="flex flex-col justify-center w-full">
@@ -144,13 +154,16 @@
                                                             date:'yyyy-MM-dd HH:mm':'GMT+08:00'}}</div>
                                                         <div *ngIf="!clientMultiSelectCheck"
                                                             class="flex flex-row justify-between min-w-24">
-                                                            <mat-icon class="text-slate-900/30 scale-90 hover:text-red-600 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-8 h-8"
+                                                            <mat-icon
+                                                                class="text-slate-900/30 scale-90 hover:text-red-600 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-8 h-8"
                                                                 svgIcon="feather:trash-2"
                                                                 (click)="openDeleteModal(product)"></mat-icon>
-                                                            <mat-icon class="text-slate-900/30 scale-90 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-8 h-8"
+                                                            <mat-icon
+                                                                class="text-slate-900/30 scale-90 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-8 h-8"
                                                                 svgIcon="heroicons_outline:user"
                                                                 (click)="openClientModal(product)"></mat-icon>
-                                                            <mat-icon class="text-slate-900/30 scale-90 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-8 h-8"
+                                                            <mat-icon
+                                                                class="text-slate-900/30 scale-90 hover:bg-slate-400/10 rounded-[40px] p-1.5 w-8 h-8"
                                                                 svgIcon="feather:edit"
                                                                 (click)="openEditModal(product)"></mat-icon>
                                                         </div>
@@ -241,7 +254,7 @@
                                         class="flex flex-wrap justify-between cursor-pointer pr-5"
                                         [ngClass]="{'bg-red-100':(clientDetailView.hasAttribute('isChosen'))}"
                                         (click)="chooseClient(clientDetailView,client)">
-                                        <div class="flex flex-row flex-nowrap justify-start 
+                                        <div class="flex flex-row flex-nowrap justify-start
                                                     items-center w-full">
                                             <figure
                                                 class="flex items-center justify-center mx-4 bg-zinc-300 rounded-[50%] min-w-14 w-14 h-14">
